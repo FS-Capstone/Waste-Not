@@ -3,12 +3,29 @@
 const db = require('./db')
 
 const User = require('./models/User')
+const Pantry = require('./models/Pantry')
+const PantryItem = require('./models/PantryItem')
+const Ingredient = require('./models/Ingredient')
 
-//associations could go here!
+//associations ---------
+
+User.hasMany(Pantry, { foreignKey: 'userId' });
+Pantry.belongsTo(User, { foreignKey: 'userId' });
+
+Pantry.hasMany(PantryItem, { foreignKey: 'pantryId' });
+PantryItem.belongsTo(Pantry, { foreignKey: 'pantryId' });
+
+Ingredient.hasMany(PantryItem, { foreignKey: 'ingredientId' });
+PantryItem.belongsTo(Ingredient, { foreignKey: 'ingredientId' });
+
+
 
 module.exports = {
   db,
   models: {
     User,
+    Ingredient,
+    Pantry,
+    PantryItem
   },
 }

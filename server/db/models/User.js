@@ -14,6 +14,22 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+    unique: true,
+    allowNull: false
+  },
+  email: {
+    type: Sequelize.STRING,
+    isEmail: true,
+    unique: true,
+    allowNull: false,
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
+  favorites: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
   }
 })
 
