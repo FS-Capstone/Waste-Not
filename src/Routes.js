@@ -4,6 +4,7 @@ import Pantry from './components/Pantry';
 import Wine from './components/Wine';
 import { Login, Signup } from './components/AuthForm';
 import { Route, Routes } from 'react-router-dom';
+import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar/Navbar';
 import { useEffect } from 'react';
 import { me } from './store';
@@ -19,9 +20,9 @@ const ClientRoutes = () => {
   
   return (
     <>
-      <Navbar/>
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route exact path='/' element={<LandingPage/>}/>
+        <Route path='/home' element={<Home/>}/> 
         <Route path='login' element={<Login/>}/>
         <Route path='signup' element={<Signup/>}/>
         <Route path='wine' element={<Wine/>}/>
