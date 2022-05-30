@@ -1,6 +1,8 @@
 'use strict'
 
+
 const {db, models: {User, Ingredient, Pantry, PantryItem} } = require('../server/db')
+const ingredientData = require('./seedData')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -17,12 +19,15 @@ async function seed() {
     User.create({ username: 'admin', password: '123', email: 'admin@gmail.com', isAdmin: true, favorites: [] }),
   ])
 
-  // Create Pantry
+  // Creating Pantry
   const pantries = [];
   users.forEach(async (user) => {
     if (user.isAdmin === false)
     pantries.push(await Pantry.create({ name: "Main", userId: user.id })) 
   })
+
+  // Creating Ingredients
+  await Ingredient.bulkCreate(ingredientData).then(console.log(`******** ${ingredientData.length} ingredients seeded ********`));
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
