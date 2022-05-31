@@ -1,7 +1,10 @@
 import React from 'react';
 import Home from './components/Home';
 import Pantry from './components/Pantry';
-import Wine from './components/Wine';
+import Wine from './components/Wine/Wine';
+import WineToBrand from './components/Wine/WineToBrand';
+import WineToDish from './components/Wine/WineToDish';
+import DishToWine from './components/Wine/DishToWine';
 import { Login, Signup } from './components/AuthForm';
 import { Route, Routes } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
@@ -22,10 +25,13 @@ const ClientRoutes = () => {
     <>
       <Routes>
         <Route exact path='/' element={<LandingPage/>}/>
-        <Route path='/home' element={<Home/>}/> 
+        <Route path='home' element={<Home/>}/> 
         <Route path='login' element={<Login/>}/>
         <Route path='signup' element={<Signup/>}/>
         <Route path='wine' element={<Wine/>}/>
+        <Route path='wine/recommend-wine' element={<DishToWine/>}/>
+        <Route path='wine/recommend-dish' element={<WineToDish/>}/>
+        <Route path='wine/recommend-brand' element={<WineToBrand/>}/>
         <Route path='pantry' element={<Pantry/>}/>
         <Route path='account' element={<AccountPage/>}/>
       </Routes>
