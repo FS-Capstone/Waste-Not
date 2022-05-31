@@ -8,6 +8,10 @@ const WineToBrand = () => {
             <Navbar /> 
             <div className='wine'>
             <h2>Input Wine Type for Brand Recommendation </h2>
+            <form>
+                <div><input placeholder='Enter Wine' name='wine'/></div>
+                <button> Show Brands </button>
+            </form>
             <div>
                 <Link to='/wine'> <button>Back</button> </Link>
             </div>

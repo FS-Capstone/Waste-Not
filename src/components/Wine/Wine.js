@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 //API Key: 846b803ab28441449ebbb13144f762bc
 
-
 const Wine = () => {
   return(
     <div>
@@ -21,7 +20,6 @@ const Wine = () => {
 }
 
 export default Wine;
-
 
 
 /*
