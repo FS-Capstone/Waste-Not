@@ -8,15 +8,23 @@ import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar/Navbar';
 import { useEffect } from 'react';
 import { me } from './store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AccountPage from './components/account/AccountPage';
+import { getPantries } from './store/pantry';
 
 const ClientRoutes = () => {
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth)
+
 
   useEffect(() => {
     dispatch(me());
   }, [])
+
+  //update pantries every time auth changes
+  useEffect(() => {
+    dispatch(getPantries())
+  }, [auth])
   
   return (
     <>
