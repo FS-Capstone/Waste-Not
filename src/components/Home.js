@@ -1,7 +1,7 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import { useSelector } from 'react-redux'
-import Navbar from './Navbar/Navbar';
+import React from 'react';
+import {connect} from 'react-redux';
+import { useSelector } from 'react-redux';
+
 /**
  * COMPONENT
  */

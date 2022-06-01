@@ -47,6 +47,16 @@ User.prototype.generateToken = function() {
   return jwt.sign({id: this.id}, process.env.JWT)
 }
 
+User.prototype.getPantries = async function(){
+  return(
+    (await db.models.pantry.findAll({
+      where: {
+        userId: this.id
+      }
+    })).map(pantry => pantry.dataValues)
+  )
+}
+
 /**
  * classMethods
  */
@@ -74,6 +84,8 @@ User.findByToken = async function(token) {
     throw error
   }
 }
+
+
 
 /**
  * hooks
