@@ -20,6 +20,7 @@ const ClientRoutes = () => {
   
   return (
     <>
+      <Navbar/>
       <Routes>
         <Route exact path='/' element={<LandingPage/>}/>
         <Route path='/home' element={<Home/>}/> 

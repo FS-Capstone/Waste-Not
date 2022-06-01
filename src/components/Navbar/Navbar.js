@@ -66,6 +66,9 @@ const Navbar = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
+  //Don't display nav bar on the landing page.
+  if(location.pathname === '/')
+    return null;
 
   return(
     <Box sx={{ flexGrow: 1 }}>
