@@ -24,6 +24,7 @@ const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`, {
   config,
   dialect: 'postgres',
-  define: { timestamps: false} 
+  define: { timestamps: false},
+  logging: false
 })
 module.exports = db
