@@ -25,8 +25,10 @@ export default Wine;
 /*
 3 different APIs being used (1 component for each), this will be the main wine component with 3 button selectors to choose from
 
+start with a loadWine thunk to load all wines on the main component. then this can be passed down as props to the MUI autocomplete for each child component below. 
+
 1. Wine Pairing API: input the food type and the response is a type of wine that pairs well with it.
-  - need to create an input field for the food type (string) (or drop down selector)
+  - need to create a drop down selector input field for the food type (string)
   - need additional input fields for additional (optional) parameters as needed (maxPrice)
   - need to store that string as a variable somewhere (or req.body.query)
   - then need to do API call with that input string as the query parameter: https://api.spoonacular.com/food/wine/pairing?food=${req.body.query}
