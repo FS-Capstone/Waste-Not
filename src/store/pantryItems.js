@@ -9,14 +9,14 @@ const _addItem = (pantryItem) => ({type:ADD_ITEM, pantryItem})
 
 const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
 
-export const loadItems = (pantryId) => {
+export const loadPantryItems = (pantryId) => {
   return async(dispatch)=>{
     const pantryItems = (await axios.get(`/api/pantryItems/${pantryId}`, auth)).data;
     dispatch(_loadItems(pantryItems))
   }
 };
 
-export const addItem = (item, pantryId) => {
+export const addPantryItem = (item, pantryId) => {
   return async(dispatch)=>{
     const newPantryItem = (await axios.post(`/api/pantryItems/${pantryId}`, item, auth)).data
     dispatch(_addItem(newPantryItem))
