@@ -26,8 +26,22 @@ async function seed() {
     pantries.push(await Pantry.create({ name: "Main", userId: user.id })) 
   })
 
+ 
+
   // Creating Ingredients
   await Ingredient.bulkCreate(ingredientData).then(console.log(`******** ${ingredientData.length} ingredients seeded ********`));
+  const ingredients = await Ingredient.findAll();
+
+  //Seeding random ingredients into the pantries
+  const NUMBER_OF_INGREDIENTS = 10;
+  for(let i = 0; i < pantries.length; i++){
+    for(let j = 0; j < NUMBER_OF_INGREDIENTS; j++){
+      await pantries[i].addIngredient(ingredients[Math.floor(Math.random() * ingredients.length)]);
+    }
+  }
+
+    
+
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)

@@ -9,7 +9,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { closePantry } from '../../store/pantry';
 import { useSelector, useDispatch } from 'react-redux';
-import Pantry from './Pantry';
+import SidePantry from './SidePantry';
+import { Typography  } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -47,10 +48,11 @@ export default function PantryDrawer() {
           <IconButton onClick={() => dispatch(closePantry())}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
+          <Typography variant="h6">Pantry</Typography>
         </DrawerHeader>
         <Divider />
 
-        <Pantry/>
+        <SidePantry/>
       </Drawer>
     </Box>
   );

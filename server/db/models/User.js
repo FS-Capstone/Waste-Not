@@ -52,7 +52,8 @@ User.prototype.getPantries = async function(){
     (await db.models.pantry.findAll({
       where: {
         userId: this.id
-      }
+      },
+      include:[db.models.ingredient]
     })).map(pantry => pantry.dataValues)
   )
 }
