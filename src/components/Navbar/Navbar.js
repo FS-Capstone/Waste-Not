@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store";
+import { useDispatch } from "react-redux";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
@@ -11,8 +10,9 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import { Link as MaterialLink } from "@mui/material";
 import { useTheme } from "@emotion/react";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from '@mui/icons-material/Menu';
+import { openPantry } from "../../store/pantry";
+import AccountMenu from "./AccountMenu";
 
 //Container for links in nav bar
 const LinkContainer = styled(Box)(({theme}) => {
@@ -36,20 +36,13 @@ const Link = styled(MaterialLink)(({theme}) => {
   }
 });
 
-//Used for links in account menu
-const MenuLink = styled(MaterialLink)(({theme}) => {
-  return{
-    color: 'inherit',
-    textDecoration: 'none'
-  }
-})
+
 
 
 
 
 const Navbar = (props) => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => !!state.auth.id);
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -66,6 +59,9 @@ const Navbar = (props) => {
     setAnchorEl(event.currentTarget);
   };
 
+  //Don't display nav bar on the landing page.
+  if(location.pathname === '/')
+    return null;
 
   return(
     <Box sx={{ flexGrow: 1 }}>
@@ -95,33 +91,12 @@ const Navbar = (props) => {
           >
             <AccountCircleIcon fontSize="large"/>
           </IconButton>
-          <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {isLoggedIn ? 
-                <Box>
-                  <MenuItem onClick={handleClose}><MenuLink to='/account' component={RouterLink}>My account</MenuLink></MenuItem>
-                  <MenuItem onClick={() => {handleClose(); dispatch(logout()); navigate('/')}}>Logout</MenuItem> 
-                </Box>
-                : 
-                <Box>
-                  <MenuItem onClick={handleClose}><MenuLink to='/login' component={RouterLink}>Log In</MenuLink></MenuItem> 
-                  <MenuItem onClick={handleClose}><MenuLink to='/signup' component={RouterLink}>Sign Up</MenuLink></MenuItem> 
-                </Box>}
-              </Menu>
-        
+          
+          {/* opens the pantry */}
+          <IconButton onClick={() => dispatch(openPantry())}>
+            <MenuIcon ></MenuIcon>
+          </IconButton>
+          <AccountMenu handleClose={handleClose} anchorEl={anchorEl}/>
         </Toolbar>
       </AppBar>
     </Box>
