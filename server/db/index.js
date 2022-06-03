@@ -12,13 +12,15 @@ const Ingredient = require('./models/Ingredient')
 User.hasMany(Pantry, { foreignKey: 'userId' });
 Pantry.belongsTo(User, { foreignKey: 'userId' });
 
-Pantry.hasMany(PantryItem, { foreignKey: 'pantryId' });
-PantryItem.belongsTo(Pantry, { foreignKey: 'pantryId' });
+Pantry.belongsToMany(Ingredient, {through: 'PantryIngredients'});
+Ingredient.belongsToMany(Pantry, {through: 'PantryIngredients'});
 
-Ingredient.hasMany(PantryItem, { foreignKey: 'ingredientId' });
-PantryItem.belongsTo(Ingredient, { foreignKey: 'ingredientId' });
+//removed because we are not keeping track of quantity
+// Pantry.hasMany(PantryItem, { foreignKey: 'pantryId' });
+// PantryItem.belongsTo(Pantry, { foreignKey: 'pantryId' });
 
-
+// Ingredient.hasMany(PantryItem, { foreignKey: 'ingredientId' });
+// PantryItem.belongsTo(Ingredient, { foreignKey: 'ingredientId' });
 
 module.exports = {
   db,

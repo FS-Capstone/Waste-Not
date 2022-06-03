@@ -6,7 +6,7 @@ import auth from './auth';
 import ingredients from './ingredients';
 import pantries from './pantry';
 
-const reducer = combineReducers({ auth, pantries })
+const reducer = combineReducers({ auth, pantries, ingredients })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
