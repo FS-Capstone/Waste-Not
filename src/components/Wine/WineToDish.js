@@ -8,7 +8,7 @@ const WineToDish = () => {
         <div> 
             <Navbar />
             <div className='wine'>
-            <h2> Input Wine for Dish Recommendation </h2>
+            <h2> Select Wine for Dish Recommendation </h2>
             <form>
                 <div><input placeholder='Enter Wine' name='wine'/></div>
                 <button> Show Food Matches </button>
