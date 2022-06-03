@@ -1,12 +1,10 @@
 import React from "react";
 import Home from "./components/Home";
-
 import Wine from "./components/Wine/Wine";
 import WineToBrand from "./components/Wine/WineToBrand";
 import WineToDish from "./components/Wine/WineToDish";
 import DishToWine from "./components/Wine/DishToWine";
 import Pantry from "./components/pantry/PantryDrawer";
-import PantryDrawer from "./components/pantry/PantryDrawer";
 import { Login, Signup } from "./components/AuthForm";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
@@ -17,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import AccountPage from "./components/account/AccountPage";
 import { getPantries } from "./store/pantry";
 import { loadIngredients } from "./store";
-// import Pantry from './components/pantry/Pantry';
 
 const ClientRoutes = () => {
   const dispatch = useDispatch();
@@ -35,8 +32,7 @@ const ClientRoutes = () => {
 
   return (
     <>
-      <Navbar />
-      <PantryDrawer />
+      <Navbar/>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="home" element={<Home />} />

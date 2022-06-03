@@ -8,7 +8,9 @@ import Divider from '@mui/material/Divider';
 
 export default function SidePantry() {
   const recipeNames = useSelector((state) => state.ingredients.map(ingredient => ingredient.name))
-  const ingredientsInPantry = useSelector(state => state.pantries.items[0]?.ingredients)
+  //TODO: just displaying the first pantry in the list for now. Eventually will want to let user select what
+  //pantry to display.
+  const ingredientsInPantry = useSelector(state => state.pantries[0]?.ingredients)
   
   if(!ingredientsInPantry)
     return null;
