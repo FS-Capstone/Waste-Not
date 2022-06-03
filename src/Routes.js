@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './components/Home';
-import Pantry from './components/Pantry';
+import Pantry from './components/pantry/PantryDrawer';
 import Wine from './components/Wine';
 import { Login, Signup } from './components/AuthForm';
 import { Route, Routes } from 'react-router-dom';
@@ -29,13 +29,14 @@ const ClientRoutes = () => {
   return (
     <>
       <Navbar/>
+      <Pantry/>
       <Routes>
         <Route exact path='/' element={<LandingPage/>}/>
         <Route path='/home' element={<Home/>}/> 
         <Route path='login' element={<Login/>}/>
         <Route path='signup' element={<Signup/>}/>
         <Route path='wine' element={<Wine/>}/>
-        <Route path='pantry' element={<Pantry/>}/>
+        {/* <Route path='pantry' element={<Pantry/>}/> */}
         <Route path='account' element={<AccountPage/>}/>
       </Routes>
     </>
