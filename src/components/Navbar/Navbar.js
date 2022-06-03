@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link as RouterLink, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
@@ -11,8 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import { Link as MaterialLink } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import MenuIcon from '@mui/icons-material/Menu';
-import { openPantry } from "../../store/pantry";
 import AccountMenu from "./AccountMenu";
+import PantryDrawer from "../pantry/PantryDrawer";
 
 //Container for links in nav bar
 const LinkContainer = styled(Box)(({theme}) => {
@@ -42,14 +41,13 @@ const Link = styled(MaterialLink)(({theme}) => {
 
 
 const Navbar = (props) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
 
   //anchor point for account menu
   const [anchorEl, setAnchorEl] = useState(null);
-  
+  const [pantryDrawerOpen, setPantryDrawerOpen ] = useState(false);
   
   const handleClose = () => {
     setAnchorEl(null);
@@ -93,12 +91,13 @@ const Navbar = (props) => {
           </IconButton>
           
           {/* opens the pantry */}
-          <IconButton onClick={() => dispatch(openPantry())}>
+          <IconButton onClick={() => setPantryDrawerOpen(true)}>
             <MenuIcon ></MenuIcon>
           </IconButton>
           <AccountMenu handleClose={handleClose} anchorEl={anchorEl}/>
         </Toolbar>
       </AppBar>
+      <PantryDrawer setPantryDrawerOpen={setPantryDrawerOpen} pantryIsOpen={pantryDrawerOpen}/>
     </Box>
   )
 }

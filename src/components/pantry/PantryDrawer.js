@@ -7,8 +7,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { closePantry } from '../../store/pantry';
-import { useSelector, useDispatch } from 'react-redux';
 import SidePantry from './SidePantry';
 import { Typography  } from "@mui/material";
 
@@ -23,10 +21,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function PantryDrawer() {
+export default function PantryDrawer({setPantryDrawerOpen, pantryIsOpen}) {
   const theme = useTheme();
-  const open = useSelector((state) => state.pantries.open);
-  const dispatch = useDispatch();
+  const open = pantryIsOpen;
 
 
   return (
@@ -45,7 +42,7 @@ export default function PantryDrawer() {
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={() => dispatch(closePantry())}>
+          <IconButton onClick={() => setPantryDrawerOpen(false)}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
           <Typography variant="h6">Pantry</Typography>

@@ -1,6 +1,5 @@
 import React from 'react';
 import Home from './components/Home';
-import PantryDrawer from './components/pantry/PantryDrawer';
 import Wine from './components/Wine';
 import { Login, Signup } from './components/AuthForm';
 import { Route, Routes } from 'react-router-dom';
@@ -32,7 +31,6 @@ const ClientRoutes = () => {
   return (
     <>
       <Navbar/>
-      <PantryDrawer/>
       <Routes>
         <Route exact path='/' element={<LandingPage/>}/>
         <Route path='/home' element={<Home/>}/> 
