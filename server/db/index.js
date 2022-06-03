@@ -12,8 +12,8 @@ const Ingredient = require('./models/Ingredient')
 User.hasMany(Pantry, { foreignKey: 'userId' });
 Pantry.belongsTo(User, { foreignKey: 'userId' });
 
-Pantry.belongsToMany(Ingredient, {through: 'PantryIngredients'});
-Ingredient.belongsToMany(Pantry, {through: 'PantryIngredients'});
+Pantry.belongsToMany(Ingredient, {through: 'PantryItem'});
+Ingredient.belongsToMany(Pantry, {through: 'PantryItem'});
 
 //removed because we are not keeping track of quantity
 // Pantry.hasMany(PantryItem, { foreignKey: 'pantryId' });
