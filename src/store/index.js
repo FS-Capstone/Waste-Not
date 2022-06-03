@@ -5,7 +5,6 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth';
 import ingredients from './ingredients';
 import pantries from './pantry';
-import ingredients from './ingredients';
 
 const reducer = combineReducers({ auth, pantries, ingredients })
 const middleware = composeWithDevTools(

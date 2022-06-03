@@ -10,11 +10,13 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
   const localPantry = window.localStorage.getItem('pantry')
   const handleChange = e => {
     e.preventDefault();
-    const newPantryItem = e.target.value
+    setIngredient(e.target.value)
+    const newPantryItem = ingredient
     if(!user.id){
       localPantry.push(newPantryItem)
     }
     dispatch(addPantryItem(newPantryItem.id, selectedPantry.id))
+    console.log(selectedPantry)
   }
   
   return(
