@@ -112,4 +112,4 @@ const options = [
     'mead'
 ]
 
-export default options
+module.exports = options;
