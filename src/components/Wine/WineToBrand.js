@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-//import {TextField, Autocomplete} from '@mui/icons-material'
-//import { options } from './options'
-//const options = require('./options');
+import { InputAdornment } from '@mui/material';
+
  const options = [
-        'Select Wine',
+        '-Select-',
         'white_wine', // category
         'dry_white_wine', // sub-category
         'assyrtiko',
@@ -118,27 +119,40 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 const WineToBrand = () => {
 
-const [value, setValue] = useState(options[0]) // need to fix the initial state
+const [value, setValue] = useState(options[0]) // need to fix the initial state?
+const [maxPrice , setMaxPrice] = useState("") // add these for typed input values
    
     return (
         <div> 
             <div className='wine'>
                 <h2>Select Wine Type for Brand Recommendation </h2>
+                <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
                 <Autocomplete
-                value={value}
-                onChange={(event, value) => { 
-                    console.log(value); 
-                    setValue(value)
-                }}
-                disablePortal
-                id="wine-options"
-                options={options}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Select Wine" />}
+                    value={value}
+                    onChange={(event, value) => { 
+                        console.log(value); 
+                        setValue(value)
+                    }}
+                    disablePortal
+                    id="wine-options"
+                    options={options}
+                    //sx={{ width: 300 }}
+                    sx={{ m: 1, width: '50ch' }}
+                    renderInput={(params) => <TextField {...params} label="-Select-" />}
                 /> 
-                <button> Show Brands </button>
+                <TextField 
+                    id="outlined-basic" 
+                    label="Maximum Price" 
+                    variant="outlined" 
+                    sx={{ m: 1, width: '50ch' }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                    }}
+                />
+                <Button variant="contained" size="small">Show Brands</Button>
+                </Box>
                 <div>
-                    <Link to='/wine'> <button>Back</button> </Link>
+                    <Link to='/wine'> Back </Link>
                 </div>
             </div>
         </div>
@@ -150,7 +164,7 @@ export default WineToBrand;
 /*
 3. Wine Recommendation API: input is a type of wine and the response is a specific brand of that wine type. 
    done. - need to create an input field for the wine type (string) (or drop down selector for entire list from Wine Guide?)
-  - need additional input fields for additional (optional) parameters as needed (maxPrice, minRating, number)
+   done. - need additional input fields for additional (optional) parameters as needed (maxPrice, minRating, number)
   - need to store that string as a variable somewhere (or req.body.query)
   - need to do API call with that input string as the query parameter: https://api.spoonacular.com/food/wine/recommendation?wine=${req.body.query}&number=100 (always 100 (max number) to get all results)
   - api call is in the wine api routes folder
