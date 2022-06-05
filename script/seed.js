@@ -2,7 +2,7 @@
 
 
 const {db, models: {User, Ingredient, Pantry, PantryItem} } = require('../server/db')
-const ingredientData = require('./seedData')
+const {ingredientData} = require('./seedData')
 
 /**
  * seed - this function clears the database, updates tables to
