@@ -7,7 +7,7 @@ const Recipe = () => {
   const [recipes, setRecipes] = useState(initialState);
   const dispatch = useDispatch();
   const userPantry = useSelector((state) => state.pantries);
-  const userIngredients = userPantry[0];
+  const userIngredients = userPantry[0] || null;
 
   if (userIngredients) {
     const ingredientsArr = userIngredients.ingredients.map(
@@ -24,9 +24,22 @@ const Recipe = () => {
   };
 
   return (
-    <form onSubmit={getRecipes}>
-      <button> Get Recipes </button>
-    </form>
+    <div>
+      <div>
+        PANTRY ITEMS
+        <hr />
+        {userIngredients !== null
+          ? userIngredients.ingredients.map((value, index) => (
+              <div key={index}>
+                <input value={value.name} type="checkbox" /> {value.name}
+              </div>
+            ))
+          : ""}
+      </div>
+      <form onSubmit={getRecipes}>
+        <button> Get Recipes </button>
+      </form>
+    </div>
   );
 };
 
