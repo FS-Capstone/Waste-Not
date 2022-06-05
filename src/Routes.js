@@ -4,7 +4,7 @@ import Wine from "./components/Wine/Wine";
 import WineToBrand from "./components/Wine/WineToBrand";
 import WineToDish from "./components/Wine/WineToDish";
 import DishToWine from "./components/Wine/DishToWine";
-import Pantry from "./components/pantry/PantryDrawer";
+import Pantry from "./components/pantry/Pantry";
 import { Login, Signup } from "./components/AuthForm";
 import Recipe from "./components/Recipe";
 import { Route, Routes } from "react-router-dom";
@@ -45,7 +45,6 @@ const ClientRoutes = () => {
         <Route path="wine/recommend-brand" element={<WineToBrand />} />
         <Route path="pantry" element={<Pantry />} />
         <Route path="recipe" element={<Recipe />} />
-
         <Route path="account" element={<AccountPage />} />
       </Routes>
     </>
