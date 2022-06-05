@@ -7,7 +7,7 @@ const TOKEN = 'token'
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH'
-
+const CHANGE_SELECTED_PANTRY = 'CHANGE_SELECTED_PANTRY'
 /**
  * ACTION CREATORS
  */
@@ -47,12 +47,34 @@ export const logout = () => {
   }
 }
 
+export const changeSelectedPantry = (newSelectedPantryId) => {
+  return async(dispatch) => {
+    try{
+      const updatedUser = (await axios.put('/api/pantry/changeSelectedPantry', {newSelectedPantryId}, {
+        headers: {
+          authorization: window.localStorage.token
+        }
+      })).data
+      
+      dispatch({
+        type: CHANGE_SELECTED_PANTRY,
+        auth: updatedUser
+      })
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+}
+
 /**
  * REDUCER
  */
 export default function(state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
+      return action.auth
+    case CHANGE_SELECTED_PANTRY:
       return action.auth
     default:
       return state

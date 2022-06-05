@@ -30,6 +30,9 @@ const User = db.define('user', {
   },
   favorites: {
     type: Sequelize.ARRAY(Sequelize.STRING)
+  },
+  currentlySelectedPantryId: {
+    type: Sequelize.INTEGER
   }
 })
 
@@ -57,6 +60,7 @@ User.prototype.getPantries = async function(){
     })).map(pantry => pantry.dataValues)
   )
 }
+
 
 /**
  * classMethods

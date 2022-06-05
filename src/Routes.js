@@ -4,7 +4,7 @@ import Wine from "./components/Wine/Wine";
 import WineToBrand from "./components/Wine/WineToBrand";
 import WineToDish from "./components/Wine/WineToDish";
 import DishToWine from "./components/Wine/DishToWine";
-import Pantry from "./components/pantry/PantryDrawer";
+import Pantry from "./components/pantry/Pantry";
 import { Login, Signup } from "./components/AuthForm";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
@@ -43,7 +43,6 @@ const ClientRoutes = () => {
         <Route path="wine/recommend-dish" element={<WineToDish />} />
         <Route path="wine/recommend-brand" element={<WineToBrand />} />
         <Route path="pantry" element={<Pantry />} />
-        {/* <Route path='pantry' element={<Pantry/>}/> */}
 
         <Route path="account" element={<AccountPage />} />
       </Routes>
