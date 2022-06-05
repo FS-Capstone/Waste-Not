@@ -26,3 +26,4 @@ public/bundle.js
 public/bundle.js.map
 
 src/secrets.js
+./src/secrets.js
