@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { models: { PantryItem, User }} = require('../db')
+const { models: { PantryItem, User, Pantry, Ingredient }} = require('../db')
 module.exports = router
 
 const isLoggedIn = async(req, res, next) => {
@@ -24,8 +24,10 @@ router.get('/:pantryId', isLoggedIn, async(req, res, next)=> {
 
 router.post('/:pantryId', isLoggedIn, async(req, res, next)=> {
   try{
-    const newPantryItem = await PantryItem.create(req.body);
-    res.send(newPantryItem)
+    const pantry = await Pantry.findByPk(req.params.pantryId);
+    const ingredient = await Ingredient.findByPk(req.body.itemId)
+    await pantry.addIngredient(ingredient);
+    res.sendStatus(201)
   }
   catch(ex){
     next(ex)

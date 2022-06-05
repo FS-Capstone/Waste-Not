@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const GET_PANTRIES = 'GET_PANTRIES';
 
+const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
+
 export const getPantries = () => {
   return async(dispatch) => {
     try{
@@ -9,11 +11,7 @@ export const getPantries = () => {
       
       //logged in path
       if(window.localStorage.token){
-        pantries = (await axios.get('/api/pantry', {
-          headers: {
-            authorization: window.localStorage.token
-          }
-        })).data;
+        pantries = (await axios.get('/api/pantry', auth)).data;
       }
       //logged out path
       else{
@@ -30,6 +28,14 @@ export const getPantries = () => {
     catch(error){
       console.log(error);
     }
+  }
+};
+
+export const addPantryItem = (itemId, pantryId) => {
+  return async(dispatch)=>{
+    await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth);
+    const pantries = (await axios.get('/api/pantry', auth)).data;
+    dispatch({type: GET_PANTRIES, pantries})
   }
 }
 
