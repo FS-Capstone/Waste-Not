@@ -1,6 +1,4 @@
 import React from "react";
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from "react-redux";
 import { Box, List  } from "@mui/material";
 import ListItem from '@mui/material/ListItem';
@@ -9,30 +7,17 @@ import PantryAutocomplete from "../PantryAutocomplete";
 import { ingredientList } from "../../../script/seedData";
 
 export default function SidePantry() {
-  const recipeNames = useSelector((state) => state.ingredients.map(ingredient => ingredient.name))
-  const ingredientsInPantry = useSelector(state => {
-    //find the user's currently selected pantry and return the ingredients in it
-    const selectedPantryId = state.auth.currentlySelectedPantryId;
-    const selectedPantry = state.pantries.find(pantry => pantry.id === selectedPantryId)
-    return selectedPantry?.ingredients;
-  })
-  const pantry = useSelector(state=> state.auth.currentlySelectedPantryId)
+  const selectedPantryId = useSelector(state => state.auth.currentlySelectedPantryId);
+  const pantry = useSelector(state => state.pantries.find(pantry => pantry.id === selectedPantryId));
+  const ingredientsInPantry = pantry?.ingredients;
 
   if(!ingredientsInPantry)
     return null;
 
   return(
     <Box>
-      {/* <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={recipeNames}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Add to Pantry" />}
-      /> */}
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
 
-      
       <Divider/>
 
       <List>

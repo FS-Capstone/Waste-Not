@@ -2,7 +2,6 @@ import React, {useState, forwardRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {TextField, Snackbar, Autocomplete} from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-// import Autocomplete from '@mui/material/Autocomplete';
 import {addPantryItem} from '../store';
 
 
@@ -58,7 +57,6 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          console.log(newValue, selectedPantry)
           const pantryItems = selectedPantry.ingredients.map(item => item.name)
           if(!user.id && !pantryItems.includes(newValue.ingredient)){
             localPantry.push(newValue);
@@ -70,8 +68,6 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
             setSubmitMessage(`${newValue.ingredient} added to ${selectedPantry.name}`);
             setSubmitState(true);
             setOpen(true)
-            console.log(newValue)
-            console.log('Selected Pantry', typeof selectedPantry, selectedPantry)
           } else {
             setSubmitMessage(`${selectedPantry.name} already contains ${newValue.ingredient}`)
             setSubmitState(false);
