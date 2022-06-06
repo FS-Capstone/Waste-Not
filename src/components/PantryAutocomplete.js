@@ -58,6 +58,8 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         onChange={(event, newValue) => {
           setValue(newValue);
           const pantryItems = selectedPantry.ingredients.map(item => item.name)
+          if(!newValue?.ingredient)
+            return;
           if(!user.id && !pantryItems.includes(newValue.ingredient)){
             localPantry.push(newValue);
             setSubmitMessage(`${newValue.name} added to ${selectedPantry.name}`);
