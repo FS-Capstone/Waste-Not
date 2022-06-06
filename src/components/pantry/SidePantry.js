@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Box, List  } from "@mui/material";
-import ListItem from '@mui/material/ListItem';
+import { PantryItem } from "./PantryItem";
 import Divider from '@mui/material/Divider';
 import PantryAutocomplete from "../PantryAutocomplete";
 import { ingredientList } from "../../../script/seedData";
@@ -23,7 +23,7 @@ export default function SidePantry() {
       <List>
         {
           ingredientsInPantry.map(ingredient => {
-            return <ListItem key={ingredient.id}>{ingredient.name}</ListItem>
+            return <PantryItem ingredient={ingredient} key={ingredient.id}/>
           })
         }
       </List>

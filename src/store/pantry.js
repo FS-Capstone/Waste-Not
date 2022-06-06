@@ -40,6 +40,20 @@ export const addPantryItem = (itemId, pantryId) => {
   }
 }
 
+export const deletePantryItem = (ingredientId, selectedPantry) => {
+
+  return async (dispatch) => {
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
+    const updatedPantries = (await axios.delete(`/api/pantry/${selectedPantry}/${ingredientId}`, auth)).data;
+
+    dispatch({
+      type: GET_PANTRIES,
+      pantries: updatedPantries
+    })
+  }
+
+}
+
 
 export default function pantryReducer(state = [], action) {
   if(action.type === GET_PANTRIES)
