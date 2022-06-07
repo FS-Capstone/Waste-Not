@@ -5,9 +5,9 @@ import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { InputAdornment } from '@mui/material';
+import BrandResults from './BrandResults';
 
  const options = [
-        '-Select-',
         'white_wine', // category
         'dry_white_wine', // sub-category
         'assyrtiko',
@@ -119,11 +119,17 @@ import { InputAdornment } from '@mui/material';
 
 const WineToBrand = () => {
 
-const [value, setValue] = useState(options[0]) // need to fix the initial state?
-const [maxPrice , setMaxPrice] = useState("") // add these for typed input values
+const [value, setValue] = useState(null) // need to fix the initial state?
+const [isSelected, setIsSelected] = useState(false)
 
-const handleChange = e => {}
-   
+// const [maxprice , setMaxprice] = useState(0) // add these for typed input values
+
+ const handleChange = (event, newValue) => {
+//     //e.preventDefault();
+     console.log(newValue)
+     setValue(newValue)   
+}
+
     return (
         <div> 
             <div className='wine'>
@@ -132,29 +138,30 @@ const handleChange = e => {}
                 
                 <Autocomplete
                     value={value}
-                    onChange={(event, value) => { 
-                        console.log(value); 
-                        setValue(value)
-                    }}
+                    onChange={(e, newValue) => handleChange(e, newValue)}
                     disablePortal
                     id="wine-options"
                     options={options}
                     //sx={{ width: 300 }}
                     sx={{ m: 1, width: '50ch' }}
-                    renderInput={(params) => <TextField {...params} label="-Select-" />}
+                    //getOptionLabel={(option) => option.value}
+                    renderInput={(params) => <TextField {...params} label="-Select Wine-" />}
                 /> 
-                <TextField 
+
+                {/* <TextField 
                     id="outlined-basic" 
                     label="Maximum Price" 
                     variant="outlined" 
                     sx={{ m: 1, width: '50ch' }}
-                    maxPrice={maxPrice}
+                    maxprice={maxprice}
                     InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
-                />
-                <Button variant="contained" size="small">Show Brands</Button>
+                /> */} 
+
+                <Button variant="contained" size="small" onClick={ () => value === null ? "" : setIsSelected(true) }>Show Brands</Button>
                 </Box>
+                { isSelected === true ? <BrandResults value={value} /> : null }
                 <div>
                     <Link to='/wine'> Back </Link>
                 </div>
@@ -173,4 +180,15 @@ export default WineToBrand;
   - need to do API call with that input string as the query parameter: https://api.spoonacular.com/food/wine/recommendation?wine=${req.body.query}&number=100 (always 100 (max number) to get all results)
   - api call is in the wine api routes folder
   -called in redux store wine reducer
-*/
+
+
+  UPDATED:
+  - don't need redux store since not saving or updating the database in any way with these results.
+  - now that the wine value is being console.logged on the button click, what we want is: 
+    - create another component called <Brand Results />. if there is a value, have the onClick render that component, otherwise don't. 
+    - pass value into Brand Results as props
+    - in the Brand Results component, create a function that makes the api call with template literal for the value as query 
+    - render the api call results 
+  - style later
+    
+  */
