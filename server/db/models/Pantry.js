@@ -7,8 +7,6 @@ const Pantry = db.define('pantry',{
     }
 })
 
-Pantry.prototype.addIngredientById = (ingredientId) => {
-    
-}
+
 
 module.exports = Pantry;

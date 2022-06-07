@@ -1,6 +1,6 @@
 const router = require('express').Router();
 module.exports = router;
-const { models: { User }} = require('../db')
+const { models: { User, Pantry }} = require('../db')
 
 
 
@@ -21,6 +21,21 @@ router.put('/changeSelectedPantry', async (req, res, next) => {
     user.currentlySelectedPantryId = req.body.newSelectedPantryId;
     await user.save();
     res.send(user);
+  }
+  catch(error){
+    next(error);
+  }
+})
+
+router.delete('/:pantryId/:ingredientId', async (req, res, next) => {
+  try{
+    const user = await User.findByToken(req.headers.authorization);
+    const pantry = await Pantry.findByPk(req.params.pantryId);
+    await pantry.removeIngredient(req.params.ingredientId);
+    const updatedPantries = await user.getPantries();
+    
+    res.send(updatedPantries).status(204);
+
   }
   catch(error){
     next(error);
