@@ -121,12 +121,15 @@ const WineToBrand = () => {
 
 const [value, setValue] = useState(options[0]) // need to fix the initial state?
 const [maxPrice , setMaxPrice] = useState("") // add these for typed input values
+
+const handleChange = e => {}
    
     return (
         <div> 
             <div className='wine'>
                 <h2>Select Wine Type for Brand Recommendation </h2>
                 <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
+                
                 <Autocomplete
                     value={value}
                     onChange={(event, value) => { 
@@ -145,6 +148,7 @@ const [maxPrice , setMaxPrice] = useState("") // add these for typed input value
                     label="Maximum Price" 
                     variant="outlined" 
                     sx={{ m: 1, width: '50ch' }}
+                    maxPrice={maxPrice}
                     InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
