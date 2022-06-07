@@ -11,7 +11,6 @@ const options = {
     params: {wine: `${value}`, maxPrice: '50', minRating: '0.7', number: '3'},
     headers: {
       'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-      //'X-RapidAPI-Key': '2c60e7f2afmsh5b5cdfa1d63c34dp13b92ejsne26bb848f75d'
     }
   };
 
