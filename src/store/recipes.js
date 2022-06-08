@@ -7,10 +7,16 @@ const _addRecipes = (recipes) => ({ type: ADD_RECIPES, recipes });
 
 export const addRecipes = (ingredients) => {
   return async (dispatch) => {
+    const ingredientString = ingredients.map(ingredient => ingredient.name).join(',');
     const recipes = (
-      await axios.get(
-        `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients[0]},+${ingredients[1]},+${ingredients[2]}&apiKey=${API_KEY}&number=5`
-      )
+      await axios.get('/api/search/byIngredients', {
+        params:{
+          ingredients: ingredientString,
+          number: '12',
+          ignorePantry: true,
+          ranking: '1'
+        }
+      })
     ).data;
     dispatch(_addRecipes(recipes));
   };

@@ -27,3 +27,4 @@ public/bundle.js.map
 
 src/secrets.js
 ./src/secrets.js
+.env
