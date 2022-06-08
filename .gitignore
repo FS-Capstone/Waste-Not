@@ -24,3 +24,7 @@ yarn-error.log*
 
 public/bundle.js
 public/bundle.js.map
+
+.env
+
+src/secret.js
