@@ -1,11 +1,12 @@
 import { Box } from '@mui/material';
 import React from 'react';
+import SearchResults from '../RecipeResults/SearchResults';
 
 
 export default function Pantry(){
   return(
     <Box>
-      <h1>Pantry</h1>
+      <SearchResults/>
     </Box>
   )
 }
