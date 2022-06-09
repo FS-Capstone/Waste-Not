@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-//const API_KEY = process.env.REACT_APP_API_KEY
 
 const BrandResults = (props) => {
 
@@ -29,7 +28,6 @@ const options = {
 	console.error(error);
 });
 
-//const results = response.data.recommendedWines
   
 return (
     <div>
