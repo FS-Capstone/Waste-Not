@@ -55,11 +55,21 @@ export const addPantryItem = (itemId, pantryId) => {
 
 export const deletePantryItem = (ingredientId, selectedPantry) => {
 
-  return async (dispatch) => {
-    const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
-    await axios.delete(`/api/pantry/${selectedPantry}/${ingredientId}`, auth)
-
-    dispatch(getPantries());
+  return async (dispatch, getState) => {
+    //logged in route
+    if(getState().auth.id){
+      const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
+      await axios.delete(`/api/pantry/${selectedPantry}/${ingredientId}`, auth)
+  
+      dispatch(getPantries());
+    }
+    //logged out route
+    else{
+      let pantry = localPantry();
+      pantry.ingredients = pantry.ingredients.filter(ingredient => ingredient.id !== ingredientId);
+      window.localStorage.setItem('localPantry', JSON.stringify(pantry));
+      dispatch(getPantries());
+    }
   }
 
 }
