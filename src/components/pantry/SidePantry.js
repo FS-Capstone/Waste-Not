@@ -7,8 +7,7 @@ import PantryAutocomplete from "../PantryAutocomplete";
 import { ingredientList } from "../../../script/seedData";
 
 export default function SidePantry() {
-  const selectedPantryId = useSelector(state => state.auth.currentlySelectedPantryId);
-  const pantry = useSelector(state => state.pantries.find(pantry => pantry.id === selectedPantryId));
+  const pantry = useSelector(state => state.selectedPantry);
   const ingredientsInPantry = pantry?.ingredients;
 
   if(!ingredientsInPantry)

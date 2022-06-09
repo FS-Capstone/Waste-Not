@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getSelectedPantry } from './selectedPantry';
 
 const GET_PANTRIES = 'GET_PANTRIES';
 
@@ -24,6 +25,8 @@ export const getPantries = () => {
         type: GET_PANTRIES,
         pantries
       })
+      dispatch(getSelectedPantry());
+      
     }
     catch(error){
       console.log(error);
@@ -35,8 +38,7 @@ export const addPantryItem = (itemId, pantryId) => {
   return async(dispatch)=>{
     const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
     await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth);
-    const pantries = (await axios.get('/api/pantry', auth)).data;
-    dispatch({type: GET_PANTRIES, pantries})
+    dispatch(getPantries());
   }
 }
 
@@ -44,12 +46,9 @@ export const deletePantryItem = (ingredientId, selectedPantry) => {
 
   return async (dispatch) => {
     const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
-    const updatedPantries = (await axios.delete(`/api/pantry/${selectedPantry}/${ingredientId}`, auth)).data;
+    await axios.delete(`/api/pantry/${selectedPantry}/${ingredientId}`, auth)
 
-    dispatch({
-      type: GET_PANTRIES,
-      pantries: updatedPantries
-    })
+    dispatch(getPantries());
   }
 
 }
