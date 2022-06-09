@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { getSelectedPantry } from './selectedPantry';
-
+import { localPantry } from './selectedPantry';
 const GET_PANTRIES = 'GET_PANTRIES';
+
 
 
 export const getPantries = () => {
@@ -16,8 +17,6 @@ export const getPantries = () => {
       
       //logged out path
       else{
-        //TODO: set up local storage pantry for
-        //logged out user
         pantries = [];
       }
 
@@ -35,10 +34,22 @@ export const getPantries = () => {
 };
 
 export const addPantryItem = (itemId, pantryId) => {
-  return async(dispatch)=>{
-    const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
-    await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth);
-    dispatch(getPantries());
+  return async(dispatch, getState)=>{
+    //logged in route
+    if(getState().auth.id){
+      const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
+      await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth);
+      dispatch(getPantries());
+    }
+    //logged out route
+    else{
+      const pantry = localPantry();
+      const ingredient = (await axios.get(`/api/ingredients/${itemId}`)).data;
+      pantry.ingredients.push(ingredient);
+      window.localStorage.setItem('localPantry', JSON.stringify(pantry));
+      return dispatch(getPantries());
+    }
+
   }
 }
 

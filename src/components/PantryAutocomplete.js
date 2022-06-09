@@ -60,12 +60,13 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
           const pantryItems = selectedPantry.ingredients.map(item => item.name)
           if(!newValue?.ingredient)
             return;
-          if(!user.id && !pantryItems.includes(newValue.ingredient)){
-            localPantry.push(newValue);
-            setSubmitMessage(`${newValue.name} added to ${selectedPantry.name}`);
-            setSubmitState(true);
-            setOpen(true)
-          } else if (user.id && !pantryItems.includes(newValue.ingredient)){
+          // if(!user.id && !pantryItems.includes(newValue.ingredient)){
+          //   localPantry.push(newValue);
+          //   setSubmitMessage(`${newValue.name} added to ${selectedPantry.name}`);
+          //   setSubmitState(true);
+          //   setOpen(true)
+          // } 
+          else if (/*user.id && */!pantryItems.includes(newValue.ingredient)){
             dispatch(addPantryItem(newValue.id, selectedPantry.id))
             setSubmitMessage(`${newValue.ingredient} added to ${selectedPantry.name}`);
             setSubmitState(true);
