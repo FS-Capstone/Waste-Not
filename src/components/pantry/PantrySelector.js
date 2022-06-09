@@ -7,7 +7,7 @@ import { changeSelectedPantry } from "../../store";
 export default function PantrySelector() {
   
   const usersPantries = useSelector(state => state.pantries);
-  const selectedPantry = useSelector(state => usersPantries.find(pantry => state.auth.currentlySelectedPantryId === pantry.id));
+  const selectedPantry = useSelector(state => state.selectedPantry);
 
   const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ export default function PantrySelector() {
     ));
   }
 
-  if(!selectedPantry)
+  if(!selectedPantry.name)
     return null;
 
   return(

@@ -7,6 +7,4 @@ const Pantry = db.define('pantry',{
     }
 })
 
-
-
 module.exports = Pantry;

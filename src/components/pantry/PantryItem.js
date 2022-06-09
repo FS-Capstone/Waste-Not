@@ -7,7 +7,7 @@ import { deletePantryItem } from "../../store";
 
 export const PantryItem = ({ingredient}) => {
   const dispatch = useDispatch();
-  const selectedPantryId = useSelector(state => state.auth.currentlySelectedPantryId)
+  const selectedPantryId = useSelector(state => state.selectedPantry.id)
 
   const handleDelete = (ingredientId) => {
     dispatch(deletePantryItem(ingredientId, selectedPantryId));
