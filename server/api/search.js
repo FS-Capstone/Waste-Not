@@ -20,7 +20,6 @@ router.get('/byIngredients', async(req, res, next)=> {
       }
     };
     const recipes = (await axios.request(options)).data;
-    console.log(recipes)
     res.send(recipes)
   }
   catch(ex){

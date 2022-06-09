@@ -82,6 +82,13 @@ const Navbar = (props) => {
               sx={location.pathname === '/wine' ? {color: theme.palette.text.primary} : null}>
               Wine
             </Link>
+            <Link
+              component={RouterLink}
+              to='/searchResults'
+              sx={location.pathname === '/wine' ? {color: theme.palette.text.primary} : null}
+              >
+                Find a recipe!
+              </Link>
           </LinkContainer>
           
           <IconButton 

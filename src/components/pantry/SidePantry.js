@@ -5,7 +5,7 @@ import { PantryItem } from "./PantryItem";
 import Divider from '@mui/material/Divider';
 import PantryAutocomplete from "../PantryAutocomplete";
 import { ingredientList } from "../../../script/seedData";
-import { addRecipes } from "../../store";
+import { fetchRecipes } from "../../store";
 
 import axios from 'axios';
 
@@ -25,7 +25,8 @@ export default function SidePantry() {
     //     ranking: '1'
     //   }
     // })).data
-    dispatch(addRecipes(ingredientsInPantry))
+    // dispatch(addRecipes(ingredientsInPantry))
+    console.log('clicked the button')
   }
 
   if(!ingredientsInPantry)
