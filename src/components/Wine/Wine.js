@@ -1,12 +1,11 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar';
 import { Link } from 'react-router-dom';
+
 
 
 const Wine = () => {
   return(
     <div>
-      <Navbar/>
       <div className='wine'>
       <h1>Wine Pairings & Recommendations </h1>
       <Link to='/wine/recommend-wine'><button> I have a dish, recommend a wine. </button></Link>
