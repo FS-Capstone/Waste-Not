@@ -122,9 +122,9 @@ const WineToBrand = () => {
 const [value, setValue] = useState(null) // need to fix the initial state?
 const [isSelected, setIsSelected] = useState(false)
 
-// const [maxprice , setMaxprice] = useState(0) // add these for typed input values
+ const [maxprice , setMaxprice] = useState(0) // add these for typed input values
 
- const handleChange = (event, newValue) => {
+ const handleChange = (e, newValue) => {
 //     //e.preventDefault();
      console.log(newValue)
      setValue(newValue)   
@@ -148,7 +148,7 @@ const [isSelected, setIsSelected] = useState(false)
                     renderInput={(params) => <TextField {...params} label="-Select Wine-" />}
                 /> 
 
-                {/* <TextField 
+                <TextField 
                     id="outlined-basic" 
                     label="Maximum Price" 
                     variant="outlined" 
@@ -157,7 +157,7 @@ const [isSelected, setIsSelected] = useState(false)
                     InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
-                /> */} 
+                /> 
 
                 <Button variant="contained" size="small" onClick={ () => value === null ? "" : setIsSelected(true) }>Show Brands</Button>
                 </Box>
