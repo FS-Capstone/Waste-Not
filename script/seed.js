@@ -2,7 +2,7 @@
 
 
 const {db, models: {User, Ingredient, Pantry, PantryItem} } = require('../server/db')
-const ingredientData = require('./seedData')
+const {ingredientData} = require('./seedData')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -22,8 +22,16 @@ async function seed() {
   // Creating Pantry
   const pantries = [];
   users.forEach(async (user) => {
-    if (user.isAdmin === false)
-    pantries.push(await Pantry.create({ name: "Main", userId: user.id })) 
+    if (user.isAdmin === false){
+      for(let i = 1; i < 4; i++){
+        pantries.push(await Pantry.create({ name: `Extra Pantry ${i}`, userId: user.id}));
+      }
+      //This is the pantry that will be the user's selected pantry.
+      const mainPantry = await Pantry.create({ name: "Main", userId: user.id })
+      pantries.push(mainPantry) 
+      user.currentlySelectedPantryId = mainPantry.id
+      await user.save();
+    }
   })
 
  

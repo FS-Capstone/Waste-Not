@@ -16,9 +16,11 @@ export const loadPantryItems = (pantryId) => {
   }
 };
 
-export const addPantryItem = (item, pantryId) => {
+export const addPantryItem = (itemId, pantryId) => {
   return async(dispatch)=>{
-    const newPantryItem = (await axios.post(`/api/pantryItems/${pantryId}`, item, auth)).data
+    console.log(itemId)
+    const newPantryItem = (await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth)).data
+    console.log(_addItem({newPantryItem}))
     dispatch(_addItem(newPantryItem))
   }
 }

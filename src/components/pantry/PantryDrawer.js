@@ -9,6 +9,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SidePantry from './SidePantry';
 import { Typography  } from "@mui/material";
+import PantrySelector from './PantrySelector';
 
 const drawerWidth = 240;
 
@@ -46,6 +47,7 @@ export default function PantryDrawer({setPantryDrawerOpen, pantryIsOpen}) {
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
           <Typography variant="h6">Pantry</Typography>
+          <PantrySelector/>
         </DrawerHeader>
         <Divider />
 
