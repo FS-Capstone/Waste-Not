@@ -17,7 +17,8 @@ export default function PantrySelector() {
     ));
   }
 
-  if(!selectedPantry.name)
+  //Do not display selector if not a logged in user
+  if(!selectedPantry.name || usersPantries.length === 0)
     return null;
 
   return(

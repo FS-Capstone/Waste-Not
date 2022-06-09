@@ -11,3 +11,13 @@ router.get('/', async(req, res, next)=>{
     next(ex)
   }
 });
+
+router.get('/:id', async(req, res, next) => {
+  try{
+    const ingredient = await Ingredient.findByPk(req.params.id);
+    res.send(ingredient);
+  }
+  catch(error){
+
+  }
+})
