@@ -1,5 +1,7 @@
 import axios from "axios";
-import { API_KEY } from "../secrets";
+// import { API_KEY } from "../secrets";
+import secret from "../secrets";
+const API_KEY = secret.API_KEY;
 
 const ADD_RECIPES = "ADD_RECIPES";
 

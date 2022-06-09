@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getSelectedPantry } from './selectedPantry';
 
 const GET_PANTRIES = 'GET_PANTRIES';
 
@@ -24,6 +25,8 @@ export const getPantries = () => {
         type: GET_PANTRIES,
         pantries
       })
+      dispatch(getSelectedPantry());
+      
     }
     catch(error){
       console.log(error);
