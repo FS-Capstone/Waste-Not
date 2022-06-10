@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Box, Chip, Button, Divider, Card} from '@mui/material';
-import { addMultiplePantryItems } from '../../store';
+import { addMultiplePantryItems, fetchRecipes } from '../../store';
+import {ingredientList} from '../../../script/seedData';
 
 const SearchResults = () => {
   const dispatch = useDispatch();
-  const selectedPantryId = useSelector(state => state.auth.currentlySelectedPantryId);
   const recipes = useSelector(state=>state.recipes)
-  // const pantry = useSelector(state => state.pantries.find(pantry => pantry.id === selectedPantryId));
-  // const ingredientsInPantry = pantry?.ingredients;
+  const pantry = useSelector(state => state.selectedPantry)
 
   //get flattened array of all missing ingredients from recipes in state, then filter for duplicate values
   const missingIngredientsData = (recipes.map(recipe => recipe.missedIngredients.map(ingredient => ({id:ingredient.id, name:ingredient.name})))).flat();
@@ -22,25 +21,46 @@ const SearchResults = () => {
       return false
   })
 
+  const missingIngredientsRenamed = missingIngredients.map(ingredient => {
+    const trueIngredient = ingredientList.find(trueIngredient => trueIngredient.id === ingredient.id);
+    if(trueIngredient){
+      return {id: ingredient.id, name: trueIngredient.ingredient}
+    }
+    return {}
+  })
+
   const [missingIngredientList, setMissingIngredientList] = useState([])
 
-  const [selectedIngredients, setSelectedIngredients] = useState([])
+  const [selectedMissingIngredients, setSelectedMissingIngredients] = useState([])
 
   useEffect(()=>{
-    setMissingIngredientList(missingIngredients)
-  }, [recipes])
+    setMissingIngredientList(missingIngredientsRenamed)
+    console.log('recipes rendered')
+    console.log(missingIngredientsRenamed)
+  }, [recipes, pantry])
 
   const handleClick = (e, ingredientId) => {
     e.preventDefault();
-    selectedIngredients.includes(ingredientId) ? setSelectedIngredients(selectedIngredients.filter(ingredient => ingredient !== ingredientId)) : setSelectedIngredients([...selectedIngredients, ingredientId])
+    selectedMissingIngredients.includes(ingredientId) ? setSelectedMissingIngredients(selectedMissingIngredients.filter(ingredient => ingredient !== ingredientId)) : setSelectedMissingIngredients([...selectedMissingIngredients, ingredientId])
+    console.log(missingIngredientsRenamed)
   }
 
   const handleSave = (e) => {
     e.preventDefault();
-    dispatch(addMultiplePantryItems(selectedIngredients, selectedPantryId))
-    setSelectedIngredients([])
-    //setMissingIngredientList(missingIngredientList.filter(ingredient => !selectedIngredients.includes(ingredient)))
-    
+    dispatch(addMultiplePantryItems(selectedMissingIngredients, pantry.id))
+    setMissingIngredientList(missingIngredientList.filter(ingredient => !selectedMissingIngredients.includes(ingredient)))
+    setSelectedMissingIngredients([])
+  }
+
+  const recipeSearch = async(e) => {
+    const selectedIngredients = window.localStorage.getItem('selectedIngredients') ? window.localStorage.getItem('selectedIngredients') : [];
+    if(selectedIngredients.length){
+      dispatch(fetchRecipes(selectedIngredients))
+    }
+    else {
+      const ingredients = pantry?.ingredients
+      dispatch(fetchRecipes(ingredients))
+    }
   }
 
 
@@ -48,15 +68,17 @@ const SearchResults = () => {
     <div>
       <Box>
         {!missingIngredientList.length ? 'testing' : missingIngredientList.map(ingredient => (
-          <Chip key={ingredient.id} variant={selectedIngredients.includes(ingredient.id) ? 'filled' : 'outlined'} clickable label={ingredient.name} onClick={(e)=>handleClick(e, ingredient.id)} sx={{margin:'3px'}}/>
+          ingredient.id ? <Chip key={ingredient.id} variant={selectedMissingIngredients.includes(ingredient.id) ? 'filled' : 'outlined'} clickable label={ingredient.name} onClick={(e)=>handleClick(e, ingredient.id)} sx={{margin:'3px'}}/> : null
         ))}
         
       </Box>
-      {!selectedIngredients.length ? null : <Button variant='contained' onClick={(e)=> handleSave(e)}>Add Selected Ingredients to Pantry</Button>}
+      {!selectedMissingIngredients.length ? null : <Button variant='contained' onClick={(e)=> handleSave(e)}>Add Selected Ingredients to Pantry</Button>}
       <Divider/>
-      {!recipes.length ? 'Search for recipes!' : recipes.map(recipe=>{
+      {recipes.map(recipe=>{
         return <Card key={recipe.id}>{recipe.title} {recipe.image} {recipe.missedIngredientCount} {recipe.usedIngredientCount} {recipe.unusedIngredientCount}</Card>
       })}
+      <Divider/>
+      <Button variant='outlined' onClick={(e)=>recipeSearch(e)}>Search for recipes!</Button> 
     </div>
   )
 };

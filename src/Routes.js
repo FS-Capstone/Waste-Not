@@ -18,9 +18,6 @@ import AccountPage from "./components/account/AccountPage";
 const ClientRoutes = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const selectedPantryId = useSelector(state => state.auth.currentlySelectedPantryId);
-  const pantry = useSelector(state=>state.pantries.find(pantry => pantry.id === selectedPantryId))
-  const ingredients = pantry?.ingredients
 
   useEffect(() => {
     dispatch(me());
@@ -33,10 +30,6 @@ const ClientRoutes = () => {
     dispatch(getPantries());
     console.log('AUTH')
   }, [auth]);
-
-  useEffect(()=>{
-    dispatch(fetchRecipes(ingredients))
-  },[pantry])
 
   return (
     <>
