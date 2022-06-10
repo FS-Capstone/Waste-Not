@@ -1,14 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Box, List  } from "@mui/material";
+import React, {useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Box, List, Button  } from "@mui/material";
 import { PantryItem } from "./PantryItem";
 import Divider from '@mui/material/Divider';
 import PantryAutocomplete from "../PantryAutocomplete";
 import { ingredientList } from "../../../script/seedData";
 
+import axios from 'axios';
+
 export default function SidePantry() {
   const pantry = useSelector(state => state.selectedPantry);
   const ingredientsInPantry = pantry?.ingredients;
+
+  useEffect(()=>{
+    console.log('side pantry rendered')
+  }, [pantry])
 
   if(!ingredientsInPantry)
     return null;
@@ -26,7 +32,6 @@ export default function SidePantry() {
           })
         }
       </List>
-
     </Box>
 
 

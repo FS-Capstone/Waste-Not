@@ -53,6 +53,19 @@ export const addPantryItem = (itemId, pantryId) => {
   }
 }
 
+export const addMultiplePantryItems = (ingredients, pantryId) => {
+  return async(dispatch)=>{
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    await Promise.all(ingredients.map(async(ingredient)=> {
+      await axios.post(`/api/pantryItems/${pantryId}`, {ingredient}, auth)
+    }));
+    const pantries = (await axios.get('/api/pantry', auth)).data
+    console.log(ingredients, pantryId, pantries)
+    dispatch(getPantries())
+    dispatch(getSelectedPantry())
+  }
+}
+
 export const deletePantryItem = (ingredientId, selectedPantry) => {
 
   return async (dispatch, getState) => {

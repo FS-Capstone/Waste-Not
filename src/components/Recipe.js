@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRecipes } from "../store/recipes";
+import { fetchRecipes } from "../store/recipes";
 
 const Recipe = () => {
   const initialState = { recipes: [] };
@@ -13,7 +13,7 @@ const Recipe = () => {
     const ingredientsArr = userIngredients.ingredients.map(
       (value) => value.name
     );
-    dispatch(addRecipes(ingredientsArr));
+    dispatch(fetchRecipes(ingredientsArr));
   }
   const getRecipes = (event) => {
     event.persist();

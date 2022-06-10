@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Home from "./components/Home";
 import Wine from "./components/Wine/Wine";
 import WineToBrand from "./components/Wine/WineToBrand";
@@ -10,12 +10,10 @@ import Recipe from "./components/Recipe";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Navbar from "./components/Navbar/Navbar";
-import { useEffect } from "react";
-import { me } from "./store";
+import SearchResults from "./components/RecipeResults/SearchResults";
+import { me, getPantries, loadIngredients, fetchRecipes } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPage from "./components/account/AccountPage";
-import { getPantries } from "./store/pantry";
-import { loadIngredients } from "./store";
 
 const ClientRoutes = () => {
   const dispatch = useDispatch();
@@ -24,11 +22,13 @@ const ClientRoutes = () => {
   useEffect(() => {
     dispatch(me());
     dispatch(loadIngredients());
+    console.log('ME and loadIngredients')
   }, []);
 
   //update pantries every time auth changes
   useEffect(() => {
     dispatch(getPantries());
+    console.log('AUTH')
   }, [auth]);
 
   return (
@@ -46,6 +46,7 @@ const ClientRoutes = () => {
         <Route path="pantry" element={<Pantry />} />
         <Route path="recipe" element={<Recipe />} />
         <Route path="account" element={<AccountPage />} />
+        <Route path="searchResults" element={<SearchResults />} />
       </Routes>
     </>
   );
