@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect} from "react";
 import Home from "./components/Home";
 import Wine from "./components/Wine/Wine";
@@ -11,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Navbar from "./components/Navbar/Navbar";
 import SearchResults from "./components/RecipeResults/SearchResults";
-import { me, getPantries, loadIngredients, fetchRecipes } from "./store";
+import { me, getPantries, loadIngredients } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPage from "./components/account/AccountPage";
 
