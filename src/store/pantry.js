@@ -59,8 +59,6 @@ export const addMultiplePantryItems = (ingredients, pantryId) => {
     await Promise.all(ingredients.map(async(ingredient)=> {
       await axios.post(`/api/pantryItems/${pantryId}`, {ingredient}, auth)
     }));
-    const pantries = (await axios.get('/api/pantry', auth)).data
-    console.log(ingredients, pantryId, pantries)
     dispatch(getPantries())
     dispatch(getSelectedPantry())
   }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipes } from "../store/recipes";
+import { fetchRecipeIngredients } from "../store";
 
 const Recipe = () => {
   const initialState = { recipes: [] };
@@ -9,12 +9,14 @@ const Recipe = () => {
   const userPantry = useSelector((state) => state.pantries);
   const userIngredients = userPantry[0] || null;
 
-  if (userIngredients) {
-    const ingredientsArr = userIngredients.ingredients.map(
-      (value) => value.name
-    );
-    dispatch(fetchRecipes(ingredientsArr));
-  }
+  // commented out in order to stop the fetchRecipes function
+  // if (userIngredients) {
+  //   const ingredientsArr = userIngredients.ingredients.map(
+  //     (value) => value.name
+  //   );
+  //   dispatch(fetchRecipes(ingredientsArr));
+  // }
+
   const getRecipes = (event) => {
     event.persist();
     setRecipes((values) => ({

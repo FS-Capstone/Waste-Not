@@ -8,6 +8,7 @@ import pantries from "./pantry";
 import recipes from "./recipes";
 import selectedPantry from "./selectedPantry";
 import wines from "./wines";
+import recipeIngredients from './recipeIngredients';
 
 const reducer = combineReducers({
   auth,
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   ingredients,
   recipes,
   selectedPantry,
-  wines
+  wines,
+  recipeIngredients
 });
 
 const middleware = composeWithDevTools(
@@ -30,4 +32,5 @@ export * from './pantry';
 export * from "./recipes";
 export * from "./selectedPantry";
 export * from "./wines";
+export * from './recipeIngredients';
 
