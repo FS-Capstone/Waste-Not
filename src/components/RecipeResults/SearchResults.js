@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Box, Chip, Button, Grid, Typography, Paper} from '@mui/material';
+import {Box, Chip, Button, Grid, Typography, TextField, MenuItem } from '@mui/material';
 import { addMultiplePantryItems, fetchRecipes } from '../../store';
 import {ingredientList} from '../../../script/seedData';
 import RecipeCard from './RecipeCard';
@@ -9,6 +9,10 @@ const SearchResults = () => {
   const dispatch = useDispatch();
   const recipes = useSelector(state=>state.recipes)
   const pantry = useSelector(state => state.selectedPantry)
+  const [number, setNumber] = useState(12)
+  const [ranking, setRanking] = useState(1)
+  const numValues = [6, 12, 18, 24, 48, 96]
+  const rankingValues = [{display:'Maximize Used Ingredients', value:1}, {display:'Minimize Missing Ingredients', value:2}]
 
   //get flattened array of all missing ingredients from recipes in state, then filter for duplicate values
   const missingIngredientsData = (recipes.map(recipe => recipe.missedIngredients.map(ingredient => ({id:ingredient.id, name:ingredient.name})))).flat();
@@ -39,7 +43,6 @@ const SearchResults = () => {
     }).filter(ingredient=> !selectedMissingIngredients.includes(ingredient.id))
     setSelectedMissingIngredients([])
     setMissingIngredientList(missingIngredientsRenamed)
-    console.log('recipe useEffect', recipes)
   }, [recipes, pantry])
 
   const handleClick = (e, ingredientId) => {
@@ -50,7 +53,6 @@ const SearchResults = () => {
   const handleSave = (e) => {
     e.preventDefault();
     dispatch(addMultiplePantryItems(selectedMissingIngredients, pantry.id))
-    console.log(recipes)
   }
 
   const recipeSearch = async(e) => {
@@ -61,8 +63,16 @@ const SearchResults = () => {
     }
     else {
       const ingredients = pantry?.ingredients
-      dispatch(fetchRecipes(ingredients))
+      dispatch(fetchRecipes(ingredients, number, ranking))
     }
+  }
+
+  const handleNumChange = e => {
+    setNumber(e.target.value)
+  }
+
+  const handleRankChange = e => {
+    setRanking(e.target.value)
   }
 
 
@@ -79,8 +89,12 @@ const SearchResults = () => {
           {!selectedMissingIngredients.length ? null : <Button variant='contained' onClick={(e)=> handleSave(e)}>Add Selected Ingredients to Pantry</Button>}
         </Box>
       </Box>
-      <Box sx={{display: 'flex', justifyContent:'center', margin:'1rem'}}>
-        <Button variant='outlined' onClick={(e)=>recipeSearch(e)}>Search for recipes!</Button> 
+      <Box sx={{display: 'flex', flexDirection:'column', alignItems:'center', margin:'1rem'}}>
+        <Button variant='outlined' sx={{paddingLeft:'4.2rem', paddingRight:'4.12rem'}} onClick={(e)=>recipeSearch(e)}>Search for recipes!</Button> 
+        <Box sx={{display:'flex', justifyContent:'center'}}>
+          <TextField size='small' id='resultsNumber' select value={number} onChange={handleNumChange}>{numValues.map(num => <MenuItem key={num} value={num}>{num}</MenuItem>)}</TextField>
+          <TextField size='small' id='ranking' select value={ranking} onChange={handleRankChange}>{rankingValues.map(ranking => <MenuItem key={ranking.value} value={ranking.value}>{ranking.display}</MenuItem> )}</TextField>
+        </Box>
       </Box>
       <Grid
         container

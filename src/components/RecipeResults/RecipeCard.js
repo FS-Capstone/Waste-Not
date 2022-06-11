@@ -27,9 +27,9 @@ const RecipeCard = ({recipe}) => {
         <Box sx={{width:'100%', height:'100%'}}>
           <CardContent sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
             <Typography component='div' variant='h5'>{recipe.title}</Typography>
-            <Typography variant='subtitle1' color='text.secondary' component='div'>Missing {recipe.missedIngredientCount} ingredients</Typography>
-            <Typography variant='subtitle1' color='text.secondary' component='div'>{recipe.usedIngredientCount} pantry ingredients used</Typography>
-            <Typography variant='subtitle1' color='text.secondary' component='div'>{recipe.unusedIngredientCount ? recipe.unusedIngredientCount : 'No'} unused pantry ingredients</Typography>
+            <Typography variant='subtitle1' color='text.secondary' component='div'>{!recipe.missedIngredientCount ? 'You have all the necessary ingredients!' : recipe.missedIngredientCount === 1 ? 'Missing 1 ingredient' : `Missing ${recipe.missedIngredientCount} ingredients`}</Typography>
+            <Typography variant='subtitle1' color='text.secondary' component='div'>{recipe.usedIngredientCount} pantry {recipe.usedIngredientCount === 1 ? 'ingredient' :'ingredients'} used</Typography>
+            <Typography variant='subtitle1' color='text.secondary' component='div'>{recipe.unusedIngredientCount && recipe.unusedIngredientCount === 1 ? `${recipe.unusedIngredientCount} unused pantry ingredient` : recipe.unusedIngredientCount > 1 ? `${recipe.unusedIngredientCount} unused pantry ingredients`: 'No unused pantry ingredients'}</Typography>
           </CardContent>
         </Box>
       </CardActionArea>
