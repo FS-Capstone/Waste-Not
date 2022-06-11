@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const FETCH_RECIPES = "FETCH";
+const FETCH_RECIPES = "FETCH_RECIPES";
 
 const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
 

@@ -45,7 +45,7 @@ const ClientRoutes = () => {
         <Route path="wine/recommend-dish" element={<WineToDish />} />
         <Route path="wine/recommend-brand" element={<WineToBrand />} />
         <Route path="pantry" element={<Pantry />} />
-        <Route path="recipe" element={<Recipe />} />
+        <Route path="recipe/:id" element={<Recipe />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="searchResults" element={<SearchResults />} />
       </Routes>
