@@ -39,6 +39,7 @@ const SearchResults = () => {
     }).filter(ingredient=> !selectedMissingIngredients.includes(ingredient.id))
     setSelectedMissingIngredients([])
     setMissingIngredientList(missingIngredientsRenamed)
+    console.log('recipe useEffect', recipes)
   }, [recipes, pantry])
 
   const handleClick = (e, ingredientId) => {
@@ -53,6 +54,7 @@ const SearchResults = () => {
   }
 
   const recipeSearch = async(e) => {
+    e.preventDefault();
     const selectedIngredients = window.localStorage.getItem('selectedIngredients') ? window.localStorage.getItem('selectedIngredients') : [];
     if(selectedIngredients.length){
       dispatch(fetchRecipes(selectedIngredients))
