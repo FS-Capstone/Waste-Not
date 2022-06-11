@@ -172,23 +172,3 @@ const [isSelected, setIsSelected] = useState(false)
 export default WineToBrand;
 
 
-/*
-3. Wine Recommendation API: input is a type of wine and the response is a specific brand of that wine type. 
-   done. - need to create an input field for the wine type (string) (or drop down selector for entire list from Wine Guide?)
-   done. - need additional input fields for additional (optional) parameters as needed (maxPrice, minRating, number)
-  - need to store that string as a variable somewhere (or req.body.query)
-  - need to do API call with that input string as the query parameter: https://api.spoonacular.com/food/wine/recommendation?wine=${req.body.query}&number=100 (always 100 (max number) to get all results)
-  - api call is in the wine api routes folder
-  -called in redux store wine reducer
-
-
-  UPDATED:
-  - don't need redux store since not saving or updating the database in any way with these results.
-  - now that the wine value is being console.logged on the button click, what we want is: 
-    - create another component called <Brand Results />. if there is a value, have the onClick render that component, otherwise don't. 
-    - pass value into Brand Results as props
-    - in the Brand Results component, create a function that makes the api call with template literal for the value as query 
-    - render the api call results 
-  - style later
-    
-  */
