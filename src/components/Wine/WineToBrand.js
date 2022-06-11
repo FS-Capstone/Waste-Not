@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/material';
@@ -6,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { InputAdornment } from '@mui/material';
 import BrandResults from './BrandResults';
+
 
  const options = [
         'white_wine', // category
@@ -119,15 +121,24 @@ import BrandResults from './BrandResults';
 
 const WineToBrand = () => {
 
-const [value, setValue] = useState(null) // need to fix the initial state?
-const [isSelected, setIsSelected] = useState(false)
+const [wine, setWine] = useState("") // need to fix the initial state?
+const [brands, setBrands] = useState([]);
+//const [maxprice , setMaxprice] = useState(0) // add these for typed input values
 
- const [maxprice , setMaxprice] = useState(0) // add these for typed input values
+ const handleChange = (e, newWine) => {
+     setWine(newWine);
+}
 
- const handleChange = (e, newValue) => {
-//     //e.preventDefault();
-     console.log(newValue)
-     setValue(newValue)   
+const handleOnClick = async (req, res, next) => {
+    const brands = (await axios.get('/api/wine/recommendedBrands', {
+        params: {
+            wine: wine,
+            maxPrice: '50',
+            minRating: '0.8',
+            number: '10'
+        }
+    })).data;
+    setBrands(brands.recommendedWines)
 }
 
     return (
@@ -135,33 +146,28 @@ const [isSelected, setIsSelected] = useState(false)
             <div className='wine'>
                 <h2>Select Wine Type for Brand Recommendation </h2>
                 <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
-                
                 <Autocomplete
-                    value={value}
-                    onChange={(e, newValue) => handleChange(e, newValue)}
+                    wine={wine}
+                    onChange={(e, newWine) => handleChange(e, newWine)}
                     disablePortal
                     id="wine-options"
                     options={options}
-                    //sx={{ width: 300 }}
                     sx={{ m: 1, width: '50ch' }}
-                    //getOptionLabel={(option) => option.value}
                     renderInput={(params) => <TextField {...params} label="-Select Wine-" />}
-                /> 
-
+                />
                 <TextField 
                     id="outlined-basic" 
                     label="Maximum Price" 
                     variant="outlined" 
                     sx={{ m: 1, width: '50ch' }}
-                    maxprice={maxprice}
+                    //maxprice={maxprice}
                     InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
-                /> 
-
-                <Button variant="contained" size="small" onClick={ () => value === null ? "" : setIsSelected(true) }>Show Brands</Button>
+                />
+                <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { isSelected === true ? <BrandResults value={value} /> : null }
+                { brands.length ? <BrandResults brands={brands} wine={wine} /> : null }
                 <div>
                     <Link to='/wine'> Back </Link>
                 </div>
@@ -170,25 +176,3 @@ const [isSelected, setIsSelected] = useState(false)
     )
 }
 export default WineToBrand;
-
-
-/*
-3. Wine Recommendation API: input is a type of wine and the response is a specific brand of that wine type. 
-   done. - need to create an input field for the wine type (string) (or drop down selector for entire list from Wine Guide?)
-   done. - need additional input fields for additional (optional) parameters as needed (maxPrice, minRating, number)
-  - need to store that string as a variable somewhere (or req.body.query)
-  - need to do API call with that input string as the query parameter: https://api.spoonacular.com/food/wine/recommendation?wine=${req.body.query}&number=100 (always 100 (max number) to get all results)
-  - api call is in the wine api routes folder
-  -called in redux store wine reducer
-
-
-  UPDATED:
-  - don't need redux store since not saving or updating the database in any way with these results.
-  - now that the wine value is being console.logged on the button click, what we want is: 
-    - create another component called <Brand Results />. if there is a value, have the onClick render that component, otherwise don't. 
-    - pass value into Brand Results as props
-    - in the Brand Results component, create a function that makes the api call with template literal for the value as query 
-    - render the api call results 
-  - style later
-    
-  */
