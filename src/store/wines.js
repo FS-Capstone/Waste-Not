@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// DON'T NEED THIS ANYMORE
+
 //action creators 
 
 const FETCH_BRANDS = 'FETCH_BRANDS';

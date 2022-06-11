@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/material';
@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { InputAdornment } from '@mui/material';
 import BrandResults from './BrandResults';
-import { fetchBrands } from '../../store/wines';;
+
 
  const options = [
         'white_wine', // category
@@ -121,23 +121,24 @@ import { fetchBrands } from '../../store/wines';;
 
 const WineToBrand = () => {
 
-const [wine, setWine] = useState(null) // need to fix the initial state?
-const [isSelected, setIsSelected] = useState(false)
-const [maxprice , setMaxprice] = useState(0) // add these for typed input values
-const dispatch = useDispatch();
+const [wine, setWine] = useState("") // need to fix the initial state?
+const [brands, setBrands] = useState([]);
+//const [maxprice , setMaxprice] = useState(0) // add these for typed input values
 
  const handleChange = (e, newWine) => {
-     console.log("wine is:", wine);
-     console.log("newWine is:", newWine);
      setWine(newWine);
-     //newWine === null ? setIsSelected(false) : setIsSelected(true); // do I really need this? how to render <BrandResults /> w/o this other piece of state./
-     console.log(isSelected);
 }
 
-const handleOnClick = () => {
-    console.log(wine)
-    console.log("I'm gonna call the api from here!");
-    dispatch(fetchBrands(wine));
+const handleOnClick = async (req, res, next) => {
+    const brands = (await axios.get('/api/wine/recommendedBrands', {
+        params: {
+            wine: wine,
+            maxPrice: '50',
+            minRating: '0.8',
+            number: '10'
+        }
+    })).data;
+    setBrands(brands.recommendedWines)
 }
 
     return (
@@ -145,7 +146,6 @@ const handleOnClick = () => {
             <div className='wine'>
                 <h2>Select Wine Type for Brand Recommendation </h2>
                 <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
-                
                 <Autocomplete
                     wine={wine}
                     onChange={(e, newWine) => handleChange(e, newWine)}
@@ -154,22 +154,20 @@ const handleOnClick = () => {
                     options={options}
                     sx={{ m: 1, width: '50ch' }}
                     renderInput={(params) => <TextField {...params} label="-Select Wine-" />}
-                /> 
-
+                />
                 <TextField 
                     id="outlined-basic" 
                     label="Maximum Price" 
                     variant="outlined" 
                     sx={{ m: 1, width: '50ch' }}
-                    maxprice={maxprice}
+                    //maxprice={maxprice}
                     InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
-                /> 
-
+                />
                 <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { isSelected === true ? <BrandResults wine={wine} /> : null }
+                { brands.length ? <BrandResults brands={brands} wine={wine} /> : null }
                 <div>
                     <Link to='/wine'> Back </Link>
                 </div>
@@ -178,5 +176,3 @@ const handleOnClick = () => {
     )
 }
 export default WineToBrand;
-
-

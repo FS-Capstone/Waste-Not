@@ -2,20 +2,19 @@ import React from 'react';
 
 
 const BrandResults = (props) => {
-const { wine } = props 
-
+const { wine, brands } = props 
 
 return (
     <div>
-        <h3> You Selected: </h3>
-        <hr/>
+        <h3> Brand Recommendations for: </h3>
         <div> { wine } </div>
+        <hr/>
         <div>
-            {/* { results.map(result => { 
+             { brands.map(brand => { 
                 return (
-                <li> {result.title} </li>
+                <li key={brand.id}> {brand.title} ({brand.price}) </li>
                 )
-            }) } */}
+            }) } 
         </div>
     </div>
 )
