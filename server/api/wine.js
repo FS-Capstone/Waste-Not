@@ -13,12 +13,12 @@ router.get('/recommendedBrands', async (req, res, next) => {
             params: {
                 wine: req.query.wine, // `${value}`
                 maxPrice: req.query.maxPrice, 
-                minRating: '0.8', 
+                minRating: req.query.minRating, 
                 number: req.query.number // maybe set a default number? 
             },
             headers: {
               'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-              'X-RapidAPI-Key': 'API KEY HERE'
+              'X-RapidAPI-Key': 'API_KEY_HERE'
             }
           };
           const brands = (await axios.request(options)).data;

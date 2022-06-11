@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/material';
@@ -6,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { InputAdornment } from '@mui/material';
 import BrandResults from './BrandResults';
+import { fetchBrands } from '../../store/wines';;
 
  const options = [
         'white_wine', // category
@@ -119,15 +121,23 @@ import BrandResults from './BrandResults';
 
 const WineToBrand = () => {
 
-const [value, setValue] = useState(null) // need to fix the initial state?
+const [wine, setWine] = useState(null) // need to fix the initial state?
 const [isSelected, setIsSelected] = useState(false)
+const [maxprice , setMaxprice] = useState(0) // add these for typed input values
+const dispatch = useDispatch();
 
- const [maxprice , setMaxprice] = useState(0) // add these for typed input values
+ const handleChange = (e, newWine) => {
+     console.log("wine is:", wine);
+     console.log("newWine is:", newWine);
+     setWine(newWine);
+     //newWine === null ? setIsSelected(false) : setIsSelected(true); // do I really need this? how to render <BrandResults /> w/o this other piece of state./
+     console.log(isSelected);
+}
 
- const handleChange = (e, newValue) => {
-//     //e.preventDefault();
-     console.log(newValue)
-     setValue(newValue)   
+const handleOnClick = () => {
+    console.log(wine)
+    console.log("I'm gonna call the api from here!");
+    dispatch(fetchBrands(wine));
 }
 
     return (
@@ -137,14 +147,12 @@ const [isSelected, setIsSelected] = useState(false)
                 <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
                 
                 <Autocomplete
-                    value={value}
-                    onChange={(e, newValue) => handleChange(e, newValue)}
+                    wine={wine}
+                    onChange={(e, newWine) => handleChange(e, newWine)}
                     disablePortal
                     id="wine-options"
                     options={options}
-                    //sx={{ width: 300 }}
                     sx={{ m: 1, width: '50ch' }}
-                    //getOptionLabel={(option) => option.value}
                     renderInput={(params) => <TextField {...params} label="-Select Wine-" />}
                 /> 
 
@@ -159,9 +167,9 @@ const [isSelected, setIsSelected] = useState(false)
                     }}
                 /> 
 
-                <Button variant="contained" size="small" onClick={ () => value === null ? "" : setIsSelected(true) }>Show Brands</Button>
+                <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { isSelected === true ? <BrandResults value={value} /> : null }
+                { isSelected === true ? <BrandResults wine={wine} /> : null }
                 <div>
                     <Link to='/wine'> Back </Link>
                 </div>
