@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  TextField,
-} from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
 
 const Recipe = () => {
   const [recipeSteps, setRecipeSteps] = useState([]);
@@ -62,12 +55,22 @@ const Recipe = () => {
   const { equipment } = tools ? tools : [];
 
   return (
-    <div>
-      <Box>
+    <Stack sx={{ border: "1px solid" }} direcition="row" spacing={2}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          margin: "1rem",
+        }}
+      >
         {!recipeInfo ? (
-          <Typography>RECIPE STEPS: </Typography>
+          <Typography variant="h5">RECIPE STEPS: </Typography>
         ) : (
-          <Typography> {recipeInfo.title} RECIPE STEPS:</Typography>
+          <Typography variant="h5">
+            {" "}
+            {recipeInfo.title} RECIPE STEPS:
+          </Typography>
         )}
         <ul>
           {recipeSteps.length === 0
@@ -75,15 +78,22 @@ const Recipe = () => {
             : recipeSteps[0].steps.map((step) => {
                 return (
                   <li key={step.number}>
-                    <Typography>{step.step}</Typography>
+                    <Typography variant="body1">{step.step}</Typography>
                   </li>
                 );
               })}
         </ul>
       </Box>
-      <hr />
-      <Box>
-        <Typography>NUTRITION INFORMATION: </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          margin: "1rem",
+        }}
+      >
+        <Typography variant="h5">NUTRITION INFORMATION: </Typography>
 
         {!nutrients
           ? null
@@ -95,16 +105,23 @@ const Recipe = () => {
               );
             })}
       </Box>
-      <hr />
-      <Box>
-        <Typography>EQUIPMENT NEEDED: </Typography>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          margin: "1rem",
+        }}
+      >
+        <Typography variant="h5">EQUIPMENT NEEDED: </Typography>
         {!equipment
           ? null
           : equipment.map((value, index) => {
-              return <CardMedia key={index}>{value.name}</CardMedia>;
+              return <div key={index}>{value.name}</div>;
             })}
       </Box>
-    </div>
+    </Stack>
   );
 };
 
