@@ -6,15 +6,17 @@ const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
 
 export const fetchRecipes = (ingredients, number, ranking) => {
   return async (dispatch) => {
-    const ingredientString = ingredients.map(ingredient => ingredient.name).join(',');
+    const ingredientString = ingredients
+      .map((ingredient) => ingredient.name)
+      .join(",");
     const recipes = (
-      await axios.get('/api/search/byIngredients', {
-        params:{
+      await axios.get("/api/search/byIngredients", {
+        params: {
           ingredients: ingredientString,
           number: number,
           ignorePantry: true,
-          ranking: ranking
-        }
+          ranking: ranking,
+        },
       })
     ).data;
     dispatch(_fetchRecipes(recipes));
