@@ -30,7 +30,7 @@ router.get('/recommendedBrands', async (req, res, next) => {
 });
 
 
-// wine type => dish recommendation (returns text description of wine and foods)
+// wine type => dish recommendation (returns text description of selected wine and foods)
 
 router.get('/dishPairing', async (req, res, next) => {
     try {
@@ -38,7 +38,7 @@ router.get('/dishPairing', async (req, res, next) => {
             method: 'GET',
             url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/dishes',
             params: {
-                wine: req.body.wine
+                wine: req.query.wine
             },
             headers: {
               'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
@@ -61,8 +61,8 @@ router.get('/winePairing', async (req, res, next) => {
             method: 'GET',
             url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/pairing',
             params: {
-                food: req.body.food, 
-                maxPrice: req.body.maxPrice
+                food: req.query.food, 
+                maxPrice: req.query.maxPrice
             },
             headers: {
               'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',

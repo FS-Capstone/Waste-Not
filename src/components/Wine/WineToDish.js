@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/material';
@@ -119,33 +120,46 @@ const options = [
 
 const WineToDish = () => {
 
-const [value, setValue] = useState(null)
-const [isSelected, setIsSelected] = useState(false)
+const [wine, setWine] = useState("");
+const [dishes, setDishes] = useState([]);
+const [text, setText] = useState("");
 
-const handleChange = (event, newValue) => {
-    //     //e.preventDefault();
-         console.log(newValue)
-         setValue(newValue)   
+const handleChange = (e, newWine) => {
+         console.log(newWine)
+         setWine(newWine)   
     }
+
+const handleOnClick = async (req, res, next) => {
+    console.log("am I in here?")
+    const dishes = (await axios.get('/api/wine/dishPairing', {
+        params: {
+            wine: wine
+        }
+    })).data;
+    //console.log(dishes)
+    //console.log(dishes.pairings)
+    //console.log(dishes.text)
+    setDishes(dishes.pairings)
+    setText(dishes.text)
+}
 
     return (
         <div> 
             <div className='wine'>
             <h2> Select Wine for Dish Recommendation </h2>
             <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
-                
-                <Autocomplete
-                    value={value}
-                    onChange={(e, newValue) => handleChange(e, newValue)}
-                    disablePortal
-                    id="wine-options"
-                    options={options}
-                    sx={{ m: 1, width: '50ch' }}
-                    renderInput={(params) => <TextField {...params} label="-Select Wine-" />}
-                /> 
-                <Button variant="contained" size="small" onClick={ () => value === null ? "" : setIsSelected(true) }>Show Dishes</Button>
-                </Box>
-                { isSelected === true ? <DishResults value={value} /> : null }
+            <Autocomplete
+                wine={wine}
+                onChange={(e, newWine) => handleChange(e, newWine)}
+                disablePortal
+                id="wine-options"
+                options={options}
+                sx={{ m: 1, width: '50ch' }}
+                renderInput={(params) => <TextField {...params} label="-Select Wine-" />}
+            /> 
+            <Button variant="contained" size="small" onClick={handleOnClick}>Show Dishes</Button>
+            </Box>
+            { dishes.length ? <DishResults dishes={dishes} text={text} wine={wine} /> : "No Results" }
             <div>
                 <Link to='/wine'> <button>Back</button> </Link>
             </div>

@@ -121,7 +121,7 @@ import BrandResults from './BrandResults';
 
 const WineToBrand = () => {
 
-const [wine, setWine] = useState("") // need to fix the initial state?
+const [wine, setWine] = useState(""); // need to fix the initial state?
 const [brands, setBrands] = useState([]);
 //const [maxprice , setMaxprice] = useState(0) // add these for typed input values
 
