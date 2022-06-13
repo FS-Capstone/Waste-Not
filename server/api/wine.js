@@ -30,8 +30,49 @@ router.get('/recommendedBrands', async (req, res, next) => {
 });
 
 
-// wine type => dish recommendation
+// wine type => dish recommendation (returns text description of wine and foods)
 
+router.get('/dishPairing', async (req, res, next) => {
+    try {
+        const options = {
+            method: 'GET',
+            url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/dishes',
+            params: {
+                wine: req.body.wine
+            },
+            headers: {
+              'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+              'X-RapidAPI-Key': 'API_KEY_HERE'
+            }
+          };
+          const dishes = (await axios.request(options)).data;
+          res.send(dishes)
+    }
+    catch(ex) {
+        next(ex)
+    }
+});
 
 // dish/cousine => wine recommendation (wine pairing)
 
+router.get('/winePairing', async (req, res, next) => {
+    try {
+        const options = {
+            method: 'GET',
+            url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/pairing',
+            params: {
+                food: req.body.food, 
+                maxPrice: req.body.maxPrice
+            },
+            headers: {
+              'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+              'X-RapidAPI-Key': 'API_KEY_HERE'
+            }
+          };
+          const wines = (await axios.request(options)).data;
+          res.send(wines)
+    }
+    catch(ex) {
+        next(ex)
+    }
+});
