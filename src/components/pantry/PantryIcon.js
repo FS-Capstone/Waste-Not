@@ -11,8 +11,8 @@ export default function PantryIcon({ingredient}){
   const selectedPantry = useSelector(state => state.selectedPantry);
   
   return(
-    <Box >
-      <Avatar sx={{height:'60px', width:'60px', boxShadow:'5px 5px 5px black'}}>
+    <Box sx={{display:'inline'}}>
+      <Avatar sx={{height:'60px', width:'60px', boxShadow:'5px 5px 5px black', display:'flex'}}>
         <img 
           src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} 
           alt='' 
