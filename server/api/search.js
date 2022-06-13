@@ -2,7 +2,7 @@ const router = require("express").Router();
 const axios = require("axios");
 require("dotenv").config();
 module.exports = router;
-
+console.log(process.env.API_KEY);
 router.get("/byIngredients", async (req, res, next) => {
   try {
     const options = {

@@ -2,6 +2,11 @@ body{
   margin: 0;
 }
 
+.shelf{
+  background-image: url('/Capstone_Pantry_Lighter.png');
+  background-size: 400px 150px;
+}
+
 /* a:hover{
   text-decoration: none;
 } */
