@@ -16,7 +16,6 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
       localPantry.push(newPantryItem)
     }
     dispatch(addPantryItem(newPantryItem.id, selectedPantry.id))
-    console.log(selectedPantry)
   }
   
   return(

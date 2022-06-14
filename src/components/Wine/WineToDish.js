@@ -124,7 +124,6 @@ const [isSelected, setIsSelected] = useState(false)
 
 const handleChange = (event, newValue) => {
     //     //e.preventDefault();
-         console.log(newValue)
          setValue(newValue)   
     }
 

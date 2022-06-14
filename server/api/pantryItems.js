@@ -25,7 +25,7 @@ router.get('/:pantryId', isLoggedIn, async(req, res, next)=> {
 router.post('/:pantryId', isLoggedIn, async(req, res, next)=> {
   try{
     const pantry = await Pantry.findByPk(req.params.pantryId);
-    const ingredient = await Ingredient.findByPk(req.body.ingredient)
+    const ingredient = await Ingredient.findByPk(req.body.itemId)
     await pantry.addIngredient(ingredient);
     res.sendStatus(201)
   }
