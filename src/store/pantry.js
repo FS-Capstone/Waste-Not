@@ -37,6 +37,7 @@ export const addPantryItem = (itemId, pantryId) => {
   return async(dispatch, getState)=>{
     //logged in route
     if(getState().auth.id){
+      
       const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
       await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth);
       dispatch(getPantries());

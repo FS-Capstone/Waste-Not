@@ -36,7 +36,7 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
 
   
   return(
-    <div>
+    <div style={{width:'400px'}}>
       <Snackbar
         anchorOrigin={{vertical: 'top', horizontal: 'center'}}
         open={open}
