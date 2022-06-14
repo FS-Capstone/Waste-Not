@@ -69,6 +69,7 @@ const GRAINS = 'Grains';
 const MISC = 'Miscellaneous';
 const DRINK = 'Drink';
 
+//map all of the categories to the more broad categories
 const mapCategoriesToBroadCategories = {
   'added sugar': COOKING,
   'appetizer': COOKING,
@@ -175,7 +176,8 @@ const mapCategoriesToBroadCategories = {
   'yogurt': DAIRY
 }
 
-
+//after every ingredient is created, check the category, then update
+//the broadCategory based on the map object above
 Ingredient.afterCreate( async (ingredient, options) => {
   const category = ingredient.categoryPath[ingredient.categoryPath.length - 1];
   const broadCategory = mapCategoriesToBroadCategories[category];
