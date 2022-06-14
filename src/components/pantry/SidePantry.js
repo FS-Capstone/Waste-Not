@@ -12,10 +12,6 @@ export default function SidePantry() {
   const pantry = useSelector(state => state.selectedPantry);
   const ingredientsInPantry = pantry?.ingredients;
 
-  // useEffect(()=>{
-  //   console.log('side pantry rendered')
-  // }, [pantry])
-
   if(!ingredientsInPantry)
     return null;
 

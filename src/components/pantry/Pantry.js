@@ -37,15 +37,13 @@ export default function Pantry(){
   return(
 
     <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-      <PantryAutocomplete selectedPantry={pantry} searchOptions={ingredientList} searchName='Add to Pantry'/>
+      <PantryAutocomplete selectedPantry={pantry} searchOptions={ingredientList} searchName='Add to Pantry' className="pantry-autocomplete"/>
       {Object.keys(categoriesWithIngredients).map(category => {
         return <Stack className='shelf' key={category} direction='row' sx={{flexWrap:'wrap', width:'400px', border: 'solid 1px black'}}>
           <Typography variant='h5' sx={{flexBasis: '100%'}}>{category}</Typography>
           <Carousel itemsToShow={4}>
             {categoriesWithIngredients[category].map(ingredient =>{
               return <PantryIcon ingredient={ingredient} key={ingredient.id}/>
-
-              
             })}
           </Carousel>
         </Stack>

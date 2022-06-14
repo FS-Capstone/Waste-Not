@@ -11,19 +11,18 @@ export default function PantryIcon({ingredient}){
   const selectedPantry = useSelector(state => state.selectedPantry);
   
   return(
-    <Box sx={{display:'inline'}}  className='pantry-icon'>
-      <Avatar className="ingredient-icon" sx={{height:'60px', width:'60px', boxShadow:'5px 5px 5px black', display:'flex'}}>
-        <div className="ingredient-icon-wrapper">
+    <Box  className='pantry-icon' sx={{maxHeight:'75px', width:'auto', position:'relative', marginLeft:'10px', marginRight:'10px'}}>
+      {/* <div className="ingredient-icon" style={{justifySelf:'center', alignSelf:'center'}}> */}
+        {/* <div className="ingredient-icon-wrapper" style={{borderRadius:'50%'}}> */}
           <img 
             src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} 
             alt='' 
-            style={{maxHeight:'75px', maxWidth:'75px', width:'auto', height:'auto'}}
+            style={{maxHeight:'75px', maxWidth:'75px', width:'auto', height:'auto', paddingLeft:'5px', paddingRight:'5px', borderRadius:'50%'}}
           />
-          <p className="ingredient-description">{ingredient.name}</p>
-        </div>
-      </Avatar>
+        {/* </div> */}
+      {/* </div> */}
       <IconButton 
-        sx={{position:'relative', left:'35px', top:'-70px'}}
+        sx={{position:'absolute', right:'-2px', top:'-3px', padding:0}}
         size='small'
         color="secondary"
         onClick={() => dispatch(deletePantryItem(ingredient.id, selectedPantry.id))}

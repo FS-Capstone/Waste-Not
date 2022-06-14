@@ -16,7 +16,6 @@ const [inputValue, setInputValue] = useState("")
 //const [isSelected, setIsSelected] = useState(false)
 
 const handleChange = (e, inputValue ) => {
-    console.log(inputValue);
     setInputValue(inputValue);
 }
 
