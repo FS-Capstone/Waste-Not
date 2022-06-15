@@ -23,13 +23,11 @@ const ClientRoutes = () => {
   useEffect(() => {
     dispatch(me());
     dispatch(loadIngredients());
-    console.log('ME and loadIngredients')
   }, []);
 
   //update pantries every time auth changes
   useEffect(() => {
     dispatch(getPantries());
-    console.log('AUTH')
   }, [auth]);
 
   return (

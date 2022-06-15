@@ -37,11 +37,11 @@ async function seed() {
  
 
   // Creating Ingredients
-  await Ingredient.bulkCreate(ingredientData).then(console.log(`******** ${ingredientData.length} ingredients seeded ********`));
+  await Ingredient.bulkCreate(ingredientData, {individualHooks: true}).then(console.log(`******** ${ingredientData.length} ingredients seeded ********`));
   const ingredients = await Ingredient.findAll();
 
   //Seeding random ingredients into the pantries
-  const NUMBER_OF_INGREDIENTS = 10;
+  const NUMBER_OF_INGREDIENTS = 50;
   for(let i = 0; i < pantries.length; i++){
     for(let j = 0; j < NUMBER_OF_INGREDIENTS; j++){
       await pantries[i].addIngredient(ingredients[Math.floor(Math.random() * ingredients.length)]);

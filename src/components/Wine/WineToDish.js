@@ -125,8 +125,8 @@ const [dishes, setDishes] = useState([]);
 const [text, setText] = useState("");
 
 const handleChange = (e, newWine) => {
-         setWine(newWine)   
-    }
+       setWine(newWine)   
+ }
 
 const handleOnClick = async (req, res, next) => {
 

@@ -4,17 +4,19 @@ const FETCH_RECIPES = "FETCH_RECIPES";
 
 const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
 
-export const fetchRecipes = (ingredients) => {
+export const fetchRecipes = (ingredients, number, ranking) => {
   return async (dispatch) => {
-    const ingredientString = ingredients.map(ingredient => ingredient.name).join(',');
+    const ingredientString = ingredients
+      .map((ingredient) => ingredient.name)
+      .join(",");
     const recipes = (
-      await axios.get('/api/search/byIngredients', {
-        params:{
+      await axios.get("/api/search/byIngredients", {
+        params: {
           ingredients: ingredientString,
-          number: '12',
+          number: number,
           ignorePantry: true,
-          ranking: '1'
-        }
+          ranking: ranking,
+        },
       })
     ).data;
     dispatch(_fetchRecipes(recipes));
