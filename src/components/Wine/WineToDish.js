@@ -125,7 +125,6 @@ const [dishes, setDishes] = useState([]);
 const [text, setText] = useState("");
 
 const handleChange = (e, newWine) => {
-         console.log(newWine)
          setWine(newWine)   
     }
 
@@ -158,7 +157,7 @@ const handleOnClick = async (req, res, next) => {
             /> 
             <Button variant="contained" size="small" onClick={handleOnClick}>Show Dishes</Button>
             </Box>
-            { dishes.length ? <DishResults dishes={dishes} text={text} wine={wine} /> : "No Results" }
+            { dishes ? <DishResults dishes={dishes} text={text} wine={wine} /> : "No Dish Pairings Found" }
             <div>
                 <Link to='/wine'> <button>Back</button> </Link>
             </div>

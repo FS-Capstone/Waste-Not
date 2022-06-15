@@ -173,7 +173,7 @@ const handleOnClick = async (req, res, next) => {
                 />
                 <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { brands.length ? <BrandResults brands={brands} wine={wine} /> : null }
+                { brands.length ? <BrandResults brands={brands} wine={wine} /> : "" }
                 <div>
                     <Link to='/wine'> Back </Link>
                 </div>
