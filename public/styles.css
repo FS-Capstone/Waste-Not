@@ -7,12 +7,6 @@ body{
   background-size: 400px 150px;
 }
 
-/* .ingredient-icon-wrapper{
-
-} */
-
-
-
 .pantry-icon:hover .ingredient-icon-name{
   visibility: visible;
   opacity: 1;
@@ -21,7 +15,3 @@ body{
 .rec-swipable{
   align-items: center;
 }
-
-/* a:hover{
-  text-decoration: none;
-} */
