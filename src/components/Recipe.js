@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Box, Typography, Stack } from "@mui/material";
+import { Box, Typography, Stack, CardMedia, Card } from "@mui/material";
 
 const Recipe = () => {
   const [recipeSteps, setRecipeSteps] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [tools, setTools] = useState([]);
+  const [nutritionLabel, setNutritionLabel] = useState("");
 
   const { id } = useParams();
 
@@ -44,10 +45,24 @@ const Recipe = () => {
         );
       }
     }
+    async function getRecipeLabelInfo(recipeId) {
+      try {
+        const recipe = await axios.get(
+          `/api/search/nutritionLabelById/${recipeId}`
+        );
+        setNutritionLabel(recipe.data);
+      } catch (err) {
+        console.log(
+          "There was an error retrieving the recipe information --->",
+          err
+        );
+      }
+    }
 
     getRecipeInfo(id);
     getRecipeSteps(id);
     getEquipment(id);
+    getRecipeLabelInfo(id);
   }, [id]);
 
   const { nutrients } = recipeInfo.nutrition ? recipeInfo.nutrition : [];
@@ -93,19 +108,15 @@ const Recipe = () => {
           margin: "1rem",
         }}
       >
-        <Typography variant="h5">NUTRITION INFORMATION: </Typography>
-
-        {!nutrients
-          ? null
-          : nutrients.map((nutrient, index) => {
-              return (
-                <div key={index}>
-                  {nutrient.name} : {nutrient.amount} {nutrient.unit}
-                </div>
-              );
-            })}
+        {!nutritionLabel ? (
+          <Typography variant="h5">NUTRITION FACTS: </Typography>
+        ) : (
+          <img
+            src={`data:image/jpeg;base64,${nutritionLabel}`}
+            alt="NUTRITION LABEL"
+          />
+        )}
       </Box>
-
       <Box
         sx={{
           display: "flex",
