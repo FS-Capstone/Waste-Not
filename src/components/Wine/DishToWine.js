@@ -1,41 +1,56 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
-//import Autocomplete from '@mui/material/Autocomplete';
 import { InputAdornment } from '@mui/material';
-//import WineResults from './WineResults';
+import WineResults from './WineResults';
 
-
- // (not finished, need to fix the button functionality) 
 
 const DishToWine = () => {
 
-const [inputValue, setInputValue] = useState("")
-//const [isSelected, setIsSelected] = useState(false)
+const [food, setFood] = useState("");
+const [wines, setWines] = useState([])
+const [text, setText] = useState("")
 
-const handleChange = (e, inputValue ) => {
-    setInputValue(inputValue);
+const handleInputChange = (e) => {
+    console.log(e.target.value);
+    setFood(e.target.value)
+}
+
+const handleOnClick = async (req, res, next) => {
+    const wines = (await axios.get('/api/wine/winePairing', {
+        params: {
+            food: food,
+            maxPrice: '50'
+        }
+    })).data;
+    console.log(wines)
+    console.log(wines.pairedWines)
+    setWines(wines.pairedWines)
+    setText(wines.pairingText)
 }
 
     return (
         <div>
             <div className='wine'>
-            <h2> Input Dish for Wine Recommendation </h2>
+            <h2> Enter A Dish for Wine Pairings </h2>
             <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
             <TextField 
-                    id="outlined-basic" 
-                    variant="outlined" 
-                    sx={{ m: 1, width: '50ch' }}
-                    onChange={(e, inputValue) => handleChange(e, inputValue)}
-                    inputvalue={inputValue}
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start"> Dish / Cuisine </InputAdornment>,
-                    }}
+                id="outlined-basic" 
+                label="Ingredient/Dish/Cuisine"
+                variant="outlined" 
+                sx={{ m: 1, width: '50ch' }}
+                food={food}
+                onChange={(e) => handleInputChange(e)}
+                // InputProps={{
+                //     startAdornment: <InputAdornment position="start"> Ingredient/Dish/Cuisine </InputAdornment>,
+                // }}
             /> 
-            <Button variant="contained" size="small" >Show Wines</Button>
+            <Button variant="contained" size="small" onClick={handleOnClick}> Show Wines </Button>
             </Box>
+            { wines.length ? <WineResults wines={wines} food={food} text={text} /> : "No Wine Pairings Found"}
             <div>
                 <Link to='/wine'> <button>Back</button> </Link>
             </div>
@@ -44,7 +59,5 @@ const handleChange = (e, inputValue ) => {
     )
 }
 
-// { isSelected === true ? <WineResults inputValue={inputValue} /> : null }
-// onClick={ () => inputValue === null ? "" : setIsSelected(true) }
 
 export default DishToWine;

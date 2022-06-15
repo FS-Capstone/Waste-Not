@@ -121,19 +121,24 @@ import BrandResults from './BrandResults';
 
 const WineToBrand = () => {
 
-const [wine, setWine] = useState("") // need to fix the initial state?
+const [wine, setWine] = useState(""); 
+const [maxPrice , setMaxPrice] = useState(0);
 const [brands, setBrands] = useState([]);
-//const [maxprice , setMaxprice] = useState(0) // add these for typed input values
+ 
 
  const handleChange = (e, newWine) => {
      setWine(newWine);
+}
+
+const handleInputChange = (e) => {
+    setMaxPrice(e.target.value)
 }
 
 const handleOnClick = async (req, res, next) => {
     const brands = (await axios.get('/api/wine/recommendedBrands', {
         params: {
             wine: wine,
-            maxPrice: '50',
+            maxPrice: maxPrice,
             minRating: '0.8',
             number: '10'
         }
@@ -160,14 +165,15 @@ const handleOnClick = async (req, res, next) => {
                     label="Maximum Price" 
                     variant="outlined" 
                     sx={{ m: 1, width: '50ch' }}
-                    //maxprice={maxprice}
+                    maxprice={maxPrice}
+                    onChange={(e) => handleInputChange(e)} 
                     InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
                 />
                 <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { brands.length ? <BrandResults brands={brands} wine={wine} /> : null }
+                { brands.length ? <BrandResults brands={brands} wine={wine} /> : "" }
                 <div>
                     <Link to='/wine'> Back </Link>
                 </div>
