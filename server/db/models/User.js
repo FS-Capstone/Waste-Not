@@ -102,6 +102,14 @@ const hashPassword = async(user) => {
   }
 }
 
+//every user should have a pantry created to start out with
+User.afterCreate(async (user, options) => {
+  const pantry = await db.models.pantry.create({name:'Main', userId: user.id});
+  user.currentlySelectedPantryId = pantry.id;
+  await user.save();
+})
+
 User.beforeCreate(hashPassword)
-User.beforeUpdate(hashPassword)
+// Might have to add this back in if we allow user to change password
+// User.beforeUpdate(hashPassword)
 User.beforeBulkCreate(users => Promise.all(users.map(hashPassword)))
