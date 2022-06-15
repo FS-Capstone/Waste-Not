@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from "react-redux";
 import { deletePantryItem } from "../../store";
+import Typography from '@mui/material/Typography';
 
 export const PantryItem = ({ingredient}) => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export const PantryItem = ({ingredient}) => {
 
   return(
     <ListItem sx={{display: "flex", justifyContent:"space-between"}}>
-      {ingredient.name}
+      <Typography variant="body1" sx={{paddingLeft:'25px'}}>{ingredient.name}</Typography>
       <IconButton color="secondary" onClick={() => handleDelete(ingredient.id)} >
         <DeleteIcon />
       </IconButton>

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Box, List, ListItem, ListItemButton } from "@mui/material";
+import { Box, List, ListItemButton } from "@mui/material";
 import { PantryItem } from "./PantryItem";
 import Divider from '@mui/material/Divider';
 import PantryAutocomplete from "../PantryAutocomplete";
 import { ingredientList } from "../../../script/seedData";
 import Collapse from '@mui/material/Collapse';
+import Typography from '@mui/material/Typography';
 
-
+//returns an object with all categories as keys, and a list of all ingredients in that category as the value
 const getAllCategories = (ingredients) => {
   const mapCategoriesToIngredients = {};
 
@@ -27,59 +28,47 @@ export default function SidePantry() {
   const pantry = useSelector(state => state.selectedPantry);
   const ingredientsInPantry = pantry?.ingredients;
   const [openedCategories, setOpenedCategories] = useState({});
-
-
-  useEffect(() => {
-    if(!ingredientsInPantry)
-      return null;
-    const categoriesWithIngredients = getAllCategories(ingredientsInPantry);
-    const categories = Object.keys(categoriesWithIngredients);
-    for(let category of categories){
-      setOpenedCategories({...openedCategories, [category]:false});
-    }
-  }, [])
-
-
   if(!ingredientsInPantry)
     return null;
+  const categoriesWithIngredients = getAllCategories(ingredientsInPantry);
+  const categories = Object.keys(categoriesWithIngredients).sort((a,b) => a.localeCompare(b));
 
 
+  const toggleCategory = (category) => {
+    if(openedCategories[category]){
+      setOpenedCategories({...openedCategories, [category]: !openedCategories[category]})
+    }
+    else{
+      setOpenedCategories({...openedCategories, [category]: true})
+    }
+  }
 
-
-
-  console.log(openedCategories);
   return(
     <Box>
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
-
       <Divider/>
 
-      {Object.keys(categoriesWithIngredients).map(category => {
+      {categories.map(category => {
         return (
-          <ListItemButton key={category}>
-            {category}
-          </ListItemButton>
-          // <Collapse>
-            // <List>
-            //   <div>{category}</div>
-            // </List>
-          // </Collapse>
-
-          // <Collapse key={category}>
-          //   <List>
-
-          //   </List>
-          // </Collapse>
+          <List key={category}>
+            {/*buttons for all categories */}
+            <ListItemButton onClick={() => toggleCategory(category)}>
+              <Typography variant="h6">{category}{`(${categoriesWithIngredients[category].length})`}</Typography>
+            </ListItemButton>
+            <Collapse in={openedCategories[category]} timeout='auto' unmountOnExit>
+              {/* Filter out categories matching current category, then display them */}
+              <List>
+                {ingredientsInPantry.filter(ingredient => ingredient.broadCategory === category).map(ingredient => {
+                    return <PantryItem ingredient={ingredient} key={ingredient.id}/>
+                  })
+                }
+              </List>
+            </Collapse>
+          </List>
         )
       })}
 
-      {/* <List>
-        {
-          ingredientsInPantry.map(ingredient => {
-            return <PantryItem ingredient={ingredient} key={ingredient.id}/>
-          })
-        }
-      </List> */}
+
     </Box>
 
 
