@@ -8,7 +8,7 @@ import PantryAutocomplete from '../PantryAutocomplete';
 import { ingredientList } from "../../../script/seedData";
 import Carousel from "react-elastic-carousel";
 
-
+//returns an object with all categories as keys, and a list of all ingredients in that category as the value
 const getAllCategories = (ingredients) => {
   const mapCategoriesToIngredients = {};
 
@@ -33,12 +33,12 @@ export default function Pantry(){
     return null;
 
   const categoriesWithIngredients = getAllCategories(pantry.ingredients);
-
+  const categories = Object.keys(categoriesWithIngredients).sort((a,b) => a.localeCompare(b));
+  
   return(
-
     <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
       <PantryAutocomplete selectedPantry={pantry} searchOptions={ingredientList} searchName='Add to Pantry' className="pantry-autocomplete"/>
-      {Object.keys(categoriesWithIngredients).map(category => {
+      {categories.map(category => {
         return <Stack className='shelf' key={category} direction='row' sx={{flexWrap:'wrap', width:'400px', border: 'solid 1px black'}}>
           <Typography variant='h5' sx={{flexBasis: '100%'}}>{category}</Typography>
           <Carousel itemsToShow={4}>
