@@ -7,28 +7,7 @@ body{
   background-size: 400px 150px;
 }
 
-/* .ingredient-icon-wrapper{
-
-} */
-
-.ingredient-description{
-  text-align: center;
-  font-size: 12px;
-  position: static;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgb(189, 189, 189);
-  color: #fff;
-  visibility: hidden;
-  opacity: 0;
-  /* width: 75px; */
-  /* transition effect. not necessary */
-  transition: opacity .2s, visibility .2s;
-}
-
-.ingredient-icon-wrapper:hover .ingredient-description{
+.pantry-icon:hover .ingredient-icon-name{
   visibility: visible;
   opacity: 1;
 }
@@ -36,7 +15,3 @@ body{
 .rec-swipable{
   align-items: center;
 }
-
-/* a:hover{
-  text-decoration: none;
-} */
