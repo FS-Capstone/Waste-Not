@@ -1,25 +1,35 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
-//import Autocomplete from '@mui/material/Autocomplete';
 import { InputAdornment } from '@mui/material';
 import WineResults from './WineResults';
 
 
 const DishToWine = () => {
 
-const [inputValue, setInputValue] = useState("")
+const [food, setFood] = useState("");
+const [wines, setWines] = useState([])
+const [text, setText] = useState("")
 
-const handleChange = (e, inputValue) => {
-    console.log(inputValue);
-    setInputValue(inputValue);
+const handleInputChange = (e) => {
+    console.log(e.target.value);
+    setFood(e.target.value)
 }
 
 const handleOnClick = async (req, res, next) => {
-    console.log("In the on click!")
-    console.log(inputValue)
+    const wines = (await axios.get('/api/wine/winePairing', {
+        params: {
+            food: food,
+            maxPrice: '50'
+        }
+    })).data;
+    console.log(wines)
+    console.log(wines.pairedWines)
+    setWines(wines.pairedWines)
+    setText(wines.pairingText)
 }
 
     return (
@@ -29,17 +39,18 @@ const handleOnClick = async (req, res, next) => {
             <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
             <TextField 
                 id="outlined-basic" 
+                label="Ingredient/Dish/Cuisine"
                 variant="outlined" 
                 sx={{ m: 1, width: '50ch' }}
-                onChange={(e, newInputValue) => handleChange(e, newInputValue)}
-                inputvalue={inputValue}
-                InputProps={{
-                    startAdornment: <InputAdornment position="start"> Ingredient/Dish/Cuisine </InputAdornment>,
-                }}
+                food={food}
+                onChange={(e) => handleInputChange(e)}
+                // InputProps={{
+                //     startAdornment: <InputAdornment position="start"> Ingredient/Dish/Cuisine </InputAdornment>,
+                // }}
             /> 
             <Button variant="contained" size="small" onClick={handleOnClick}> Show Wines </Button>
             </Box>
-
+            { wines.length ? <WineResults wines={wines} food={food} text={text} /> : "No Results"}
             <div>
                 <Link to='/wine'> <button>Back</button> </Link>
             </div>

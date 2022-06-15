@@ -130,20 +130,16 @@ const handleChange = (e, newWine) => {
     }
 
 const handleOnClick = async (req, res, next) => {
-  //  try {
+
         const dishes = (await axios.get('/api/wine/dishPairing', {
             params: {
                 wine: wine
             }
         })).data;
         console.log(dishes)
-        console.log(dishes.message)
+        console.log(dishes.message) // error handling needed if no results
         setDishes(dishes.pairings)
         setText(dishes.text) 
-    // }
-    // catch(ex){
-    //     next(ex)
-    // }
 }
 
     return (
