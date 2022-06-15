@@ -11,20 +11,29 @@ export default function PantryIcon({ingredient}){
   const selectedPantry = useSelector(state => state.selectedPantry);
   
   return(
-    <Box  className='pantry-icon' sx={{maxHeight:'75px', width:'auto', position:'relative', marginLeft:'10px', marginRight:'10px'}}>
-      <img 
-        src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} 
-        alt='' 
-        style={{maxHeight:'75px', maxWidth:'75px', width:'auto', height:'auto', paddingLeft:'5px', paddingRight:'5px', borderRadius:'50%'}}
-      />
+    <Box  className='pantry-icon' sx={{height:'100%', width:'auto', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
       <IconButton 
-        sx={{position:'absolute', right:'-2px', top:'-3px', padding:0}}
+        sx={{padding:0, alignSelf:'flex-end'}}
         size='small'
         color="secondary"
         onClick={() => dispatch(deletePantryItem(ingredient.id, selectedPantry.id))}
       >
         <DeleteIcon/>
       </IconButton>
+      <img 
+        src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`} 
+        alt='' 
+        className="ingredient-icon-image"
+        style={{maxHeight:'75px', maxWidth:'75px', width:'auto', height:'auto', paddingLeft:'5px', paddingRight:'5px', borderRadius:'50%'}}
+      />
+      <Typography 
+        variant="body2"
+        sx={{ backgroundColor:'lightgrey', textAlign:'center', visibility:'hidden'}}
+        className='ingredient-icon-name'
+      >
+        {ingredient.name}
+      </Typography>
+
     </Box>
   )
 }
