@@ -130,17 +130,20 @@ const handleChange = (e, newWine) => {
     }
 
 const handleOnClick = async (req, res, next) => {
-    console.log("am I in here?")
-    const dishes = (await axios.get('/api/wine/dishPairing', {
-        params: {
-            wine: wine
-        }
-    })).data;
-    //console.log(dishes)
-    //console.log(dishes.pairings)
-    //console.log(dishes.text)
-    setDishes(dishes.pairings)
-    setText(dishes.text)
+  //  try {
+        const dishes = (await axios.get('/api/wine/dishPairing', {
+            params: {
+                wine: wine
+            }
+        })).data;
+        console.log(dishes)
+        console.log(dishes.message)
+        setDishes(dishes.pairings)
+        setText(dishes.text) 
+    // }
+    // catch(ex){
+    //     next(ex)
+    // }
 }
 
     return (

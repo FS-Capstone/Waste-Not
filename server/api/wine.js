@@ -18,7 +18,7 @@ router.get('/recommendedBrands', async (req, res, next) => {
             },
             headers: {
               'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-              'X-RapidAPI-Key': 'API_KEY_HERE'
+              'X-RapidAPI-Key': process.env.API_KEY
             }
           };
           const brands = (await axios.request(options)).data;
@@ -42,7 +42,7 @@ router.get('/dishPairing', async (req, res, next) => {
             },
             headers: {
               'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-              'X-RapidAPI-Key': 'API_KEY_HERE'
+              'X-RapidAPI-Key': process.env.API_KEY
             }
           };
           const dishes = (await axios.request(options)).data;
@@ -66,7 +66,7 @@ router.get('/winePairing', async (req, res, next) => {
             },
             headers: {
               'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-              'X-RapidAPI-Key': 'API_KEY_HERE'
+              'X-RapidAPI-Key': process.env.API_KEY
             }
           };
           const wines = (await axios.request(options)).data;

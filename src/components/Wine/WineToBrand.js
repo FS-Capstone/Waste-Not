@@ -123,7 +123,7 @@ const WineToBrand = () => {
 
 const [wine, setWine] = useState(""); // need to fix the initial state?
 const [brands, setBrands] = useState([]);
-//const [maxprice , setMaxprice] = useState(0) // add these for typed input values
+const [maxprice , setMaxprice] = useState(0) // add these for typed input values
 
  const handleChange = (e, newWine) => {
      setWine(newWine);
@@ -160,7 +160,7 @@ const handleOnClick = async (req, res, next) => {
                     label="Maximum Price" 
                     variant="outlined" 
                     sx={{ m: 1, width: '50ch' }}
-                    //maxprice={maxprice}
+                    maxprice={maxprice}
                     InputProps={{
                         startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
