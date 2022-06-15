@@ -82,3 +82,28 @@ router.get("/equipmentById/:id/", async (req, res, next) => {
     next(ex);
   }
 });
+
+router.get("/nutritionLabelById/:id/", async (req, res, next) => {
+  try {
+    const options = {
+      method: "GET",
+      url: `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.params.id}/nutritionLabel.png`,
+      params: {
+        showOptionalNutrients: "false",
+        showZeroValues: "false",
+        showIngredients: "true",
+      },
+      headers: {
+        "X-RapidAPI-Key": process.env.API_KEY,
+        "X-RapidAPI-Host":
+          "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+      },
+      responseType: "arraybuffer",
+    };
+
+    const recipe = (await axios.request(options)).data;
+    res.send(Buffer.from(recipe, "binary").toString("base64"));
+  } catch (ex) {
+    next(ex);
+  }
+});
