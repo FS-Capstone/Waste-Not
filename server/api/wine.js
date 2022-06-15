@@ -11,10 +11,10 @@ router.get('/recommendedBrands', async (req, res, next) => {
             method: 'GET',
             url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/wine/recommendation',
             params: {
-                wine: req.query.wine, // `${value}`
+                wine: req.query.wine,
                 maxPrice: req.query.maxPrice, 
                 minRating: req.query.minRating, 
-                number: req.query.number // maybe set a default number? 
+                number: req.query.number
             },
             headers: {
               'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
