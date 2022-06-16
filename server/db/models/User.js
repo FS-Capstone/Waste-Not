@@ -61,7 +61,22 @@ User.prototype.getPantries = async function(){
   )
 }
 
+User.prototype.removePantryById = async function(pantryId){
+  let pantries = await db.models.pantry.findAll({where:{userId: this.id}})
+  if(pantries.length === 1){
+    const error = Error('Cannot delete the last pantry');
+    error.status = 409;
+    throw error;
+  }
 
+  await pantries.find(pantry => pantry.id === pantryId * 1).destroy();
+  pantries = await db.models.pantry.findAll({where:{userId: this.id}})
+  //handle case where we are deleting the current pantry
+  if(pantryId * 1 === this.currentlySelectedPantryId){
+    this.currentlySelectedPantryId = pantries[0].id;
+    await this.save();
+  }
+}
 /**
  * classMethods
  */
@@ -102,6 +117,14 @@ const hashPassword = async(user) => {
   }
 }
 
+//every user should have a pantry created to start out with
+User.afterCreate(async (user, options) => {
+  const pantry = await db.models.pantry.create({name:'Main', userId: user.id});
+  user.currentlySelectedPantryId = pantry.id;
+  await user.save();
+})
+
 User.beforeCreate(hashPassword)
-User.beforeUpdate(hashPassword)
+// Might have to add this back in if we allow user to change password
+// User.beforeUpdate(hashPassword)
 User.beforeBulkCreate(users => Promise.all(users.map(hashPassword)))

@@ -4,8 +4,8 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    console.log(req.body);
-    res.send({ token: await User.authenticate(req.body)}); 
+    const user = {username: req.body.username, password: req.body.password}
+    res.send({ token: await User.authenticate(user)}); 
   } catch (err) {
     next(err)
   }

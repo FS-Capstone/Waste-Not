@@ -19,18 +19,14 @@ async function seed() {
     User.create({ username: 'admin', password: '123', email: 'admin@gmail.com', isAdmin: true, favorites: [] }),
   ])
 
-  // Creating Pantry
+  // Creating extra pantries
   const pantries = [];
   users.forEach(async (user) => {
+    pantries.push(await Pantry.findByPk(user.currentlySelectedPantryId));
     if (user.isAdmin === false){
       for(let i = 1; i < 4; i++){
         pantries.push(await Pantry.create({ name: `Extra Pantry ${i}`, userId: user.id}));
       }
-      //This is the pantry that will be the user's selected pantry.
-      const mainPantry = await Pantry.create({ name: "Main", userId: user.id })
-      pantries.push(mainPantry) 
-      user.currentlySelectedPantryId = mainPantry.id
-      await user.save();
     }
   })
 
