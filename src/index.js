@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme';
+import '@fontsource/kalam/300.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

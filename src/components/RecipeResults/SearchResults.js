@@ -12,6 +12,7 @@ import {
 import { addMultiplePantryItems, fetchRecipes } from "../../store";
 import { ingredientList } from "../../../script/seedData";
 import RecipeCard from "./RecipeCard";
+import ShoppingList from "../account/ShoppingList";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
@@ -115,6 +116,7 @@ const SearchResults = () => {
 
   return (
     <div>
+      <ShoppingList />
       <Box
         sx={{
           margin: "1rem auto 1rem auto",

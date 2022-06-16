@@ -18,7 +18,26 @@ module.exports = {
             '@babel/preset-react'
           ]
         }
-      }
+      },
+      {
+        test: /\.(png|svg|jpe?g|gif)$/,
+        include: /images/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+              publicPath: 'images/'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(css|scss)$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ]
   }
 }
