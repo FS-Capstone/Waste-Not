@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, IconButton, Typography } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
-import CheckIcon from '@mui/icons-material/Check';
-import TextField from '@mui/material/TextField';
-import { editPantryName } from "../../store/pantry";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Typography } from "@mui/material";
 import SinglePantryEdit from "./SinglePantryEdit";
 import AddPantry from "./AddPantry";
 
