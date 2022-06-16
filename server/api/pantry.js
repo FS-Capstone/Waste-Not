@@ -77,7 +77,6 @@ router.delete('/:id', async(req, res, next) => {
     res.send(allPantries)
   }
   catch(error){
-    console.log(error);
     next(error);
   }
 })
