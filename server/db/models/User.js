@@ -61,7 +61,22 @@ User.prototype.getPantries = async function(){
   )
 }
 
+User.prototype.removePantryById = async function(pantryId){
+  let pantries = await db.models.pantry.findAll({where:{userId: this.id}})
+  if(pantries.length === 1){
+    const error = Error('Cannot delete the last pantry');
+    error.status = 409;
+    throw error;
+  }
 
+  await pantries.find(pantry => pantry.id === pantryId * 1).destroy();
+  pantries = await db.models.pantry.findAll({where:{userId: this.id}})
+  //handle case where we are deleting the current pantry
+  if(pantryId * 1 === this.currentlySelectedPantryId){
+    this.currentlySelectedPantryId = pantries[0].id;
+    await this.save();
+  }
+}
 /**
  * classMethods
  */

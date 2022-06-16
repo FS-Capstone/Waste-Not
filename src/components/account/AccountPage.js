@@ -1,8 +1,8 @@
 import React from "react";
-
+import PantryEditor from "./PantryEditor";
 const AccountPage = () => {
   return(
-    <h1>ACCOUNT PAGE</h1>
+    <PantryEditor/>
   )
 }
 
