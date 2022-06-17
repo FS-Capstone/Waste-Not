@@ -126,7 +126,6 @@ const SearchResults = () => {
 
   return (
     <div>
-      <ShoppingList />
       <Box
         sx={{
           margin: "1rem auto 1rem auto",

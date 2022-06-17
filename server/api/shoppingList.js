@@ -17,7 +17,7 @@ router.put('/add/:userId', async(req, res, next) => {
   try{
     const user = await User.findByPk(req.params.userId)
     const shoppingList = user.shoppingList
-    const newList = shoppingList.push(req.body.item)
+    const newList = shoppingList.concat(req.body.item)
     await user.update({shoppingList: newList})
     res.sendStatus(204)
   }

@@ -30,7 +30,7 @@ export const addShoppingItem = (item, userId) => {
 export const addMultipleShoppingItems = (itemArr, userId) => {
   return async(dispatch) => {
     const auth = {headers: {authorization: window.localStorage.getItem('token')}}
-    await axios.put(`/api/shoppingList/addMultiple/${userId}`, {itemArr}, auth)
+    await axios.put(`/api/shoppingList/add/${userId}`, {itemArr}, auth)
     dispatch(_addMultipleShoppingItems(itemArr))
   }
 }

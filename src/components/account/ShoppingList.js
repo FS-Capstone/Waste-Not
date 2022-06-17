@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Paper, Box, Button, Typography, IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {ingredientList} from '../../../script/seedData';
 import { deleteShoppingItem, addMultiplePantryItems, deleteMultipleShoppingItems } from '../../store';
+import PantryAutocomplete from '../PantryAutocomplete';
 
 // import kalamLight from '../../../public/fonts/Kalam-Light.ttf';
 
@@ -51,7 +53,10 @@ const ShoppingList = () => {
           }
         </Box>
       </Paper>
-      {!selected.length ? null : <Button onClick={(e)=>handleClick(e)}>Add Selected to Pantry</Button>}
+      {!selected.length ? null : <Button sx={{margin:'1rem'}} variant='outlined' onClick={(e)=>handleClick(e)}>Add Selected to Pantry</Button>}
+      <Box>
+      <PantryAutocomplete searchOptions={ingredientList} searchName='shoppingListSearch' selectedPantry={pantry} />
+      </Box>
     </Box>
 
   )
