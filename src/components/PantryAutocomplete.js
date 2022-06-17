@@ -2,7 +2,7 @@ import React, {useState, forwardRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {TextField, Snackbar, Autocomplete} from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-import {addPantryItem} from '../store';
+import {addPantryItem, addShoppingItem} from '../store';
 
 
 
@@ -60,6 +60,13 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
           const pantryItems = selectedPantry.ingredients.map(item => item.name)
           if(!newValue?.ingredient)
             return;
+          else if(searchName === 'shoppingListSearch'){
+            const ingredient = {id: newValue.id, name: newValue.ingredient}
+            dispatch(addShoppingItem(ingredient, user.id))
+            setSubmitMessage(`${ingredient.name} added to Shopping List`);
+            setSubmitState(true);
+            setOpen(true)
+          }
           // if(!user.id && !pantryItems.includes(newValue.ingredient)){
           //   localPantry.push(newValue);
           //   setSubmitMessage(`${newValue.name} added to ${selectedPantry.name}`);
@@ -83,7 +90,7 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         onInputChange={(e, newInputValue)=>{setInputValue(newInputValue)}}
         options={searchOptions}
         getOptionLabel={(option) => option.ingredient}
-        renderInput={(params)=> <TextField {...params} id='searchField' label='Add an item to your pantry'/> }
+        renderInput={(params)=> <TextField {...params} id='searchField' label={searchName === 'shoppingListSearch' ? 'Add to your shopping list' : 'Add an item to your pantry'}/> }
       />
     </div>
   )
