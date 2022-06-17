@@ -14,8 +14,8 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    allowNull: true //Password can be null for oauth.
+                    //We are checking for password in the signup server route.
   },
   email: {
     type: Sequelize.STRING,
