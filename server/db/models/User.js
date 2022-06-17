@@ -33,6 +33,10 @@ const User = db.define('user', {
   },
   currentlySelectedPantryId: {
     type: Sequelize.INTEGER
+  },
+  shoppingList: {
+    type: Sequelize.JSONB,
+    defaultValue: []
   }
 })
 

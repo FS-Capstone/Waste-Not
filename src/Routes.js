@@ -12,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Navbar from "./components/Navbar/Navbar";
 import SearchResults from "./components/RecipeResults/SearchResults";
-import { me, getPantries, loadIngredients } from "./store";
+import { me, getPantries, loadIngredients, loadShoppingList } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPage from "./components/account/AccountPage";
 
@@ -28,6 +28,7 @@ const ClientRoutes = () => {
   //update pantries every time auth changes
   useEffect(() => {
     dispatch(getPantries());
+    dispatch(loadShoppingList(auth.id))
   }, [auth]);
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -9,14 +10,16 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import { addMultiplePantryItems, fetchRecipes } from "../../store";
+import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems } from "../../store";
 import { ingredientList } from "../../../script/seedData";
 import RecipeCard from "./RecipeCard";
+import ShoppingList from "../account/ShoppingList";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
   const pantry = useSelector((state) => state.selectedPantry);
+  const user = useSelector(state=> state.auth)
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState(1);
   const numValues = [6, 12, 18, 24, 48, 96];
@@ -48,12 +51,11 @@ const SearchResults = () => {
 
   const [missingIngredientList, setMissingIngredientList] = useState([]);
 
-  const [selectedMissingIngredients, setSelectedMissingIngredients] = useState(
-    []
-  );
+  const [selectedMissingIngredients, setSelectedMissingIngredients] = useState([]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    const missingIngredientIds = selectedMissingIngredients.map(ingredient => ingredient.id)
     missingIngredientsRenamed = missingIngredients
       .map((ingredient) => {
         const trueIngredient = ingredientList.find(
@@ -65,30 +67,39 @@ const SearchResults = () => {
         return {};
       })
       .filter(
-        (ingredient) => !selectedMissingIngredients.includes(ingredient.id)
+        (ingredient) => !missingIngredientIds.includes(ingredient.id)
       );
     setSelectedMissingIngredients([]);
     setMissingIngredientList(missingIngredientsRenamed);
   }, [recipes, pantry]);
 
-  const handleClick = (e, ingredientId) => {
+  const handleClick = (e, ingredient) => {
     e.preventDefault();
-    selectedMissingIngredients.includes(ingredientId)
+    selectedMissingIngredients.includes(ingredient)
       ? setSelectedMissingIngredients(
           selectedMissingIngredients.filter(
-            (ingredient) => ingredient !== ingredientId
+            (_ingredient) => _ingredient.id !== ingredient.id
           )
         )
       : setSelectedMissingIngredients([
           ...selectedMissingIngredients,
-          ingredientId,
+          ingredient,
         ]);
   };
 
   const handleSave = (e) => {
     e.preventDefault();
-    dispatch(addMultiplePantryItems(selectedMissingIngredients, pantry.id));
+    console.log(selectedMissingIngredients)
+    const ingredientIds = selectedMissingIngredients.map(ingredient => ingredient.id)
+    console.log(ingredientIds, pantry.id)
+    dispatch(addMultiplePantryItems(ingredientIds, pantry.id));
   };
+
+  const addToList = e => {
+    e.preventDefault();
+    dispatch(addMultipleShoppingItems(selectedMissingIngredients, user.id))
+    setSelectedMissingIngredients([])
+  }
 
   const recipeSearch = async (e) => {
     e.preventDefault();
@@ -115,6 +126,7 @@ const SearchResults = () => {
 
   return (
     <div>
+      <ShoppingList />
       <Box
         sx={{
           margin: "1rem auto 1rem auto",
@@ -148,21 +160,27 @@ const SearchResults = () => {
                   <Chip
                     key={ingredient.id}
                     variant={
-                      selectedMissingIngredients.includes(ingredient.id)
+                      selectedMissingIngredients.includes(ingredient)
                         ? "filled"
                         : "outlined"
                     }
                     clickable
                     label={ingredient.name}
-                    onClick={(e) => handleClick(e, ingredient.id)}
+                    onClick={(e) => handleClick(e, ingredient)}
                     sx={{ margin: "3px" }}
                   />
                 ) : null
               )}
           {!selectedMissingIngredients.length ? null : (
-            <Button variant="contained" onClick={(e) => handleSave(e)}>
-              Add Selected Ingredients to Pantry
-            </Button>
+            <div>
+              <Button sx={{marginRight:'2rem'}} variant="contained" onClick={(e) => handleSave(e)}>
+                Add Selected Ingredients to Pantry
+              </Button>
+              <Button variant='outlined' onClick={(e) => addToList(e)}>
+                Add Selected Ingredients to Shopping List
+              </Button>
+            </div>
+
           )}
         </Box>
       </Box>
