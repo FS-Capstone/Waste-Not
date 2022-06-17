@@ -35,4 +35,5 @@ export * from "./recipes";
 export * from "./selectedPantry";
 export * from "./wines";
 export * from './recipeIngredients';
+export * from './shoppingList';
 
