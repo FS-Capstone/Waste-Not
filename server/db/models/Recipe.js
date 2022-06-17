@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Recipe = db.define('recipe', {
-    id: {
+    recipeId: {
         type: Sequelize.INTEGER, // does scott need recipe id property for faves?
     },
     title: {

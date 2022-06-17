@@ -19,7 +19,6 @@ Ingredient.belongsToMany(Pantry, {through: 'PantryItem'});
 User.hasMany(Recipe, { foreignKey: 'userId' });
 Recipe.belongsTo(User, { foreignKey: 'userId' });
 
-
 //removed because we are not keeping track of quantity
 // Pantry.hasMany(PantryItem, { foreignKey: 'pantryId' });
 // PantryItem.belongsTo(Pantry, { foreignKey: 'pantryId' });
