@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useTheme } from "@emotion/react";
 import EditIcon from '@mui/icons-material/Edit';
 import PasswordChange from "./PasswordChange";
+import UsernameEdit from './UsernameEdit';
 
 const AccountPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -20,10 +21,8 @@ const AccountPage = () => {
       <PasswordChange open={openDialog} handleClose={() => setOpenDialog(false)}/>
       <Paper sx={{display:'flex', flexDirection:'column', alignItems:'center', width:'fit-content', padding:0, overflow:'hidden'}}>
         <Box backgroundColor={theme.palette.primary.light} sx={{width:'100%', display:'flex', justifyContent:'center'}}>
-          <Typography variant="h4" sx={{textAlign: 'center', padding:'20px 0 20px 20px'}}>{username}</Typography>
-          <IconButton>
-            <EditIcon fontSize='small'/>
-          </IconButton>
+          <UsernameEdit username={username}/>
+          
         </Box>
         <Box sx={{display:'flex', margin:'20px'}}>
           <Typography variant="h6">Password: •••••••••••••</Typography>

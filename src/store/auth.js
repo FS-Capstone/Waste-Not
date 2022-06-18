@@ -47,6 +47,17 @@ export const logout = () => {
   }
 }
 
+export const changeUsername = (newUsername) => {
+  return async function(dispatch){
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    const user = (await axios.put('/auth/changeUsername', {newUsername}, auth)).data;
+    dispatch({
+      type: SET_AUTH,
+      auth: user
+    })
+  }
+}
+
 export const changePassword = (oldPassword, newPassword) => {
   return async (dispatch, getState) => {
     let user = {

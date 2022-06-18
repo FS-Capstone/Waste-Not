@@ -25,6 +25,17 @@ router.put('/changePassword', async (req, res, next) => {
 
 })
 
+router.put('/changeUsername', async (req, res, next) => {
+  try{
+    const user = await User.findByToken(req.headers.authorization);
+    user.username = req.body.newUsername;
+    await user.save();
+    res.status(200).send(user);
+  }
+  catch(error){
+    next(error);
+  }
+})
 
 router.post('/signup', async (req, res, next) => {
   try {
