@@ -11,6 +11,20 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
+router.put('/changePassword', async (req, res, next) => {
+  try{
+    let user = {username: req.body.username, password: req.body.password}
+    const token = await User.authenticate(user);
+    user = await User.findByToken(token);
+    await user.changePassword(req.body.newPassword);
+    res.status(200).send(user);
+  }
+  catch(error){
+    next(error);
+  }
+
+})
+
 
 router.post('/signup', async (req, res, next) => {
   try {
