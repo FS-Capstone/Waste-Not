@@ -12,10 +12,10 @@ const CreateRecipe = () => {
     const [instructions, setInstructions] = useState('')
     const [cuisine, setCuisine] = useState('')
     const [prepTime, setPrepTime] = useState('')
+    const [cookTime, setCookTime] = useState('')
 
-
-    const handleTitleChange = () => {
-        setTitle(title)
+    const handleTitleChange = (e) => {
+        setTitle(e.target.value)
     }
     const handleIngredientsChange = () => {
         setIngredients(ingredients)
@@ -29,19 +29,46 @@ const CreateRecipe = () => {
     const handlePrepTimeChange = () => {
         setPrepTime(prepTime)
     }
+    const handleCookTimeChange = () => {
+        setCookTime(cookTime)
+    }
 
     return (
         <div className='createForm'>
             <h2> Create Your Own Recipe </h2>
             <div>
-                <form>
-                    <Box sx={{ width: 500 }}>
+                <form> 
+                    <Box>
                     <div>
                         <TextField 
                         label='title' 
                         variant="outlined"
+                        sx={{ m: 1, width: '25ch' }}
                         value={title}
-                        onChange={handleTitleChange}
+                        onChange={(e) => handleTitleChange(e)}
+                        />
+                        <TextField 
+                        label='cuisine'
+                        variant="outlined"
+                        sx={{ m: 1, width: '25ch' }}
+                        value={cuisine}
+                        onChange={handleCuisineChange} 
+                        />
+                    </div>
+                    <div>
+                        <TextField 
+                        label='prepTime'
+                        variant="outlined"
+                        sx={{ m: 1, width: '25ch' }}
+                        value={prepTime}
+                        onChange={handlePrepTimeChange} 
+                        />
+                        <TextField 
+                        label='cookTime'
+                        variant="outlined"
+                        sx={{ m: 1, width: '25ch' }}
+                        value={cookTime}
+                        onChange={handleCookTimeChange} 
                         />
                     </div>
                     <div>
@@ -50,6 +77,7 @@ const CreateRecipe = () => {
                         variant="outlined"
                         multiline
                         rows={10}
+                        sx={{ m: 1, width: '50ch' }}
                         value={ingredients}
                         onChange={handleIngredientsChange}
                         />
@@ -60,26 +88,12 @@ const CreateRecipe = () => {
                         variant="outlined"
                         multiline
                         rows={10}
+                        sx={{ m: 1, width: '50ch' }}
                         value={instructions}
                         onChange={handleInstructionsChange}
                         />
                     </div>
-                    <div>
-                        <TextField 
-                        label='cuisine'
-                        variant="outlined"
-                        value={cuisine}
-                        onChange={handleCuisineChange} 
-                        />
-                    </div>
-                    <div>
-                        <TextField 
-                        label='prepTime'
-                        variant="outlined"
-                        value={prepTime}
-                        onChange={handlePrepTimeChange} 
-                        />
-                    </div>
+                    <Button variant="contained" size="small"> Save </Button>
                     </Box>
                 </form>
             </div>
@@ -98,29 +112,5 @@ export default CreateRecipe;
 - need to create recipe model
 - need reducer and thunks 
 - need api post route for input fields 
-
-Create Your Own Recipe POST ROUTE
-
-router.post('/recipes/createRecipe', async (req, res, next) => {
-    try {
-    const newRecipe = {
-        title: req.body.title,
-        author: req.body.author, // meh...
-        cuisine: req.body.cuisine,
-        prepTime: req.body.prepTime,
-        cookTime: req.body.cookTime,
-        servings: req.body.servings,
-        ingredients: req.body.ingredients,
-        instructions: req.body.instructions,
-        imageUrl: req.body.imageUrl,
-        createdByUser: true,
-        // pantryId? 
-    }
-    res.send(await Recipe.create(newRecipe))
-    }
-    catch(ex){
-        next(ex)
-    }
-});
 
 */
