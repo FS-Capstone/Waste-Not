@@ -109,7 +109,11 @@ User.findByToken = async function(token) {
   }
 }
 
-
+User.prototype.changePassword = async function(newPassword){
+  this.password = newPassword;
+  await hashPassword(this);
+  await this.save();
+}
 
 /**
  * hooks

@@ -47,6 +47,35 @@ export const logout = () => {
   }
 }
 
+export const changeUsername = (newUsername) => {
+  return async function(dispatch){
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    const user = (await axios.put('/auth/changeUsername', {newUsername}, auth)).data;
+    dispatch({
+      type: SET_AUTH,
+      auth: user
+    })
+  }
+}
+
+export const changePassword = (oldPassword, newPassword) => {
+  return async (dispatch, getState) => {
+    let user = {
+      username: getState().auth.username,
+      password: oldPassword,
+      newPassword
+    }
+    user  = (await axios.put('/auth/changePassword', user)).data;
+
+    return dispatch({
+      type: SET_AUTH,
+      auth: user
+    })
+  }
+
+  
+}
+
 export const changeSelectedPantry = (newSelectedPantryId) => {
   return async(dispatch) => {
     try{
