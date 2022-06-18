@@ -16,12 +16,7 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
   const [submitState, setSubmitState] = useState(true)
   const dispatch = useDispatch();
   const user = useSelector(state=>state.auth)
-  let localPantry;
-  if(window.localStorage.getItem('pantry')){
-    localPantry = window.localStorage.getItem('pantry')
-  } else {
-    window.localStorage.setItem('pantry', [])
-  }
+
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -67,13 +62,8 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
             setSubmitState(true);
             setOpen(true)
           }
-          // if(!user.id && !pantryItems.includes(newValue.ingredient)){
-          //   localPantry.push(newValue);
-          //   setSubmitMessage(`${newValue.name} added to ${selectedPantry.name}`);
-          //   setSubmitState(true);
-          //   setOpen(true)
-          // } 
-          else if (/*user.id && */!pantryItems.includes(newValue.ingredient)){
+          else if (!pantryItems.includes(newValue.ingredient)){
+            console.log(newValue);
             dispatch(addPantryItem(newValue.id, selectedPantry.id))
             setSubmitMessage(`${newValue.ingredient} added to ${selectedPantry.name}`);
             setSubmitState(true);

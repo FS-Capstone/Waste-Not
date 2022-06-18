@@ -7,6 +7,7 @@ import PantryAutocomplete from "../PantryAutocomplete";
 import { ingredientList } from "../../../script/seedData";
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
 
 //returns an object with all categories as keys, and a list of all ingredients in that category as the value
 const getAllCategories = (ingredients) => {
@@ -52,7 +53,8 @@ export default function SidePantry() {
         return (
           <List key={category}>
             {/*buttons for all categories */}
-            <ListItemButton onClick={() => toggleCategory(category)}>
+            <ListItemButton onClick={(evt) => toggleCategory(category)}>
+              <Checkbox onClick={evt => evt.stopPropagation()}/>
               <Typography variant="h6">{category}{`(${categoriesWithIngredients[category].length})`}</Typography>
             </ListItemButton>
             <Collapse in={openedCategories[category]} timeout='auto' unmountOnExit>
