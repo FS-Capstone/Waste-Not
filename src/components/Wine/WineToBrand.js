@@ -143,6 +143,8 @@ const handleOnClick = async (req, res, next) => {
             number: '10'
         }
     })).data;
+    console.log("here")
+    console.log(brands)
     setBrands(brands.recommendedWines)
 }
 
