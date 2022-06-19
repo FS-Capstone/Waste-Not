@@ -1,7 +1,6 @@
 // for Brand Resules (rename later)
 
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
 import { Dialog } from '@mui/material';
 import { DialogTitle } from '@mui/material';
 import { DialogContent } from '@mui/material';
@@ -15,6 +14,7 @@ const SimpleDialog = (props) => {
 
     return (
         <Dialog 
+        BackdropProps={{style: {backgroundColor: 'transparent'} }}
         onClose={handleOnClose}
         open={open}
         selectedbrand={selectedbrand}
