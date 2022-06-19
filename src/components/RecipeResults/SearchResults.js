@@ -20,6 +20,8 @@ const SearchResults = () => {
   const recipes = useSelector((state) => state.recipes);
   const pantry = useSelector((state) => state.selectedPantry);
   const user = useSelector(state=> state.auth)
+  const shoppingList = useSelector(state => state.shoppingList);
+  const listIds = shoppingList.map(ingredient => ingredient.id);
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState(1);
   const numValues = [6, 12, 18, 24, 48, 96];
@@ -89,15 +91,14 @@ const SearchResults = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    console.log(selectedMissingIngredients)
     const ingredientIds = selectedMissingIngredients.map(ingredient => ingredient.id)
-    console.log(ingredientIds, pantry.id)
     dispatch(addMultiplePantryItems(ingredientIds, pantry.id));
   };
 
   const addToList = e => {
     e.preventDefault();
-    dispatch(addMultipleShoppingItems(selectedMissingIngredients, user.id))
+    const dupesRemoved = selectedMissingIngredients.filter(ingredient => !listIds.includes(ingredient.id))
+    dispatch(addMultipleShoppingItems(dupesRemoved, user.id))
     setSelectedMissingIngredients([])
   }
 
