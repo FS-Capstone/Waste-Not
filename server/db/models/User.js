@@ -31,6 +31,9 @@ const User = db.define('user', {
   favorites: {
     type: Sequelize.ARRAY(Sequelize.STRING)
   },
+  createdRecipes: {
+    type: Sequelize.JSONB
+  },
   currentlySelectedPantryId: {
     type: Sequelize.INTEGER
   },
