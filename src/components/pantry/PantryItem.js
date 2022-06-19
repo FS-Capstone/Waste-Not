@@ -5,8 +5,9 @@ import IconButton from '@mui/material/IconButton';
 import { useDispatch, useSelector } from "react-redux";
 import { deletePantryItem } from "../../store";
 import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
 
-export const PantryItem = ({ingredient}) => {
+export const PantryItem = ({ingredient, checked, handleCheck, category}) => {
   const dispatch = useDispatch();
   const selectedPantryId = useSelector(state => state.selectedPantry.id)
 
@@ -16,6 +17,7 @@ export const PantryItem = ({ingredient}) => {
 
   return(
     <ListItem sx={{display: "flex", justifyContent:"space-between"}}>
+      <Checkbox size='small' checked={checked} onClick={() => handleCheck(ingredient, category)}/>
       <Typography variant="body1" sx={{paddingLeft:'25px'}}>{ingredient.name}</Typography>
       <IconButton color="secondary" onClick={() => handleDelete(ingredient.id)} >
         <DeleteIcon />

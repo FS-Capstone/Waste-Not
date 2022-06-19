@@ -104,14 +104,10 @@ const Navbar = (props) => {
             <AccountCircleIcon fontSize="large"/>
           </IconButton>
           
-          {/* opens the pantry */}
-          <IconButton onClick={() => setPantryDrawerOpen(true)}>
-            <MenuIcon ></MenuIcon>
-          </IconButton>
           <AccountMenu handleClose={handleClose} anchorEl={anchorEl}/>
         </Toolbar>
       </AppBar>
-      <PantryDrawer setPantryDrawerOpen={setPantryDrawerOpen} pantryIsOpen={pantryDrawerOpen}/>
+
     </Box>
   )
 }

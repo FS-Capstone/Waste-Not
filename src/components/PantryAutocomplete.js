@@ -16,6 +16,7 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
   const [submitState, setSubmitState] = useState(true)
   const dispatch = useDispatch();
   const user = useSelector(state=>state.auth)
+
   const shoppingList = useSelector(state => state.shoppingList)
   const listIds = shoppingList.map(ingredient => ingredient.id)
   let localPantry;
@@ -77,13 +78,7 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
               setOpen(true)
             }
           }
-          // if(!user.id && !pantryItems.includes(newValue.ingredient)){
-          //   localPantry.push(newValue);
-          //   setSubmitMessage(`${newValue.name} added to ${selectedPantry.name}`);
-          //   setSubmitState(true);
-          //   setOpen(true)
-          // } 
-          else if (/*user.id && */!pantryItems.includes(newValue.ingredient)){
+          else if (!pantryItems.includes(newValue.ingredient)){
             dispatch(addPantryItem(newValue.id, selectedPantry.id))
             setSubmitMessage(`${newValue.name} added to ${selectedPantry.name}`);
             setSubmitState(true);
