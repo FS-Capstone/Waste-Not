@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getSelectedPantry } from './selectedPantry';
 import { localPantry } from './selectedPantry';
+import { me } from './auth';
 const GET_PANTRIES = 'GET_PANTRIES';
 
 
@@ -56,6 +57,7 @@ export const addPantryItem = (itemId, pantryId) => {
 
 export const addMultiplePantryItems = (ingredients, pantryId) => {
   return async(dispatch)=>{
+    console.log(ingredients)
     const auth = {headers: {authorization: window.localStorage.getItem('token')}}
     await Promise.all(ingredients.map(async(ingredient)=> {
       await axios.post(`/api/pantryItems/${pantryId}`, {ingredient}, auth)
@@ -84,6 +86,42 @@ export const deletePantryItem = (ingredientId, selectedPantry) => {
     }
   }
 
+}
+
+export const editPantryName = (pantry, newName) => {
+  return async (dispatch) => {
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    const newPantries = (await axios.put(`/api/pantry/${pantry.id}`, {newName}, auth)).data
+    dispatch({
+      type: GET_PANTRIES,
+      pantries: newPantries
+    })
+    dispatch(getSelectedPantry());
+  }
+}
+
+export const addNewPantry = (name) => {
+  return async (dispatch) => {
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    const newPantries = (await axios.post(`/api/pantry`, {name}, auth)).data;
+    dispatch({
+      type: GET_PANTRIES,
+      pantries: newPantries
+    })
+  }
+}
+
+export const deletePantry = (pantry) => {
+  return async (dispatch) => {
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}};
+    const newPantries = (await axios.delete(`/api/pantry/${pantry.id}`, auth)).data;
+    dispatch({
+      type: GET_PANTRIES,
+      pantries: newPantries
+    })
+    await dispatch(me());
+    dispatch(getSelectedPantry());
+  }
 }
 
 

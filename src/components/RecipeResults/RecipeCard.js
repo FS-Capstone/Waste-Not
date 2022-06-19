@@ -72,7 +72,7 @@ const RecipeCard = ({ recipe }) => {
             :
               <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-evenly', height:'100%'}}>
                 <Typography variant='subtitle1' color='#ed6c02'>Missing {recipe.missedIngredientCount} {recipe.missedIngredientCount === 1 ? 'ingredient' : 'ingredients'}</Typography>
-                <CircularProgress thickness='5' sx={{margin:'1rem'}} variant='determinate' color={ingredientPercentage < 33 ? 'error' : ingredientPercentage < 66 ? 'warning' : 'success'} value={ingredientPercentage} />
+                <CircularProgress thickness={6} sx={{margin:'1rem'}} variant='determinate' color={ingredientPercentage < 33 ? 'error' : ingredientPercentage < 66 ? 'warning' : 'success'} value={ingredientPercentage} />
                 <Typography variant='subtitle1' color='#2e7d32'>Using {recipe.usedIngredientCount} pantry {recipe.usedIngredientCount === 1 ? 'ingredient' : 'ingredients'}</Typography>
               </Box>
             }

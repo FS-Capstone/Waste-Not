@@ -25,8 +25,20 @@ const AuthForm = props => {
           </label>
           <input name="password" type="password" />
         </div>
+        {name === 'signup' ? 
+          <div>
+            <label htmlFor='email'>
+              <small>Email</small>
+            </label>
+            <input name="email" type="email"/>
+          </div>
+          :
+          null
+        }
+        
         <div>
           <button type="submit">{displayName}</button>
+          <a href='/googleOauth'><button type="button">Sign in through Google</button></a>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -65,8 +77,9 @@ const mapDispatch = (dispatch) => {
       const formName = evt.target.name
       const username = evt.target.username.value
       const password = evt.target.password.value
+      const email = evt.target.email?.value;
       try{
-        await dispatch(authenticate(username, password, formName, navigate));
+        await dispatch(authenticate({username, password, formName, navigate, email}));
 
       }
       catch(error){

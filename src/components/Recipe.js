@@ -109,7 +109,7 @@ const Recipe = () => {
         }}
       >
         {!nutritionLabel ? (
-          <Typography variant="h5">NUTRITION FACTS: </Typography>
+          <Typography variant="h5">NUTRITION INFORMATION: </Typography>
         ) : (
           <img
             src={`data:image/jpeg;base64,${nutritionLabel}`}
@@ -129,7 +129,12 @@ const Recipe = () => {
         {!equipment
           ? null
           : equipment.map((value, index) => {
-              return <div key={index}>{value.name}</div>;
+              return (
+                <img
+                  src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
+                  alt={value.name}
+                />
+              );
             })}
       </Box>
     </Stack>

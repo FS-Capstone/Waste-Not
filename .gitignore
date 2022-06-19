@@ -25,6 +25,10 @@ yarn-error.log*
 public/bundle.js
 public/bundle.js.map
 
+public/vendors-node_modules_canvg_lib_index_es_js.bundle.js
+public/vendors-node_modules_canvg_lib_index_es_js.bundle.js.map
+public/vendors-node_modules_dompurify_dist_purify_js.bundle.js
+public/vendors-node_modules_dompurify_dist_purify_js.bundle.js.map
 
 src/secrets.js
 ./src/secrets.js

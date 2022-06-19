@@ -28,9 +28,9 @@ export const me = () => async dispatch => {
   }
 }
 
-export const authenticate = (username, password, method, navigate) => async dispatch => {
+export const authenticate = ({username, password, formName: method, navigate, email}) => async dispatch => {
   try {
-    const res = await axios.post(`/auth/${method}`, {username, password})
+    const res = await axios.post(`/auth/${method}`, {username, password, email})
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
     navigate('/');
@@ -45,6 +45,35 @@ export const logout = () => {
     type: SET_AUTH,
     auth: {}
   }
+}
+
+export const changeUsername = (newUsername) => {
+  return async function(dispatch){
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    const user = (await axios.put('/auth/changeUsername', {newUsername}, auth)).data;
+    dispatch({
+      type: SET_AUTH,
+      auth: user
+    })
+  }
+}
+
+export const changePassword = (oldPassword, newPassword) => {
+  return async (dispatch, getState) => {
+    let user = {
+      username: getState().auth.username,
+      password: oldPassword,
+      newPassword
+    }
+    user  = (await axios.put('/auth/changePassword', user)).data;
+
+    return dispatch({
+      type: SET_AUTH,
+      auth: user
+    })
+  }
+
+  
 }
 
 export const changeSelectedPantry = (newSelectedPantryId) => {
