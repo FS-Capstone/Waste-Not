@@ -63,7 +63,6 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
             setOpen(true)
           }
           else if (!pantryItems.includes(newValue.ingredient)){
-            console.log(newValue);
             dispatch(addPantryItem(newValue.id, selectedPantry.id))
             setSubmitMessage(`${newValue.ingredient} added to ${selectedPantry.name}`);
             setSubmitState(true);
