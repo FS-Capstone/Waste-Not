@@ -27,7 +27,7 @@ const handleOnClose = () => {
                     return (
                     <li key={brand.id}> 
                     {brand.title} ({brand.price}) 
-                    <button onClick={() => handleClickOpen(brand)}> More Details </button> 
+                    <button onClick={() => handleClickOpen(brand)}> More Details </button> <button> Save </button>
                     <SimpleDialog 
                         open={open}
                         onClose={handleOnClose}
@@ -42,18 +42,3 @@ const handleOnClose = () => {
 }
 
 export default BrandResults;
-
-/*
-Dialog Box:
-
-User clicks on "More Details" / Button on a wine resuls
-Dialog Box opens and displays the following:
-    - Title again
-    - Image? 
-    - Price 
-    - Description paragraph
-    - Link to Purchase 
-X Button in top right corner to close dialog box
-Option to save wine to user profile?
-
-*/
