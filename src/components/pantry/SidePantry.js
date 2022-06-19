@@ -4,7 +4,6 @@ import { Box, List, ListItemButton } from "@mui/material";
 import { PantryItem } from "./PantryItem";
 import Divider from '@mui/material/Divider';
 import PantryAutocomplete from "../PantryAutocomplete";
-import { ingredientList } from "../../../script/seedData";
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 
@@ -26,6 +25,7 @@ const getAllCategories = (ingredients) => {
 
 export default function SidePantry() {
   const pantry = useSelector(state => state.selectedPantry);
+  const ingredientList = useSelector(state => state.ingredients);
   const ingredientsInPantry = pantry?.ingredients;
   const [openedCategories, setOpenedCategories] = useState({});
   if(!ingredientsInPantry)
