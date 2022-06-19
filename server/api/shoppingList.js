@@ -4,7 +4,7 @@ module.exports = router
 
 router.get('/:userId', async(req, res, next) => {
   try{
-    const user = await User.findByPk(req.params.userId)
+    const user = await User.findByToken(req.headers.authorization)
     const shoppingList = user.shoppingList;
     res.send(shoppingList)
   }
@@ -15,9 +15,9 @@ router.get('/:userId', async(req, res, next) => {
 
 router.put('/add/:userId', async(req, res, next) => {
   try{
-    const user = await User.findByPk(req.params.userId)
+    const user = await User.findByToken(req.headers.authorization)
     const shoppingList = user.shoppingList
-    const newList = shoppingList.concat(req.body.item)
+    const newList = shoppingList.concat(req.body.data)
     await user.update({shoppingList: newList})
     res.sendStatus(204)
   }
@@ -28,7 +28,7 @@ router.put('/add/:userId', async(req, res, next) => {
 
 router.put('/addMultiple/:userId', async(req, res, next) => {
   try{
-    const user = await User.findByPk(req.params.userId)
+    const user = await User.findByToken(req.headers.authorization)
     const shoppingList = user.shoppingList
     const newList = shoppingList.concat(req.body.itemArr)
     await user.update({shoppingList: newList})
@@ -41,7 +41,7 @@ router.put('/addMultiple/:userId', async(req, res, next) => {
 
 router.put('/remove/:userId', async(req, res, next) => {
   try{
-    const user = await User.findByPk(req.params.userId)
+    const user = await User.findByToken(req.headers.authorization)
     const shoppingList = user.shoppingList
     const newList = shoppingList.filter(item => item.id !== req.body.item.id)
     await user.update({shoppingList: newList})
@@ -54,7 +54,7 @@ router.put('/remove/:userId', async(req, res, next) => {
 
 router.put('/removeMultiple/:userId', async(req, res, next) => {
   try{
-    const user = await User.findByPk(req.params.userId)
+    const user = await User.findByToken(req.headers.authorization)
     const shoppingList = user.shoppingList
     const itemIds = req.body.itemArr.map(item => item.id)
     const newList = shoppingList.filter(item => !itemIds.includes(item.id))

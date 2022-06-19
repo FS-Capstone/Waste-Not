@@ -1,20 +1,16 @@
 import React, {useState, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import html2canvas from 'html2canvas';
-import {jsPDF} from 'jspdf';
 import print from 'print-js';
+import html2pdf from 'html2pdf.js';
 import {Paper, Box, Button, Typography, IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {ingredientList} from '../../../script/seedData';
 import { deleteShoppingItem, addMultiplePantryItems, deleteMultipleShoppingItems } from '../../store';
 import PantryAutocomplete from '../PantryAutocomplete';
 
-// import kalamLight from '../../../public/fonts/Kalam-Light.ttf';
-
-//grocery_list has 17 lines
 const ShoppingList = () => {
   const dispatch = useDispatch()
-  const ingredients = useSelector(state => state.shoppingList)
+  const ingredients = useSelector(state => state.ingredients)
+  const listIngredients = useSelector(state => state.shoppingList)
   const user = useSelector(state=>state.auth)
   const pantry = useSelector(state => state.selectedPantry)
   const [hidden, setHidden] = useState(false)
@@ -51,17 +47,17 @@ const ShoppingList = () => {
     e.preventDefault();
     await hider()
     const element = printRef.current;
-    const canvas = await html2canvas(element);
-    const data = canvas.toDataURL('image/png');
+    const options = {
+      margin: [4,10,13,10],
+      filename: 'Shopping List.pdf',
+      image: {type: 'jpeg', quality: 0.98},
+      jsPdf: {unit: 'in', format:'letter', orientation:'portrait'}
+    }
 
-    const pdf = new jsPDF();
-    const imgProperties = pdf.getImageProperties(data);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    const pdf = await html2pdf().from(element).set(options).toPdf().get('pdf')
 
-    pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
     if(e.target.name === 'download') {
-      pdf.save('Shopping List.pdf')
+      pdf.save()
     }
     else {
       const printData = pdf.output('blob');
@@ -77,7 +73,7 @@ const ShoppingList = () => {
         <Typography variant='h2' sx={{marginTop:'1rem', marginBottom:'1rem', fontFamily:'Kalam', borderBottom:'3px solid black'}}>Shopping List</Typography>
         <Box sx={{display:'flex', flexDirection:'column', width:'80%', marginBottom:'1rem'}}>
           {
-            ingredients.map((ingredient) => (
+            listIngredients.map((ingredient) => (
               <Box key={ingredient.id} sx={{display:'flex', borderBottom:'3px solid black', marginBottom:'.5rem'}}> 
                 <Typography sx={{fontFamily:'Kalam', cursor:'pointer', textDecoration: selected.includes(ingredient) ? 'line-through' : '' }} variant='h4' onClick={(e) => handleSelect(e, ingredient)}>{ingredient.name}</Typography> 
                 {!hidden ? <IconButton onClick={(e)=> handleDelete(e, ingredient)} sx={{marginLeft:'auto'}}><DeleteIcon/></IconButton> : null} 
@@ -91,7 +87,7 @@ const ShoppingList = () => {
           <Button onClick={handleExport} name='download' variant='contained'>Download as PDF</Button>
           <Button onClick={handleExport} name='print' variant='contained'>Print</Button>
         </Box>
-        <PantryAutocomplete searchOptions={ingredientList} searchName='shoppingListSearch' selectedPantry={pantry} />
+        <PantryAutocomplete searchOptions={ingredients} searchName='shoppingListSearch' selectedPantry={pantry} />
       </Box>
     </Box>
 

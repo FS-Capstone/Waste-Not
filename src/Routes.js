@@ -15,8 +15,10 @@ import SearchResults from "./components/RecipeResults/SearchResults";
 import { me, getPantries, loadIngredients, loadShoppingList } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPage from "./components/account/AccountPage";
+import CreateRecipe from "./components/CreateRecipe";
 import ShoppingList from "./components/account/ShoppingList";
 import SidePantry from "./components/pantry/SidePantry";
+
 
 const ClientRoutes = () => {
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ const ClientRoutes = () => {
         <Route path="account" element={<AccountPage />} />
         <Route path='/shoppingList' element={<ShoppingList/>} />
         <Route path="searchResults" element={<SearchResults />} />
+        <Route path="create-recipe" element={<CreateRecipe />} />
       </Routes>
     </>
   );

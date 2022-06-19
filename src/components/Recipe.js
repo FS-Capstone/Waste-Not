@@ -130,10 +130,13 @@ const Recipe = () => {
           ? null
           : equipment.map((value, index) => {
               return (
-                <img
-                  src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
-                  alt={value.name}
-                />
+                <div key={index}>
+                  <img
+                    src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
+                    alt={value.name}
+                  />
+                  {value.name.toUpperCase()}
+                </div>
               );
             })}
       </Box>

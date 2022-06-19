@@ -1,21 +1,31 @@
-body{
+body {
   margin: 0;
 }
 
-.shelf{
-  background-image: url('/Capstone_Pantry_Lighter.png');
+.shelf {
+  background-image: url("/Capstone_Pantry_Lighter.png");
   background-size: 400px 150px;
 }
 
-.pantry-icon:hover .ingredient-icon-name{
+.pantry-icon:hover .ingredient-icon-name {
   visibility: visible;
   opacity: 1;
 }
 
-.rec-swipable{
+.rec-swipable {
   align-items: center;
 }
 /* 
 .grocery-list{
   font-family: 'Kalam', cursive;
 } */
+
+.mainpantry {
+  background-image: url("/images/PantryPage_1.jpg");
+  background-size: 450px 200px;
+  min-height: 94vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
