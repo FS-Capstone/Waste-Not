@@ -9,7 +9,7 @@ import {addPantryItem, addShoppingItem} from '../store';
 
 
 const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
-  const [value, setValue] = useState(searchOptions[0]);
+  const [value, setValue] = useState(searchOptions.length ? searchOptions[0] : {});
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('')
@@ -92,9 +92,11 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         }}
         id={searchName}
         inputvalue={inputValue}
+        groupBy={(option) => option.broadCategory}
         onInputChange={(e, newInputValue)=>{setInputValue(newInputValue)}}
-        options={searchOptions}
-        getOptionLabel={(option) => option.name}
+        options={searchOptions.sort((a,b)=> a.broadCategory.localeCompare(b.broadCategory))}
+        getOptionLabel={(option) => option.name ? option.name : 'Search for an ingredient!'}
+        isOptionEqualToValue={(option, value) => option.name === value.name}
         renderInput={(params)=> <TextField {...params} id='searchField' label={searchName === 'shoppingListSearch' ? 'Add to your shopping list' : 'Add an item to your pantry'}/> }
       />
     </div>
