@@ -11,19 +11,21 @@ import {
   MenuItem,
 } from "@mui/material";
 import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems } from "../../store";
-import { ingredientList } from "../../../script/seedData";
 import RecipeCard from "./RecipeCard";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
   const pantry = useSelector((state) => state.selectedPantry);
+  const ingredients = useSelector(state => state.ingredients)
+  const pantryIngredientIds = pantry?.ingredients?.map(ingredient => ingredient.id)
   const user = useSelector(state=> state.auth)
   const shoppingList = useSelector(state => state.shoppingList);
   const listIds = shoppingList.map(ingredient => ingredient.id);
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState(1);
   const [showAll, setShowAll] = useState(false);
+  const [offset, setOffset] = useState(0);
   const numValues = [6, 12, 18, 24, 48, 96];
   const rankingValues = [
     { display: "Maximize Used Ingredients", value: 1 },
@@ -56,22 +58,20 @@ const SearchResults = () => {
   const [selectedMissingIngredients, setSelectedMissingIngredients] = useState([]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const missingIngredientIds = selectedMissingIngredients.map(ingredient => ingredient.id)
     missingIngredientsRenamed = missingIngredients
       .map((ingredient) => {
-        const trueIngredient = ingredientList.find(
+        const trueIngredient = ingredients.find(
           (trueIngredient) => trueIngredient.id === ingredient.id
         );
         if (trueIngredient) {
-          return { id: ingredient.id, name: trueIngredient.ingredient };
+          return { id: ingredient.id, name: trueIngredient.name };
         }
+        // add new ingredient to database, get nutrition info if possible
         return {};
       })
       .filter(
-        (ingredient) => !missingIngredientIds.includes(ingredient.id)
+        (ingredient) => !pantryIngredientIds.includes(ingredient.id)
       );
-    setSelectedMissingIngredients([]);
     setMissingIngredientList(missingIngredientsRenamed);
   }, [recipes, pantry]);
 
@@ -93,6 +93,7 @@ const SearchResults = () => {
     e.preventDefault();
     const ingredientIds = selectedMissingIngredients.map(ingredient => ingredient.id)
     dispatch(addMultiplePantryItems(ingredientIds, pantry.id));
+    setSelectedMissingIngredients([])
   };
 
   const addToList = e => {
