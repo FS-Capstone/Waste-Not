@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Box, Typography, Stack, CardMedia, Card } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { saveRecipe } from "../store/recipes";
 
 const Recipe = () => {
   const [recipeSteps, setRecipeSteps] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [tools, setTools] = useState([]);
   const [nutritionLabel, setNutritionLabel] = useState("");
+  const dispatch = useDispatch();
 
   const { id } = useParams();
 
@@ -140,6 +143,7 @@ const Recipe = () => {
               );
             })}
       </Box>
+      <button onClick={() => dispatch(saveRecipe(id))}>Save Recipe</button>
     </Stack>
   );
 };

@@ -22,3 +22,20 @@ router.post('/createRecipe', async (req, res, next) => {
         next(ex)
     }
 });
+
+
+router.post('/saveRecipe/:spoonacularId', async (req, res, next) => {
+    try{
+        const user = await User.findByToken(req.headers.authorization);
+        const newRecipe = {
+            recipeId: req.params.spoonacularId,
+            createdByUser: false,
+            userId: user.id
+        }
+        await Recipe.create(newRecipe);
+        res.status(201).send();
+    }
+    catch(error){
+        next(error);
+    }
+})
