@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 import {
   Box,
   Card,
@@ -16,19 +17,33 @@ import { saveIngredients } from "../../store";
 const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const pantryIngredients = useSelector(state => state.selectedPantry.ingredients);
+  const pantryIngredientIds = pantryIngredients.map(ingredient => ingredient.id);
+  const recipeIngredients = recipe?.missedIngredients?.concat(recipe?.usedIngredients);
+  const recipeIngredientsIds = recipeIngredients?.map(ingredient => ingredient.id);
+  const [missingIngredients, setMissingIngredients] = useState([])
+  const [usedIngredients, setUsedIngredients] = useState([])
+  const [unusedIngredients, setUnusedIngredients] = useState([])
+  
   const ingredients = {
-    missingIngredients: recipe.missedIngredients,
-    usedIngredients: recipe.usedIngredients,
-    unusedIngredients: recipe.unusedIngredients,
+    missingIngredients,
+    usedIngredients,
+    unusedIngredients
   };
-  const totalIngredients = recipe.missedIngredientCount + recipe.usedIngredientCount
-  const ingredientPercentage = (recipe.usedIngredientCount/totalIngredients)*100
+  const totalIngredients = recipeIngredients?.length
+  const ingredientPercentage = (usedIngredients?.length/totalIngredients)*100
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(saveIngredients(ingredients));
     navigate(`/recipe/${recipe.id}`);
   };
+
+  useEffect(()=>{
+    setMissingIngredients(recipeIngredients?.filter(ingredient => !pantryIngredientIds?.includes(ingredient.id)));
+    setUsedIngredients(recipeIngredients?.filter(ingredient => pantryIngredientIds?.includes(ingredient.id)));
+    setUnusedIngredients(pantryIngredients?.filter(ingredient => !recipeIngredientsIds?.includes(ingredient.id)));
+  }, [pantryIngredients])
 
   return (
     <Card sx={{display: "flex", alignItems: "stretch", minHeight: "20vh", height: "100%"}}>
@@ -71,9 +86,9 @@ const RecipeCard = ({ recipe }) => {
               </Box>
             :
               <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-evenly', height:'100%'}}>
-                <Typography variant='subtitle1' color='#ed6c02'>Missing {recipe.missedIngredientCount} {recipe.missedIngredientCount === 1 ? 'ingredient' : 'ingredients'}</Typography>
+                <Typography variant='subtitle1' color='#ed6c02'>Missing {missingIngredients?.length} {missingIngredients?.length === 1 ? 'ingredient' : 'ingredients'}</Typography>
                 <CircularProgress thickness={6} sx={{margin:'1rem'}} variant='determinate' color={ingredientPercentage < 33 ? 'error' : ingredientPercentage < 66 ? 'warning' : 'success'} value={ingredientPercentage} />
-                <Typography variant='subtitle1' color='#2e7d32'>Using {recipe.usedIngredientCount} pantry {recipe.usedIngredientCount === 1 ? 'ingredient' : 'ingredients'}</Typography>
+                <Typography variant='subtitle1' color='#2e7d32'>Using {usedIngredients?.length} pantry {usedIngredients?.length === 1 ? 'ingredient' : 'ingredients'}</Typography>
               </Box>
             }
           </CardContent>

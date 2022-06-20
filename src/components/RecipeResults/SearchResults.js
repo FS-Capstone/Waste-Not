@@ -13,7 +13,6 @@ import {
 import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems } from "../../store";
 import { ingredientList } from "../../../script/seedData";
 import RecipeCard from "./RecipeCard";
-import ShoppingList from "../account/ShoppingList";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
@@ -24,6 +23,7 @@ const SearchResults = () => {
   const listIds = shoppingList.map(ingredient => ingredient.id);
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState(1);
+  const [showAll, setShowAll] = useState(false);
   const numValues = [6, 12, 18, 24, 48, 96];
   const rankingValues = [
     { display: "Maximize Used Ingredients", value: 1 },
@@ -110,7 +110,7 @@ const SearchResults = () => {
       ? window.localStorage.getItem("selectedIngredients")
       : [];
     if (selectedIngredients.length) {
-      dispatch(fetchRecipes(selectedIngredients));
+      dispatch(fetchRecipes(selectedIngredients, number, ranking));
     } else {
       const ingredients = pantry?.ingredients;
       dispatch(fetchRecipes(ingredients, number, ranking));
@@ -155,7 +155,7 @@ const SearchResults = () => {
         >
           {!missingIngredientList.length
             ? null
-            : missingIngredientList.map((ingredient) =>
+            : !showAll ? missingIngredientList.slice(0,15).map((ingredient) =>
                 ingredient.id ? (
                   <Chip
                     key={ingredient.id}
@@ -170,7 +170,26 @@ const SearchResults = () => {
                     sx={{ margin: "3px" }}
                   />
                 ) : null
-              )}
+              ) : missingIngredientList.map((ingredient) =>
+              ingredient.id ? (
+                <Chip
+                  key={ingredient.id}
+                  variant={
+                    selectedMissingIngredients.includes(ingredient)
+                      ? "filled"
+                      : "outlined"
+                  }
+                  clickable
+                  label={ingredient.name}
+                  onClick={(e) => handleClick(e, ingredient)}
+                  sx={{ margin: "3px" }}
+                />
+              ) : null
+            )}
+            {!showAll && missingIngredientList.length ? 
+            <Chip variant='outlined' clickable label={`+ ${missingIngredientList.length - 15} more...`} onClick={() => setShowAll(true)} sx={{margin:'3px'}} />
+            : null }
+            {showAll && missingIngredientList.length ? <Chip variant='outlined' clickable label='Hide extra ingredients' onClick={() => setShowAll(false)} sx={{margin:'3px'}} /> : null}
           {!selectedMissingIngredients.length ? null : (
             <div>
               <Button sx={{marginRight:'2rem'}} variant="contained" onClick={(e) => handleSave(e)}>

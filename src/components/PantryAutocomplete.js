@@ -92,8 +92,9 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         }}
         id={searchName}
         inputvalue={inputValue}
+        groupBy={(option) => option.broadCategory}
         onInputChange={(e, newInputValue)=>{setInputValue(newInputValue)}}
-        options={searchOptions}
+        options={searchOptions.sort((a,b)=> a.broadCategory.localeCompare(b.broadCategory))}
         getOptionLabel={(option) => option.name}
         renderInput={(params)=> <TextField {...params} id='searchField' label={searchName === 'shoppingListSearch' ? 'Add to your shopping list' : 'Add an item to your pantry'}/> }
       />
