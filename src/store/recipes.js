@@ -34,6 +34,14 @@ export const saveRecipe = (recipeId) => {
   }
 }
 
+export const removeSavedRecipe = (recipeId) => {
+  return async function(dispatch){
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}};
+    await axios.delete(`/api/recipes/removeSavedRecipe/${recipeId}`, auth);
+    dispatch(me());
+  }
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = [], action) {
   switch (action.type) {

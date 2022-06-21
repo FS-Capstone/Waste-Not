@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Box, Typography, Stack, CardMedia, Card } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { saveRecipe } from "../store/recipes";
+import { useDispatch, useSelector } from "react-redux";
+import { saveRecipe, removeSavedRecipe } from "../store/recipes";
+
 
 const Recipe = () => {
   const [recipeSteps, setRecipeSteps] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [tools, setTools] = useState([]);
   const [nutritionLabel, setNutritionLabel] = useState("");
+  const savedRecipes = useSelector(state => state.auth.recipes?.map(recipe => recipe.recipeId));
+  const loggedIn = useSelector(state => !!state.auth.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
-
+  
   useEffect(() => {
     async function getRecipeSteps(recipeId) {
       try {
@@ -69,8 +72,11 @@ const Recipe = () => {
   }, [id]);
 
   const { nutrients } = recipeInfo.nutrition ? recipeInfo.nutrition : [];
-
   const { equipment } = tools ? tools : [];
+
+  if(!savedRecipes)
+    return null;
+
 
   return (
     <Stack sx={{ border: "1px solid" }} direcition="row" spacing={2}>
@@ -143,7 +149,20 @@ const Recipe = () => {
               );
             })}
       </Box>
-      <button onClick={() => dispatch(saveRecipe(id))}>Save Recipe</button>
+
+      
+      {//Save recipe logic
+        loggedIn ?
+          (
+            savedRecipes.includes(id * 1) ?
+              <button onClick={() => dispatch(removeSavedRecipe(id))}>Unsave Recipe</button>
+            :
+              <button onClick={() => dispatch(saveRecipe(id))}>Save Recipe</button>
+          )
+        :
+        null
+      }
+      
     </Stack>
   );
 };
