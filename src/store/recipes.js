@@ -32,9 +32,8 @@ export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, in
     const newRecipe = (await axios.post('/api/recipes/createRecipe', {
       title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId
     }, auth)).data;
-    dispatch({type: CREATE_RECIPE, newRecipe})
-    //await axios.post('/api/recipe/createRecipe', {}, auth);
-    //dispatch(me());
+    dispatch({type: CREATE_RECIPE, newRecipe});
+    dispatch(me());
   }
 }
 
