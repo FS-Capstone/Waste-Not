@@ -18,6 +18,7 @@ export const PantryItem = ({ingredient, checked, handleCheck, category}) => {
   return(
     <ListItem sx={{display: "flex", justifyContent:"space-between"}}>
       <Checkbox size='small' checked={checked} onClick={() => handleCheck(ingredient, category)}/>
+      <img src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}  alt=''/>
       <Typography variant="body1" sx={{paddingLeft:'25px'}}>{ingredient.name}</Typography>
       <IconButton color="secondary" onClick={() => handleDelete(ingredient.id)} >
         <DeleteIcon />
