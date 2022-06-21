@@ -24,6 +24,28 @@ export const fetchRecipes = (ingredients, number, ranking) => {
   };
 };
 
+/* params: {
+          query: obj.query,
+          cuisine: obj.cuisine,
+          type: obj.type,
+          diet: obj.diet,
+          intolerances: obj.intolerances
+        } */
+
+export const fetchComplexRecipes = obj => {
+  console.log(obj)
+  Object.keys(obj).forEach(key => obj[key] === '' && delete obj[key])
+  console.log(obj)
+  return async(dispatch) => {
+    const recipes = (
+      await axios.get('/api/search/complexSearch', {
+        params: obj
+      })
+    ).data;
+    dispatch(_fetchRecipes(recipes))
+  }
+}
+
 export const saveRecipe = (recipeId) => {
   return async function(dispatch){
     const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
