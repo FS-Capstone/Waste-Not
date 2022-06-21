@@ -19,7 +19,13 @@ const RecipeCard = ({ recipe }) => {
   const dispatch = useDispatch();
   const pantryIngredients = useSelector(state => state.selectedPantry.ingredients);
   const pantryIngredientIds = pantryIngredients.map(ingredient => ingredient.id);
-  const recipeIngredients = recipe?.missedIngredients?.concat(recipe?.usedIngredients);
+  let recipeIngredients;
+
+  //if recipe comes from the saved recipes, it will have extendedIngredients.
+  if(recipe.extendedIngredients)
+    recipeIngredients = recipe.extendedIngredients;
+  else
+    recipeIngredients = recipe?.missedIngredients?.concat(recipe?.usedIngredients);
   const recipeIngredientsIds = recipeIngredients?.map(ingredient => ingredient.id);
   const [missingIngredients, setMissingIngredients] = useState([])
   const [usedIngredients, setUsedIngredients] = useState([])

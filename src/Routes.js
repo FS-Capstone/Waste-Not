@@ -18,6 +18,7 @@ import AccountPage from "./components/account/AccountPage";
 import CreateRecipe from "./components/CreateRecipe";
 import ShoppingList from "./components/account/ShoppingList";
 import SidePantry from "./components/pantry/SidePantry";
+import SavedRecipes from "./components/account/SavedRecipes";
 
 
 const ClientRoutes = () => {
@@ -53,6 +54,7 @@ const ClientRoutes = () => {
         <Route path='/shoppingList' element={<ShoppingList/>} />
         <Route path="searchResults" element={<SearchResults />} />
         <Route path="create-recipe" element={<CreateRecipe />} />
+        <Route path='savedRecipes' element={<SavedRecipes />}/>
       </Routes>
     </>
   );
