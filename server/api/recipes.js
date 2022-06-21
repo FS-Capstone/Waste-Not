@@ -21,8 +21,8 @@ router.post('/createRecipe', async (req, res, next) => {
      res.send(await Recipe.create(newRecipe));
      res.status(201).send();
     }
-    catch(ex){
-        next(ex);
+    catch(error){
+        next(error);
     }
 });
 
