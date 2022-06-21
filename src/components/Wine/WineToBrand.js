@@ -177,7 +177,7 @@ const handleOnClick = async (req, res, next) => {
                 </Box>
                 { brands.length ? <BrandResults brands={brands} wine={wine} /> : "" }
                 <div>
-                    <Link to='/wine'> Back </Link>
+                    <Link to='/wine'> <button> Back </button> </Link>
                 </div>
             </div>
         </div>
