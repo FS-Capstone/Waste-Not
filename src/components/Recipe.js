@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Box, Typography, Stack, CardMedia, Card } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Stack,
+  CardMedia,
+  Card,
+  CardContent,
+} from "@mui/material";
 
 const Recipe = () => {
   const [recipeSteps, setRecipeSteps] = useState([]);
@@ -99,46 +106,68 @@ const Recipe = () => {
               })}
         </ul>
       </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          margin: "1rem",
-        }}
-      >
-        {!nutritionLabel ? (
-          <Typography variant="h5">NUTRITION INFORMATION: </Typography>
-        ) : (
-          <img
-            src={`data:image/jpeg;base64,${nutritionLabel}`}
-            alt="NUTRITION LABEL"
-          />
-        )}
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          margin: "1rem",
-        }}
-      >
-        <Typography variant="h5">EQUIPMENT NEEDED: </Typography>
-        {!equipment
-          ? null
-          : equipment.map((value, index) => {
-              return (
-                <div key={index}>
-                  <img
-                    src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
-                    alt={value.name}
-                  />
-                  {value.name.toUpperCase()}
-                </div>
-              );
-            })}
+      <Box sx={{ display: "flex" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            margin: "1rem",
+          }}
+        >
+          {!nutritionLabel ? (
+            <Typography variant="h5">NUTRITION INFORMATION: </Typography>
+          ) : (
+            <Card
+              sx={{
+                display: "flex",
+                alignItems: "stretch",
+                minHeight: "20vh",
+                height: "100%",
+              }}
+            >
+              <CardMedia
+                component="img"
+                sx={{ width: "50%" }}
+                image={`data:image/jpeg;base64,${nutritionLabel}`}
+                alt="NUTRITION LABEL"
+              />
+              <Box>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "stretch",
+                    height: "100%",
+                  }}
+                >
+                  <Typography variant="h6">EQUIPMENT NEEDED: </Typography>
+                  {!equipment
+                    ? null
+                    : equipment.map((value, index) => {
+                        return (
+                          <Box
+                            key={index}
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              margin: "1rem",
+                            }}
+                          >
+                            <img
+                              src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
+                              alt={value.name}
+                            />
+                            {value.name.toUpperCase()}
+                          </Box>
+                        );
+                      })}
+                </CardContent>
+              </Box>
+            </Card>
+          )}
+        </Box>
       </Box>
     </Stack>
   );
