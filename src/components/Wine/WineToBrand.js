@@ -143,8 +143,6 @@ const handleOnClick = async (req, res, next) => {
             number: '10'
         }
     })).data;
-    console.log("here")
-    console.log(brands)
     setBrands(brands.recommendedWines)
 }
 
@@ -175,7 +173,7 @@ const handleOnClick = async (req, res, next) => {
                 />
                 <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { brands.length ? <BrandResults brands={brands} wine={wine} /> : "" }
+                { brands.length ? <BrandResults brands={brands} wine={wine} /> : 'No Results Found' }
                 <div>
                     <Link to='/wine'> <button> Back </button> </Link>
                 </div>

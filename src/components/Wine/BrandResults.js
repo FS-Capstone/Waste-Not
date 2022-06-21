@@ -8,7 +8,6 @@ const [open, setOpen] = useState(false);
 const [selectedBrand, setSelectedBrand] = useState("")
 
 const handleClickOpen = (brand) => {
-    console.log(brand)
     setOpen(true)
     setSelectedBrand(brand) 
 }
@@ -20,7 +19,7 @@ const handleOnClose = () => {
     return (
         <div>
             <h3> Brand Recommendations for: </h3>
-            <div> { wine } </div>
+            <div> {wine} </div>
             <hr/>
             <div>
                 { brands.map(brand => { 

@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import DishResults from './DishResults';
 
-// need to pass down options array to all child components I think...
 const options = [
     'white_wine', // category
     'dry_white_wine', // sub-category
@@ -123,6 +122,7 @@ const WineToDish = () => {
 const [wine, setWine] = useState("");
 const [dishes, setDishes] = useState([]);
 const [text, setText] = useState("");
+const [errorMessage, setErrorMessage] = useState("");
 
 const handleChange = (e, newWine) => {
        setWine(newWine)   
@@ -135,10 +135,9 @@ const handleOnClick = async (req, res, next) => {
                 wine: wine
             }
         })).data;
-        console.log(dishes)
-        console.log(dishes.message) // error handling needed if no results
         setDishes(dishes.pairings)
         setText(dishes.text) 
+        setErrorMessage(dishes.message)
 }
 
     return (
@@ -157,7 +156,7 @@ const handleOnClick = async (req, res, next) => {
             /> 
             <Button variant="contained" size="small" onClick={handleOnClick}>Show Dishes</Button>
             </Box>
-            { dishes ? <DishResults dishes={dishes} text={text} wine={wine} /> : "No Dish Pairings Found" }
+            { dishes ? <DishResults dishes={dishes} text={text} wine={wine} /> : errorMessage }
             <div>
                 <Link to='/wine'> <button>Back</button> </Link>
             </div>
