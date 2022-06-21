@@ -41,14 +41,14 @@ const CreateRecipe = () => {
                     <Box>
                     <div>
                         <TextField 
-                        label='title' 
+                        label='Title' 
                         variant="outlined"
                         sx={{ m: 1, width: '25ch' }}
                         value={title}
                         onChange={(e) => handleTitleChange(e)}
                         />
                         <TextField 
-                        label='cuisine'
+                        label='Cuisine'
                         variant="outlined"
                         sx={{ m: 1, width: '25ch' }}
                         value={cuisine}
@@ -57,14 +57,14 @@ const CreateRecipe = () => {
                     </div>
                     <div>
                         <TextField 
-                        label='prepTime'
+                        label='Prep Time'
                         variant="outlined"
                         sx={{ m: 1, width: '25ch' }}
                         value={prepTime}
                         onChange={handlePrepTimeChange} 
                         />
                         <TextField 
-                        label='cookTime'
+                        label='Cook Time'
                         variant="outlined"
                         sx={{ m: 1, width: '25ch' }}
                         value={cookTime}
@@ -73,7 +73,7 @@ const CreateRecipe = () => {
                     </div>
                     <div>
                         <TextField 
-                        label='ingredients' 
+                        label='Ingredients' 
                         variant="outlined"
                         multiline
                         rows={10}
@@ -84,7 +84,7 @@ const CreateRecipe = () => {
                     </div>
                     <div>
                         <TextField 
-                        label='instructions'  
+                        label='Instructions'  
                         variant="outlined"
                         multiline
                         rows={10}
