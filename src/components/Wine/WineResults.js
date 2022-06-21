@@ -1,7 +1,7 @@
 import React from 'react';
 
 const WineResults = (props) => {
-    const { wines, food, text } = props
+    const { wines, food, text, suggestion } = props
 
     return (
         <div>
@@ -15,6 +15,15 @@ const WineResults = (props) => {
                 })}
             </div>
             <div> {text} </div>
+            <div> <h3> We Suggest: </h3></div>
+            { suggestion.map(suggestion => {
+                return (
+                    <div key={suggestion.id}>
+                        <div>{suggestion.title} - <a href={suggestion.link}> {suggestion.price} </a></div>
+                        <div>{suggestion.description}</div>
+                    </div>
+                )
+            })}
         </div>
     )
 }

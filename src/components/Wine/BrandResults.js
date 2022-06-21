@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import SimpleDialog from './SimpleDialog'
+import BrandDialog from './BrandDialog'
 
 const BrandResults = (props) => {
 const { wine, brands } = props 
@@ -8,7 +8,6 @@ const [open, setOpen] = useState(false);
 const [selectedBrand, setSelectedBrand] = useState("")
 
 const handleClickOpen = (brand) => {
-    console.log(brand)
     setOpen(true)
     setSelectedBrand(brand) 
 }
@@ -20,7 +19,7 @@ const handleOnClose = () => {
     return (
         <div>
             <h3> Brand Recommendations for: </h3>
-            <div> { wine } </div>
+            <div> {wine} </div>
             <hr/>
             <div>
                 { brands.map(brand => { 
@@ -28,7 +27,7 @@ const handleOnClose = () => {
                     <li key={brand.id}> 
                     {brand.title} ({brand.price}) 
                     <button onClick={() => handleClickOpen(brand)}> More Details </button> <button> Save </button>
-                    <SimpleDialog 
+                    <BrandDialog 
                         open={open}
                         onClose={handleOnClose}
                         selectedbrand={selectedBrand}
