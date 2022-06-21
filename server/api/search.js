@@ -27,6 +27,37 @@ router.get("/byIngredients", async (req, res, next) => {
   }
 });
 
+router.get('/complexSearch', async(req, res, next) => {
+  try{
+    const options = {
+      method: 'GET',
+      url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch',
+      params: {
+        query: req.query.query,
+        cuisine: req.query.cuisine,
+        type: req.query.type,
+        diet: req.query.diet,
+        intolerances: req.query.intolerances,
+        instructionsRequired: 'true',
+        addRecipeInformation: 'true',
+        fillIngredients: 'true',
+        ignorePantry: 'true',
+        number: '24',
+        sort: 'max-used-ingredients'
+      },
+      headers: {
+        'X-RapidAPI-Key': process.env.API_KEY,
+        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+      }
+    };
+    const recipes = (await axios.request(options)).data;
+    res.send(recipes.results);
+  }
+  catch(ex){
+    next(ex)
+  }
+})
+
 router.get("/byRecipeId/:id", async (req, res, next) => {
   try {
     const options = {
