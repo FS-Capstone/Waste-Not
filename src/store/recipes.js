@@ -15,8 +15,10 @@ export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, in
     }, auth)).data;
     dispatch({type: CREATE_RECIPE, newRecipe});
     dispatch(me());
+  };
+};
         
-export const fetchRecipes = (ingredients, number, ranking) => {
+ export const fetchRecipes = (ingredients, number, ranking) => {
   return async (dispatch) => {
     const ingredientString = ingredients
       .map((ingredient) => ingredient.name)

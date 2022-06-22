@@ -1,5 +1,6 @@
-body {
+body, html {
   margin: 0;
+  padding: 0;
 }
 
 .shelf {
@@ -28,4 +29,30 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+/* .landing {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh; 
+  background-image: url("/images/Background12.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+.wine {
+  display: flex;
+  height: 80vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.createForm {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
