@@ -17,8 +17,9 @@ export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, in
     dispatch(me());
   }
 }
+
         
-export const fetchRecipes = (ingredients, number, ranking) => {
+ export const fetchRecipes = (ingredients, number, ranking) => {
   return async (dispatch) => {
     let ingredientString;
     if(ingredients[0].name){
