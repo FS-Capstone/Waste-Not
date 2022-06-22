@@ -7,6 +7,7 @@ import PantryAutocomplete from "../PantryAutocomplete";
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
+import SearchResults from '../RecipeResults/SearchResults'
 
 //returns an object with all categories as keys, and a list of all ingredients in that category as the value
 const getAllCategories = (ingredients) => {
@@ -105,7 +106,7 @@ export default function SidePantry() {
           </List>
         )
       })}
-
+    <SearchResults/>
 
     </Box>
 

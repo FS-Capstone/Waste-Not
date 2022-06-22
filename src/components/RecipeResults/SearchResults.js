@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems, fetchComplexRecipes } from "../../store";
 import RecipeCard from "./RecipeCard";
+import SearchWithPantry from "./SearchWithPantry";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
@@ -23,8 +24,8 @@ const SearchResults = () => {
   const user = useSelector(state=> state.auth)
   const shoppingList = useSelector(state => state.shoppingList);
   const listIds = shoppingList.map(ingredient => ingredient.id);
-  const [number, setNumber] = useState(12);
-  const [ranking, setRanking] = useState(1);
+
+
   const [showAll, setShowAll] = useState(false);
   const [offset, setOffset] = useState(0);
   const [searchValue, setSearchValue] = useState('');
@@ -33,14 +34,11 @@ const SearchResults = () => {
   const [diet, setDiet] = useState('');
   const [meal, setMeal] = useState('');
   const [value, setValue] = useState([]);
-  const numValues = [6, 12, 18, 24, 48, 96];
+
   const cuisines = ['african', 'chinese', 'japanese', 'korean', 'vietnamese', 'thai', 'indian', 'british', 'irish', 'french', 'italian', 'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun', 'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean', 'latin american']
   const diets = ['pescetarian', 'lacto vegetarian', 'ovo vegetarian', 'vegan', 'paleo', 'primal', 'vegetarian'];
   const meals = ['main course', 'side dish', 'dessert', 'appetizer', 'salad', 'bread','breakfast', 'soup', 'beverage', 'sauce', 'drink'];
-  const rankingValues = [
-    { display: "Maximize Used Ingredients", value: 1 },
-    { display: "Minimize Missing Ingredients", value: 2 },
-  ];
+
 
   //get flattened array of all missing ingredients from recipes in state, then filter for duplicate values
   const missingIngredientsData = recipes
@@ -113,28 +111,10 @@ const SearchResults = () => {
     setSelectedMissingIngredients([])
   }
 
-  const recipeSearch = async (e) => {
-    e.preventDefault();
-    const selectedIngredients = window.localStorage.getItem(
-      "selectedIngredients"
-    )
-      ? window.localStorage.getItem("selectedIngredients")
-      : [];
-    if (selectedIngredients.length) {
-      dispatch(fetchRecipes(selectedIngredients, number, ranking));
-    } else {
-      const ingredients = pantry?.ingredients;
-      dispatch(fetchRecipes(ingredients, number, ranking));
-    }
-  };
 
-  const handleNumChange = (e) => {
-    setNumber(e.target.value);
-  };
 
-  const handleRankChange = (e) => {
-    setRanking(e.target.value);
-  };
+
+
 
   const handleCuisine = e => {
     setCuisine(e.target.value)
@@ -197,7 +177,8 @@ const SearchResults = () => {
           </Box> : null}
           <Button variant='contained' onClick={(e)=> handleComplexSearch(e)}>Search</Button>
         </Box>
-        <Box
+        <SearchWithPantry/>
+        {/* <Box
           id='ingredientSearchBox'
           sx={{
             display: "flex",
@@ -241,7 +222,7 @@ const SearchResults = () => {
               ))}
             </TextField>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
       <Box
         sx={{
