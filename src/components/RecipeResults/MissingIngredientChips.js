@@ -4,14 +4,9 @@ import {
   Box,
   Chip,
   Button,
-  Grid,
   Typography,
-  TextField,
-  MenuItem,
-  Autocomplete
 } from "@mui/material";
-import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems, fetchComplexRecipes } from "../../store";
-import RecipeCard from "./RecipeCard";
+import { addMultiplePantryItems, addMultipleShoppingItems } from "../../store";
 
 export default function MissingIngredientChips({missingIngredientList}) {
   const [showAll, setShowAll] = useState(false);

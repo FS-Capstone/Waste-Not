@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Box,
   Chip,
   Button,
-  Grid,
-  Typography,
   TextField,
   MenuItem,
   Autocomplete
 } from "@mui/material";
-import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems, fetchComplexRecipes } from "../../store";
-import RecipeCard from "./RecipeCard";
-import SearchWithPantry from "./SearchWithPantry";
+import {fetchComplexRecipes } from "../../store";
 
 export default function AdvancedSearch() {
   const [showAdvanced, setShowAdvanced] = useState(false);
