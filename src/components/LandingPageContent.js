@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
 import { styled } from '@mui/system';
 import { Collapse } from "@mui/material";
+import { Button } from "@mui/material";
+
 
 const LandingContent = styled('div')({
         color: 'white',
@@ -13,27 +14,37 @@ const LandingContent = styled('div')({
         justifyContent: 'center',
         fontFamily: 'Nunito',
         h1: {
-           fontSize: '3rem',
+           fontSize: '4rem',
            margin: '0' 
         },
         h2: {
-            fontSize: '2rem'
-        }
+            fontSize: '2rem',
+            textAlign: 'center'
+        },
+        div: {
+            justifyContent: 'center',
+            textAlign: 'center',
+            textDecoration: 'none'
+        },
+        
 })
 
 const LandingPageContent = () => {
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
+        setChecked(true);
+    },[]); 
 
-    })
     return (
         <LandingContent>
-            <Collapse in={true} {...(checked ? { timeout: 1000 } : {})} collapsedheight={50}>
-            <h1> Welcome to our Capstone Project</h1>
+         <Collapse in={checked} {...(checked ? { timeout: 1500 } : {})} collapsedheight={50}>
+            <div>
+            <h1> Welcome to Our Capstone Project </h1>
             <h2> (Tagline) </h2>
-            <div><Link to='/home'> <button> Enter Site </button> </Link></div>
-            </Collapse>
+            <Link to='/home'> <Button variant='contained'> Enter </Button></Link>
+            </div>
+          </Collapse> 
         </LandingContent>
     )
 }
