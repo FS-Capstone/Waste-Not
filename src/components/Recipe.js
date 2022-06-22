@@ -18,13 +18,16 @@ const Recipe = () => {
   const [recipeSteps, setRecipeSteps] = useState([]);
   const [recipeInfo, setRecipeInfo] = useState([]);
   const [tools, setTools] = useState([]);
+  const [wines, setWines] = useState([]);
   const [nutritionLabel, setNutritionLabel] = useState("");
-  const savedRecipes = useSelector(state => state.auth.recipes?.map(recipe => recipe.recipeId));
-  const loggedIn = useSelector(state => !!state.auth.id);
+  const savedRecipes = useSelector((state) =>
+    state.auth.recipes?.map((recipe) => recipe.recipeId)
+  );
+  const loggedIn = useSelector((state) => !!state.auth.id);
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  
+
   useEffect(() => {
     async function getRecipeSteps(recipeId) {
       try {
@@ -79,12 +82,23 @@ const Recipe = () => {
     getRecipeLabelInfo(id);
   }, [id]);
 
+  const handleOnClick = async (req, res, next) => {
+    const wines = (
+      await axios.get("/api/wine/winePairing", {
+        params: {
+          food: cuisines[0],
+          maxPrice: "50",
+        },
+      })
+    ).data;
+    setWines(wines);
+  };
+
   const { nutrients } = recipeInfo.nutrition ? recipeInfo.nutrition : [];
   const { equipment } = tools ? tools : [];
+  const { cuisines } = recipeInfo ? recipeInfo : [];
 
-  if(!savedRecipes)
-    return null;
-
+  if (!savedRecipes) return null;
 
   return (
     <Stack sx={{ border: "1px solid" }} direcition="row" spacing={2}>
@@ -178,21 +192,49 @@ const Recipe = () => {
             </Card>
           )}
         </Box>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "stretch",
+            height: "100%",
+          }}
+        >
+          <button onClick={handleOnClick}>Search Wine Pairings</button>
+          {wines.pairedWines
+            ? wines.pairedWines.map((wine, index) => {
+                return (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "1rem",
+                    }}
+                  >
+                    <Typography>{wine.toUpperCase()}</Typography>
+                  </Box>
+                );
+              })
+            : null}
+        </CardContent>
       </Box>
 
-      
-      {//Save recipe logic
-        loggedIn ?
-          (
-            savedRecipes.includes(id * 1) ?
-              <button onClick={() => dispatch(removeSavedRecipe(id))}>Unsave Recipe</button>
-            :
-              <button onClick={() => dispatch(saveRecipe(id))}>Save Recipe</button>
+      {
+        //Save recipe logic
+        loggedIn ? (
+          savedRecipes.includes(id * 1) ? (
+            <button onClick={() => dispatch(removeSavedRecipe(id))}>
+              Unsave Recipe
+            </button>
+          ) : (
+            <button onClick={() => dispatch(saveRecipe(id))}>
+              Save Recipe
+            </button>
           )
-        :
-        null
+        ) : null
       }
-      
     </Stack>
   );
 };
