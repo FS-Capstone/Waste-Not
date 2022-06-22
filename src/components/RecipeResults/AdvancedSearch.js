@@ -42,7 +42,6 @@ export default function AdvancedSearch() {
 
   const handleCuisine = e => {
     setCuisine(e.target.value)
-    console.log(cuisine)
   }
 
   const handleDiet = e => {
