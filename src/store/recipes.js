@@ -6,6 +6,16 @@ const CREATE_RECIPE = "CREATE_RECIPE"
 
 const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
 
+export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId) => {
+  console.log("in the thunk")
+  return async function(dispatch){
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    const newRecipe = (await axios.post('/api/recipes/createRecipe', {
+      title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId
+    }, auth)).data;
+    dispatch({type: CREATE_RECIPE, newRecipe});
+    dispatch(me());
+        
 export const fetchRecipes = (ingredients, number, ranking) => {
   return async (dispatch) => {
     const ingredientString = ingredients
@@ -25,15 +35,26 @@ export const fetchRecipes = (ingredients, number, ranking) => {
   };
 };
 
-export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId) => {
-  console.log("in the thunk")
-  return async function(dispatch){
-    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
-    const newRecipe = (await axios.post('/api/recipes/createRecipe', {
-      title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId
-    }, auth)).data;
-    dispatch({type: CREATE_RECIPE, newRecipe});
-    dispatch(me());
+/* params: {
+          query: obj.query,
+          cuisine: obj.cuisine,
+          type: obj.type,
+          diet: obj.diet,
+          intolerances: obj.intolerances
+        } */
+
+export const fetchComplexRecipes = obj => {
+  console.log(obj)
+  Object.keys(obj).forEach(key => obj[key] === '' && delete obj[key])
+  console.log(obj)
+  return async(dispatch) => {
+    const recipes = (
+      await axios.get('/api/search/complexSearch', {
+        params: obj
+      })
+    ).data;
+    dispatch(_fetchRecipes(recipes))
+
   }
 }
 
