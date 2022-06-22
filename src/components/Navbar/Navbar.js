@@ -85,9 +85,9 @@ const Navbar = (props) => {
             <Link
               component={RouterLink}
               to='/searchResults'
-              sx={location.pathname === '/wine' ? {color: theme.palette.text.primary} : null}
+              sx={location.pathname === '/searchResults' ? {color: theme.palette.text.primary} : null}
               >
-                Find a recipe!
+                Search
               </Link>
               <Link
               component={RouterLink}

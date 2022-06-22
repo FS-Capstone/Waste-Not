@@ -2,6 +2,7 @@ import axios from "axios";
 import { me } from "./auth";
 const SET_AUTH = 'SET_AUTH'
 const FETCH_RECIPES = "FETCH_RECIPES";
+const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 
 const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
 
@@ -63,6 +64,13 @@ export const saveRecipe = (recipeId) => {
   }
 }
 
+export const clearSearchResults = () => {
+  return {
+    type: CLEAR_SEARCH_RESULTS,
+    recipes: []
+  }
+}
+
 export const removeSavedRecipe = (recipeId) => {
   return async function(dispatch){
     const auth = {headers: {authorization: window.localStorage.getItem('token')}};
@@ -75,6 +83,8 @@ export const removeSavedRecipe = (recipeId) => {
 export default function (state = [], action) {
   switch (action.type) {
     case FETCH_RECIPES:
+      return action.recipes;
+    case CLEAR_SEARCH_RESULTS:
       return action.recipes;
     default:
       return state;
