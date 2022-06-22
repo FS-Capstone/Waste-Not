@@ -43,7 +43,7 @@ router.get('/complexSearch', async(req, res, next) => {
         fillIngredients: 'true',
         ignorePantry: 'true',
         number: '24',
-        sort: 'max-used-ingredients'
+        maxReadyTime: req.query.maxReadyTime
       },
       headers: {
         'X-RapidAPI-Key': process.env.API_KEY,

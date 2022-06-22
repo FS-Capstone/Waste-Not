@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Box, List, ListItemButton } from "@mui/material";
 import { PantryItem } from "./PantryItem";
@@ -7,6 +7,7 @@ import PantryAutocomplete from "../PantryAutocomplete";
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
+import SearchResults from '../RecipeResults/SearchResults'
 
 //returns an object with all categories as keys, and a list of all ingredients in that category as the value
 const getAllCategories = (ingredients) => {
@@ -25,17 +26,30 @@ const getAllCategories = (ingredients) => {
 
 export default function SidePantry() {
   const pantry = useSelector(state => state.selectedPantry);
-  const [selectedIngredients, setSelectedIngredients] = useState({});
+  let localStorageIngredients = JSON.parse(window.localStorage.getItem('selectedIngredients')) || [];
+  localStorageIngredients = localStorageIngredients.reduce((accum, ing) => {return {...accum, [ing]: true}}, {})
+
+  const [selectedIngredients, setSelectedIngredients] = useState(localStorageIngredients);
+  const numSelectedIngredients = Object.values(selectedIngredients).filter(ingredient => ingredient).length
   const ingredientList = useSelector(state => state.ingredients);
 
   const ingredientsInPantry = pantry?.ingredients;
   const [checkedCategories, setCheckedCategories] = useState({});
 
   const [openedCategories, setOpenedCategories] = useState({});
+
+  useEffect(() => {
+    const ingredients = Object.keys(selectedIngredients).filter(id => selectedIngredients[id])
+    window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredients))
+  }, [numSelectedIngredients])
+
+
   if(!ingredientsInPantry)
     return null;
   const categoriesWithIngredients = getAllCategories(ingredientsInPantry);
   const categories = Object.keys(categoriesWithIngredients).sort((a,b) => a.localeCompare(b));
+
+
 
   //opens or closes the category
   const toggleCategory = (category) => {
@@ -49,15 +63,13 @@ export default function SidePantry() {
 
   //handles click on ingredient-level checkbox
   const handleCheck = (ingredient, category) => {
-    const id = String(ingredient.id)
-    if(checkedCategories[category])
-      setCheckedCategories({...checkedCategories, [category]: false})
+    const name = String(ingredient.name)
 
-    if(id in selectedIngredients){
-      setSelectedIngredients({...selectedIngredients, [id]: !selectedIngredients[id]});
+    if(name in selectedIngredients){
+      setSelectedIngredients({...selectedIngredients, [name]: !selectedIngredients[name]});
     }
     else{
-      setSelectedIngredients({...selectedIngredients, [id]: true});
+      setSelectedIngredients({...selectedIngredients, [name]: true});
     }
   }
 
@@ -67,13 +79,31 @@ export default function SidePantry() {
     const categorySelected = evt.target.checked;
     setCheckedCategories({...checkedCategories, [category]: !checkedCategories[category]});
     for(let ingredient of categoriesWithIngredients[category]){
-      setSelectedIngredients((prevState) => ({...prevState, [ingredient.id]: categorySelected ?  true : false}))
+      setSelectedIngredients((prevState) => ({...prevState, [ingredient.name]: categorySelected ?  true : false}))
     }
+  }
+
+  //if sent true, selects all. If sent false, deselects all
+  const selectAll = (select) => {
+  const selectedCategories = {};
+  const allIngredientsSelected = {};
+
+  ingredientsInPantry.forEach((ingredient) => {
+    allIngredientsSelected[ingredient.name] = select;
+  })
+
+  for(let i = 0; i < categories.length; i++){
+    selectedCategories[categories[i]] = select;
+  }
+  setCheckedCategories(selectedCategories);   
+  setSelectedIngredients(allIngredientsSelected);
   }
 
   return(
     <Box>
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
+      <button onClick={() => selectAll(true)}>Select All</button>
+      <button onClick={() => selectAll(false)}>Deselect All</button>
       <Divider/>
 
       {categories.map(category => {
@@ -94,7 +124,7 @@ export default function SidePantry() {
                     return <PantryItem 
                             ingredient={ingredient} 
                             key={ingredient.id}
-                            checked={!!selectedIngredients[ingredient.id]}
+                            checked={!!selectedIngredients[ingredient.name]}
                             handleCheck={handleCheck}
                             category={category}
                             />
@@ -105,7 +135,6 @@ export default function SidePantry() {
           </List>
         )
       })}
-
 
     </Box>
 
