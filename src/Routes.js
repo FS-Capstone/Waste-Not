@@ -11,13 +11,12 @@ import Recipe from "./components/Recipe";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Navbar from "./components/Navbar/Navbar";
-import SearchResults from "./components/RecipeResults/SearchResults";
+import RecipeSearch from "./components/RecipeResults/RecipeSearch";
 import { me, getPantries, loadIngredients, loadShoppingList } from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import AccountPage from "./components/account/AccountPage";
 import CreateRecipe from "./components/CreateRecipe";
 import ShoppingList from "./components/account/ShoppingList";
-import SidePantry from "./components/pantry/SidePantry";
 import SavedRecipes from "./components/account/SavedRecipes";
 
 
@@ -48,11 +47,11 @@ const ClientRoutes = () => {
         <Route path="wine/recommend-wine" element={<DishToWine />} />
         <Route path="wine/recommend-dish" element={<WineToDish />} />
         <Route path="wine/recommend-brand" element={<WineToBrand />} />
-        <Route path="pantry" element={<SidePantry />} />
+        <Route path="pantry" element={<Pantry />} />
         <Route path="recipe/:id" element={<Recipe />} />
         <Route path="account" element={<AccountPage />} />
         <Route path='/shoppingList' element={<ShoppingList/>} />
-        <Route path="searchResults" element={<SearchResults />} />
+        <Route path="searchResults" element={<RecipeSearch />} />
         <Route path="create-recipe" element={<CreateRecipe />} />
         <Route path='savedRecipes' element={<SavedRecipes />}/>
       </Routes>

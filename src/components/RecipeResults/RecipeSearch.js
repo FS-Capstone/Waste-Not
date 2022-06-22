@@ -1,11 +1,16 @@
 import React from 'react';
-import axios from 'axios';
+
+import AdvancedSearch from './AdvancedSearch';
 import SearchResults from './SearchResults';
+import { Box } from '@mui/system';
 
 const RecipeSearch = () => {
 
   return(
-    <hr/>
+    <Box>
+      <AdvancedSearch/>
+      <SearchResults/>
+    </Box>
   )
 };
 
