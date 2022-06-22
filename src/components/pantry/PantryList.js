@@ -64,8 +64,6 @@ export default function SidePantry() {
   //handles click on ingredient-level checkbox
   const handleCheck = (ingredient, category) => {
     const name = String(ingredient.name)
-    if(checkedCategories[category])
-      setCheckedCategories({...checkedCategories, [category]: false})
 
     if(name in selectedIngredients){
       setSelectedIngredients({...selectedIngredients, [name]: !selectedIngredients[name]});
@@ -85,9 +83,27 @@ export default function SidePantry() {
     }
   }
 
+  //if sent true, selects all. If sent false, deselects all
+  const selectAll = (select) => {
+  const selectedCategories = {};
+  const allIngredientsSelected = {};
+
+  ingredientsInPantry.forEach((ingredient) => {
+    allIngredientsSelected[ingredient.name] = select;
+  })
+
+  for(let i = 0; i < categories.length; i++){
+    selectedCategories[categories[i]] = select;
+  }
+  setCheckedCategories(selectedCategories);   
+  setSelectedIngredients(allIngredientsSelected);
+  }
+
   return(
     <Box>
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
+      <button onClick={() => selectAll(true)}>Select All</button>
+      <button onClick={() => selectAll(false)}>Deselect All</button>
       <Divider/>
 
       {categories.map(category => {
