@@ -14,30 +14,21 @@ import {
 import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems, fetchComplexRecipes } from "../../store";
 import RecipeCard from "./RecipeCard";
 import SearchWithPantry from "./SearchWithPantry";
+import AdvancedSearch from "./AdvancedSearch";
 
 const SearchResults = () => {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.recipes);
   const pantry = useSelector((state) => state.selectedPantry);
-  const ingredients = useSelector(state => state.ingredients)
   const pantryIngredientIds = pantry?.ingredients?.map(ingredient => ingredient.id)
   const user = useSelector(state=> state.auth)
   const shoppingList = useSelector(state => state.shoppingList);
   const listIds = shoppingList.map(ingredient => ingredient.id);
-
-
+  const ingredients = useSelector(state => state.ingredients)
+  const [value, setValue] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [offset, setOffset] = useState(0);
-  const [searchValue, setSearchValue] = useState('');
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [cuisine, setCuisine] = useState('');
-  const [diet, setDiet] = useState('');
-  const [meal, setMeal] = useState('');
-  const [value, setValue] = useState([]);
 
-  const cuisines = ['african', 'chinese', 'japanese', 'korean', 'vietnamese', 'thai', 'indian', 'british', 'irish', 'french', 'italian', 'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun', 'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean', 'latin american']
-  const diets = ['pescetarian', 'lacto vegetarian', 'ovo vegetarian', 'vegan', 'paleo', 'primal', 'vegetarian'];
-  const meals = ['main course', 'side dish', 'dessert', 'appetizer', 'salad', 'bread','breakfast', 'soup', 'beverage', 'sauce', 'drink'];
 
 
   //get flattened array of all missing ingredients from recipes in state, then filter for duplicate values
@@ -116,113 +107,11 @@ const SearchResults = () => {
 
 
 
-  const handleCuisine = e => {
-    setCuisine(e.target.value)
-    console.log(cuisine)
-  }
-
-  const handleDiet = e => {
-    setDiet(e.target.value)
-  };
-
-  const handleMeal = e => {
-    setMeal(e.target.value)
-  }
-
-  const handleComplexSearch = e => {
-    const options = {
-      query: searchValue,
-      cuisine,
-      type: meal,
-      diet,
-      intolerances: value.join(',')
-    }
-    dispatch(fetchComplexRecipes(options))
-  }
-
-  const handleComplexSearchChange = e => {
-    setSearchValue(e.target.value)
-  }
-
   return (
     <div>
       <Box id='searchContainer' sx={{display:'flex', justifyContent:'center'}}>
-        <Box id='complexSearchBox' sx={{display:'flex', flexDirection:'column', justifyContent:'center', flexBasis:'40%', margin:'1rem'}}>
-          <div><TextField id='complexSearch' variant='outlined' name='searchValue' onChange={handleComplexSearchChange} value={searchValue} placeholder='Search for a recipe!' sx={{width:'80%'}}/>{!showAdvanced ? <Button size='small' onClick={()=> setShowAdvanced(true)}>Advanced Search</Button> : <Button size='small' onClick={()=> setShowAdvanced(false)}>Hide Advanced Search</Button>}</div>
-          
-          {showAdvanced ? <Box>
-            <Box sx={{margin:'1rem'}}>
-              <TextField id='cuisineSelect' size='small' variant='outlined' select onChange={handleCuisine} defaultValue='' label='Select a Cuisine' sx={{width:'30%'}} ><MenuItem value='' >Select a Cuisine Type</MenuItem>{cuisines.map(cuisine => <MenuItem key={cuisine} value={cuisine}>{cuisine}</MenuItem>)}</TextField>
-              <TextField id='dietSelect' size='small' variant='outlined' select onChange={handleDiet} defaultValue='' label='Select a Diet Type' sx={{width:'30%'}}><MenuItem value='' >Select a Diet Type</MenuItem>{diets.map(diet => <MenuItem key={diet} value={diet}>{diet}</MenuItem>)}</TextField>
-              <TextField id='mealSelect' size='small' variant='outlined' select onChange={handleMeal} defaultValue='' label='Select a Meal Type' sx={{width:'30%'}}><MenuItem value='' >Select a Meal Type</MenuItem>{meals.map(meal => <MenuItem key={meal} value={meal}>{meal}</MenuItem> )}</TextField>
-            </Box>
-            <Box sx={{display:'flex', margin: '1rem'}}>
-              <Autocomplete 
-                multiple 
-                id='intoleranceSelect'
-                value={value}
-                onChange={(event, newValue) => setValue(newValue)}
-                options={ingredients.map(ingredient => ingredient.name)} 
-                getOptionLabel={(option) => option} 
-                // defaultValue={[ingredients[0]?.name]} 
-                freeSolo
-                renderTags={(value, getTagProps) => value.map((option, index) => <Chip variant='outlined' label={option} {...getTagProps({index})} /> )}
-                filterSelectedOptions  
-                renderInput={params => ( <TextField {...params} label='Intolerances' placeholder='Intolerances' />)} 
-                sx={{width:'80%'}}
-                />
-              <TextField id='maxTimeSelect' type='number' inputProps={{min:10}} label='Max Prep Time'/>
-
-            </Box>
-          </Box> : null}
-          <Button variant='contained' onClick={(e)=> handleComplexSearch(e)}>Search</Button>
-        </Box>
+        <AdvancedSearch/>
         <SearchWithPantry/>
-        {/* <Box
-          id='ingredientSearchBox'
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            margin: "1rem",
-          }}
-        >
-          <Button
-            variant="outlined"
-            sx={{ paddingLeft: "4.2rem", paddingRight: "4.12rem" }}
-            onClick={(e) => recipeSearch(e)}
-          >
-            Search for recipes!
-          </Button>
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <TextField
-              size="small"
-              id="resultsNumber"
-              select
-              value={number}
-              onChange={handleNumChange}
-            >
-              {numValues.map((num) => (
-                <MenuItem key={num} value={num}>
-                  {num}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              size="small"
-              id="ranking"
-              select
-              value={ranking}
-              onChange={handleRankChange}
-            >
-              {rankingValues.map((ranking) => (
-                <MenuItem key={ranking.value} value={ranking.value}>
-                  {ranking.display}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-        </Box> */}
       </Box>
       <Box
         sx={{

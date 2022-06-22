@@ -32,7 +32,7 @@ export default function SearchWithPantry(){
     const selectedIngredients = window.localStorage.getItem(
       "selectedIngredients"
     )
-      ? window.localStorage.getItem("selectedIngredients")
+      ? JSON.parse(window.localStorage.getItem("selectedIngredients"))
       : [];
     if (selectedIngredients.length) {
       dispatch(fetchRecipes(selectedIngredients, number, ranking));

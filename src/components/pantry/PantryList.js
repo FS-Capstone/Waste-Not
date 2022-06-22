@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Box, List, ListItemButton } from "@mui/material";
 import { PantryItem } from "./PantryItem";
@@ -26,17 +26,30 @@ const getAllCategories = (ingredients) => {
 
 export default function SidePantry() {
   const pantry = useSelector(state => state.selectedPantry);
-  const [selectedIngredients, setSelectedIngredients] = useState({});
+  let localStorageIngredients = JSON.parse(window.localStorage.getItem('selectedIngredients'));
+  localStorageIngredients = localStorageIngredients.reduce((accum, ing) => {return {...accum, [ing]: true}}, {})
+
+  const [selectedIngredients, setSelectedIngredients] = useState(localStorageIngredients);
+  const numSelectedIngredients = Object.values(selectedIngredients).filter(ingredient => ingredient).length
   const ingredientList = useSelector(state => state.ingredients);
 
   const ingredientsInPantry = pantry?.ingredients;
   const [checkedCategories, setCheckedCategories] = useState({});
 
   const [openedCategories, setOpenedCategories] = useState({});
+
+  useEffect(() => {
+    const ingredients = Object.keys(selectedIngredients).filter(id => selectedIngredients[id])
+    window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredients))
+  }, [numSelectedIngredients])
+
+
   if(!ingredientsInPantry)
     return null;
   const categoriesWithIngredients = getAllCategories(ingredientsInPantry);
   const categories = Object.keys(categoriesWithIngredients).sort((a,b) => a.localeCompare(b));
+
+
 
   //opens or closes the category
   const toggleCategory = (category) => {
@@ -106,7 +119,6 @@ export default function SidePantry() {
           </List>
         )
       })}
-    <SearchResults/>
 
     </Box>
 

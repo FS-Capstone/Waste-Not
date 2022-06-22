@@ -7,9 +7,16 @@ const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
 
 export const fetchRecipes = (ingredients, number, ranking) => {
   return async (dispatch) => {
-    const ingredientString = ingredients
-      .map((ingredient) => ingredient.name)
-      .join(",");
+    let ingredientString;
+    if(ingredients[0].name){
+      ingredientString = ingredients
+        .map((ingredient) => ingredient.name)
+        .join(",");
+    }
+    else{
+      ingredientString  = ingredients.join(',');
+    }
+    
     const recipes = (
       await axios.get("/api/search/byIngredients", {
         params: {
