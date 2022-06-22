@@ -3,9 +3,20 @@ import { me } from "./auth";
 const SET_AUTH = 'SET_AUTH'
 const FETCH_RECIPES = "FETCH_RECIPES";
 const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
+const CREATE_RECIPE = "CREATE_RECIPE"
 
 const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
 
+export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId) => {
+  console.log("in the thunk")
+  return async function(dispatch){
+    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+    const newRecipe = (await axios.post('/api/recipes/createRecipe', {
+      title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId
+    }, auth)).data;
+    dispatch({type: CREATE_RECIPE, newRecipe});
+    dispatch(me());
+        
 export const fetchRecipes = (ingredients, number, ranking) => {
   return async (dispatch) => {
     let ingredientString;
@@ -51,6 +62,7 @@ export const fetchComplexRecipes = obj => {
       })
     ).data;
     dispatch(_fetchRecipes(recipes))
+
   }
 }
 
@@ -59,8 +71,6 @@ export const saveRecipe = (recipeId) => {
     const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
     await axios.post(`/api/recipes/saveRecipe/${recipeId}`, {}, auth);
     dispatch(me());
-
-
   }
 }
 
@@ -86,6 +96,8 @@ export default function (state = [], action) {
       return action.recipes;
     case CLEAR_SEARCH_RESULTS:
       return action.recipes;
+    case CREATE_RECIPE:
+      return [...state, action.recipe]
     default:
       return state;
   }
