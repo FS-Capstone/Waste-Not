@@ -108,7 +108,7 @@ export default function MissingIngredientChips({missingIngredientList}) {
               ) : null
             )}
             {!showAll && missingIngredientList.length ? 
-            <Chip variant='outlined' clickable label={`+ ${missingIngredientList.length - 15} more...`} onClick={() => setShowAll(true)} sx={{margin:'3px'}} />
+            <Chip variant='outlined' clickable label={`+ ${missingIngredientList.length - 15 <= 0 ? 0 : missingIngredientList.length - 15} more...`} onClick={() => setShowAll(true)} sx={{margin:'3px'}} />
             : null }
             {showAll && missingIngredientList.length ? <Chip variant='outlined' clickable label='Hide extra ingredients' onClick={() => setShowAll(false)} sx={{margin:'3px'}} /> : null}
           {!selectedMissingIngredients.length ? null : (

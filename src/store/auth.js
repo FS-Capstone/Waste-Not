@@ -32,6 +32,7 @@ export const authenticate = ({username, password, formName: method, navigate, em
   try {
     const res = await axios.post(`/auth/${method}`, {username, password, email})
     window.localStorage.setItem(TOKEN, res.data.token)
+    window.localStorage.setItem('selectedIngredients', JSON.stringify([]))
     dispatch(me())
     navigate('/');
   } catch (authError) {
@@ -41,6 +42,7 @@ export const authenticate = ({username, password, formName: method, navigate, em
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN)
+  window.localStorage.setItem('selectedIngredients', JSON.stringify([]))
   return {
     type: SET_AUTH,
     auth: {}

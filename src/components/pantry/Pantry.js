@@ -7,7 +7,7 @@ import SearchResults from '../RecipeResults/SearchResults';
 
 export default function Pantry() {
   return (
-    <Box sx={{display:'flex', justifyContent:'space-between', flexWrap:'wrap'}}>
+    <Box sx={{display:'flex', justifyContent:'center', flexWrap:'wrap'}}>
       <PantryList/>
       <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start'}}>
         <SearchWithPantry/>

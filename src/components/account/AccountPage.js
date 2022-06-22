@@ -8,6 +8,7 @@ import { useTheme } from "@emotion/react";
 import EditIcon from '@mui/icons-material/Edit';
 import PasswordChange from "./PasswordChange";
 import UsernameEdit from './UsernameEdit';
+import PantrySelector from '../pantry/PantrySelector'
 
 const AccountPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -31,6 +32,8 @@ const AccountPage = () => {
           </IconButton>
         </Box>
         <PantryEditor/>
+        <Typography variant="h6">Select Pantry</Typography>
+        <PantrySelector/>
       </Paper>
     </Box>
 
