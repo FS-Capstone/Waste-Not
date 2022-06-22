@@ -26,7 +26,7 @@ const getAllCategories = (ingredients) => {
 
 export default function SidePantry() {
   const pantry = useSelector(state => state.selectedPantry);
-  let localStorageIngredients = JSON.parse(window.localStorage.getItem('selectedIngredients'));
+  let localStorageIngredients = JSON.parse(window.localStorage.getItem('selectedIngredients')) || [];
   localStorageIngredients = localStorageIngredients.reduce((accum, ing) => {return {...accum, [ing]: true}}, {})
 
   const [selectedIngredients, setSelectedIngredients] = useState(localStorageIngredients);
@@ -63,15 +63,15 @@ export default function SidePantry() {
 
   //handles click on ingredient-level checkbox
   const handleCheck = (ingredient, category) => {
-    const id = String(ingredient.id)
+    const name = String(ingredient.name)
     if(checkedCategories[category])
       setCheckedCategories({...checkedCategories, [category]: false})
 
-    if(id in selectedIngredients){
-      setSelectedIngredients({...selectedIngredients, [id]: !selectedIngredients[id]});
+    if(name in selectedIngredients){
+      setSelectedIngredients({...selectedIngredients, [name]: !selectedIngredients[name]});
     }
     else{
-      setSelectedIngredients({...selectedIngredients, [id]: true});
+      setSelectedIngredients({...selectedIngredients, [name]: true});
     }
   }
 
@@ -81,7 +81,7 @@ export default function SidePantry() {
     const categorySelected = evt.target.checked;
     setCheckedCategories({...checkedCategories, [category]: !checkedCategories[category]});
     for(let ingredient of categoriesWithIngredients[category]){
-      setSelectedIngredients((prevState) => ({...prevState, [ingredient.id]: categorySelected ?  true : false}))
+      setSelectedIngredients((prevState) => ({...prevState, [ingredient.name]: categorySelected ?  true : false}))
     }
   }
 
@@ -108,7 +108,7 @@ export default function SidePantry() {
                     return <PantryItem 
                             ingredient={ingredient} 
                             key={ingredient.id}
-                            checked={!!selectedIngredients[ingredient.id]}
+                            checked={!!selectedIngredients[ingredient.name]}
                             handleCheck={handleCheck}
                             category={category}
                             />

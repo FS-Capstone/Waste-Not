@@ -17,7 +17,6 @@ export default function Pantry() {
       <PantryList/>
       <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
         <SearchWithPantry/>
-        <AdvancedSearch/>
       </Box>
     </Box>
   )
