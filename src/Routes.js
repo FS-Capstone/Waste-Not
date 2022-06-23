@@ -32,7 +32,6 @@ const ClientRoutes = () => {
 
   //update pantries every time auth changes
   useEffect(() => {
-    dispatch(getPantries());
     dispatch(loadShoppingList(auth.id));
   }, [auth]);
 
