@@ -30,8 +30,7 @@ export default function Pantry() {
         opacity:'.95', 
         display:'flex', 
         justifyContent:'center', 
-        width:'60vw',
-        height: recipes.length ? 'auto' : '100vh',
+        width:'80vw',
         backgroundColor:`${theme.palette.background.paper}`}}>
         <PantryList/>
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start'}} >

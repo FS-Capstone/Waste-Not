@@ -38,12 +38,6 @@ export default function SidePantry() {
 
   const [openedCategories, setOpenedCategories] = useState({});
 
-  useEffect(() => {
-    const allIngredientsSelected = ingredientList.reduce((accum, ingredient) => {
-      return {...accum, [ingredient]: true}
-    }, {})
-    setSelectedIngredients(allIngredientsSelected);
-  },[])
 
   useEffect(() => {
     const ingredients = Object.keys(selectedIngredients).filter(id => selectedIngredients[id])
@@ -106,7 +100,14 @@ export default function SidePantry() {
     setSelectedIngredients(allIngredientsSelected);
   }
 
-
+  const isCategorySelected = (category) =>{
+    const ingredientsInCategory = categoriesWithIngredients[category];
+    for(let i = 0; i < ingredientsInCategory.length; i++){
+      if(!selectedIngredients[ingredientsInCategory[i].name])
+        return false;
+    }
+    return true;
+  }
   
   return(
     <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
@@ -121,8 +122,8 @@ export default function SidePantry() {
             {/*buttons for all categories */}
             <ListItemButton onClick={(evt) => toggleCategory(category)}>
               <Checkbox 
-                onClick={evt => selectCategory(evt, category)} 
-                checked={!!checkedCategories[category]}
+                onClick={evt => {selectCategory(evt, category); console.log(isCategorySelected(category))}} 
+                checked={isCategorySelected(category)}
                 />
               <Typography variant="h6">{category}{`(${categoriesWithIngredients[category].length})`}</Typography>
             </ListItemButton>
