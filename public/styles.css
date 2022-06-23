@@ -56,3 +56,14 @@ body, html {
   flex-direction: column;
   justify-content: center;
 }
+
+@media (max-width: 1300px) {
+  .search-and-results{
+    flex-direction: column;
+  }
+}
+
+.top-level-page{
+  /* margin-top: 1.5em */
+  padding-top:120px;
+}

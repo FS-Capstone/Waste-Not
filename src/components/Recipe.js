@@ -101,7 +101,7 @@ const Recipe = () => {
   if (!savedRecipes) return null;
 
   return (
-    <Stack sx={{ border: "1px solid" }} direcition="row" spacing={2}>
+    <Stack sx={{ border: "1px solid" }} direcition="row" spacing={2} className='top-level-page'>
       <Box
         sx={{
           display: "flex",
