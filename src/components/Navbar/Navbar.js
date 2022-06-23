@@ -25,9 +25,9 @@ const LinkContainer = styled(Box)(({theme}) => {
 //Used for links in nav bar
 const Link = styled(MaterialLink)(({theme}) => {
   return{
-    fontSize: "25px",
+    fontSize: "18px",
     color: theme.palette.text.secondary,
-    margin: '20px',
+    margin: '14px',
     "&:hover": {
       color: theme.palette.text.primary,
       textDecoration: "none"
@@ -62,14 +62,31 @@ const Navbar = (props) => {
     return null;
 
   return(
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
+    <Box sx={{ flexGrow: 1, display:'flex', justifyContent:'center', position:'fixed', width:'100%', zIndex:99 }}>
+      <AppBar 
+        sx={{
+          flexDirection:'row',
+          justifyContent:'center',
+          position:'initial',
+          width:'60vw',
+          borderRadius:'0 0 10px 10px',
+          opacity: .95
+        }}
+      >
+        <Toolbar
+          sx={{
+            justifyContent:'center',
+            width: 'fit-content',
+          }}
+        >
           <IconButton onClick={() => navigate('/')}>
             {/*Could use custom app icon in the future */}
-            <HomeIcon fontSize="large"/>
+            <HomeIcon fontSize="small"/>
           </IconButton>
-          <LinkContainer className="nav-links">
+          <LinkContainer 
+            className="nav-links"
+            sx={{width:'fit-content'}}
+          >
             <Link 
               component={RouterLink} 
               to='/pantry' 
@@ -101,7 +118,7 @@ const Navbar = (props) => {
           <IconButton 
             onClick={handleMenu}
           >
-            <AccountCircleIcon fontSize="large"/>
+            <AccountCircleIcon fontSize="small"/>
           </IconButton>
           
           <AccountMenu handleClose={handleClose} anchorEl={anchorEl}/>

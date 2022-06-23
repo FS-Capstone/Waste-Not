@@ -9,7 +9,7 @@ import { Paper } from '@mui/material';
 export default function Pantry() {
   const theme = useTheme();
   return (
-    <Box 
+    <Box className='top-level-page'
     sx={{
 
       width: '100vh%', 
