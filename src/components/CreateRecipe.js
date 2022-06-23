@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import { createRecipe } from '../store/recipes';
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import ConfirmationDialog from './ConfirmationDialog';
 
 const CreateRecipeBackground = styled('div')({
     height: '100vh',
@@ -28,6 +29,7 @@ const CreateRecipe = () => {
     const [cuisine, setCuisine] = useState('')
     const [prepTime, setPrepTime] = useState('')
     const [cookTime, setCookTime] = useState('')
+    const [open, setOpen] = useState(false);
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value)
@@ -53,6 +55,11 @@ const CreateRecipe = () => {
         console.log(title, cuisine, prepTime, cookTime, ingredients, instructions)
         console.log('dispatch thunk here')
         dispatch(createRecipe(title, cuisine, prepTime, cookTime, ingredients, instructions));
+        setOpen(true);
+    }
+
+    const handleOnClose = () => {
+        setOpen(false)
     }
 
     return (
@@ -128,6 +135,7 @@ const CreateRecipe = () => {
                     </Grid>
                     <Grid xs={12} item>
                     <Button variant="contained" fullWidth type='submit'> Save </Button>
+                    <ConfirmationDialog open={open} onClose={handleOnClose} />
                     </Grid>
                 </Grid>
                 </form>
