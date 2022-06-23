@@ -5,16 +5,9 @@ const CreatedRecipes = () => {
     const recipes = useSelector(state => state.auth.recipes || []);
     console.log(recipes) // all of the recipes on auth obj, saved & created
     
-    // if there are recipes, filter through them to find all the created ones.
-    // else return null.
-    // if (!recipes) {
-    //     return null  
-    // } else {
-        if(!recipes[0]?.createdByUser) return null;
+    if(!recipes[0]?.createdByUser) return null; // need to refactor
 
-        const createdRecipes = recipes.filter(recipe => recipe.createdByUser === true);
-    //     return createdRecipes; 
-    // }
+    const createdRecipes = recipes.filter(recipe => recipe.createdByUser === true);
     
     return (
         <div>
