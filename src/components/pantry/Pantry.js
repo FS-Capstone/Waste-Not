@@ -8,7 +8,6 @@ import { Paper } from '@mui/material';
 
 export default function Pantry() {
   const theme = useTheme();
-  console.log(theme);
   return (
     <Box sx={{
       width: '100vh%', 
