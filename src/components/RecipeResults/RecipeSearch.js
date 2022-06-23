@@ -11,7 +11,9 @@ const RecipeSearch = () => {
   const theme = useTheme()
   const recipes = useSelector(state => state.recipes)
   return(
-    <Box sx={{
+    <Box 
+      className='top-level-page'
+      sx={{
       width:'100vh%',
       height:'100%',
       backgroundImage:'url("/images/background14.jpg")',
