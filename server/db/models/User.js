@@ -28,12 +28,13 @@ const User = db.define('user', {
     defaultValue: false,
     allowNull: false
   },
-  favorites: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
-  },
-  createdRecipes: {
-    type: Sequelize.JSONB
-  },
+  // don't need these since recipe model is on auth object now. delete. 
+  // favorites: {
+  //   type: Sequelize.ARRAY(Sequelize.STRING)
+  // },
+  // createdRecipes: {
+  //   type: Sequelize.JSONB
+  // }, 
   currentlySelectedPantryId: {
     type: Sequelize.INTEGER
   },

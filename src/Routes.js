@@ -18,6 +18,7 @@ import AccountPage from "./components/account/AccountPage";
 import CreateRecipe from "./components/CreateRecipe";
 import ShoppingList from "./components/account/ShoppingList";
 import SavedRecipes from "./components/account/SavedRecipes";
+import CreatedRecipes from "./components/account/CreatedRecipes";
 
 
 const ClientRoutes = () => {
@@ -54,6 +55,7 @@ const ClientRoutes = () => {
         <Route path="searchResults" element={<RecipeSearch />} />
         <Route path="create-recipe" element={<CreateRecipe />} />
         <Route path='savedRecipes' element={<SavedRecipes />}/>
+        <Route path='createdRecipes' element={<CreatedRecipes />}/>
       </Routes>
     </>
   );
