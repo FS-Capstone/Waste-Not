@@ -54,9 +54,7 @@ export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, in
         } */
 
 export const fetchComplexRecipes = obj => {
-  console.log(obj)
   Object.keys(obj).forEach(key => obj[key] === '' && delete obj[key])
-  console.log(obj)
   return async(dispatch) => {
     const recipes = (
       await axios.get('/api/search/complexSearch', {

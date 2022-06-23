@@ -89,7 +89,7 @@ const RecipeCard = ({ recipe }) => {
   }, [pantryIngredients])
 
   return (
-    <Card sx={{minHeight:'60vh', height:'auto', maxWidth:'35vw', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
+    <Card sx={{width:'350px', height:'515px', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
       <CardHeader 
         action={
         <IconButton onClick={(e)=> handleFavorite(e)} sx={{padding:0}}>
@@ -104,7 +104,7 @@ const RecipeCard = ({ recipe }) => {
       >
         <CardMedia
           component="img"
-          sx={{ width: "100%", height:'240px' }}
+          sx={{ width: "100%", height:'240px', objectFit:'cover' }}
           image={recipe.image}
           alt={recipe.title}
         />

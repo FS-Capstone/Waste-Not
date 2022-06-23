@@ -86,7 +86,7 @@ const Recipe = () => {
     const wines = (
       await axios.get("/api/wine/winePairing", {
         params: {
-          food: cuisines[0],
+          food: cuisines[0] || 'Italian',
           maxPrice: "50",
         },
       })
