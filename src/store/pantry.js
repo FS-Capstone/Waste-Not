@@ -34,8 +34,18 @@ export const getPantries = () => {
   }
 };
 
+const selectIngredient = (ingredientId, state) => {
+  const ingredient = state.ingredients.find(ingredient => ingredient.id === ingredientId);
+  const currentlySelected = JSON.parse(window.localStorage.getItem('selectedIngredients'));
+  currentlySelected.push(ingredient.name);
+  window.localStorage.setItem('selectedIngredients', JSON.stringify(currentlySelected));
+
+}
+
 export const addPantryItem = (itemId, pantryId) => {
+
   return async(dispatch, getState)=>{
+    selectIngredient(itemId, getState());
     //logged in route
     if(getState().auth.id){
       const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
@@ -65,9 +75,18 @@ export const addMultiplePantryItems = (ingredients, pantryId) => {
   }
 }
 
+
+const deselectIngredient = (ingredientId, state) => {
+  const ingredient = state.ingredients.find(ingredient => ingredient.id === ingredientId);
+  let currentlySelected = JSON.parse(window.localStorage.getItem('selectedIngredients'));
+  currentlySelected = currentlySelected.filter(selectedIngredient => selectedIngredient !== ingredient.name);
+  window.localStorage.setItem('selectedIngredients', JSON.stringify(currentlySelected));
+}
+
 export const deletePantryItem = (ingredientId, selectedPantry) => {
 
   return async (dispatch, getState) => {
+    deselectIngredient(ingredientId, getState());
     //logged in route
     if(getState().auth.id){
       const auth = {headers: {authorization: window.localStorage.getItem('token')}} 

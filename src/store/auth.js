@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
-import axios from 'axios'
-
+import axios from 'axios';
+import {getPantries} from './pantry';
 const TOKEN = 'token'
 
 /**
@@ -28,25 +28,36 @@ export const me = () => async dispatch => {
   }
 }
 
-export const authenticate = ({username, password, formName: method, navigate, email}) => async dispatch => {
+
+const selectIngredients = (ingredients) => {
+  const ingredientNames = ingredients.map(ingredient => ingredient.name);
+  window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredientNames));
+}
+
+export const authenticate = ({username, password, formName: method, navigate, email}) => async (dispatch, getState) => {
   try {
     const res = await axios.post(`/auth/${method}`, {username, password, email})
     window.localStorage.setItem(TOKEN, res.data.token)
-    window.localStorage.setItem('selectedIngredients', JSON.stringify([]))
-    dispatch(me())
-    navigate('/');
+    await dispatch(me())
+    await navigate('/');
+    await dispatch(getPantries());
+    selectIngredients(getState().selectedPantry.ingredients);
   } catch (authError) {
     return dispatch(setAuth({error: authError}));
   }
 }
 
 export const logout = () => {
-  window.localStorage.removeItem(TOKEN)
-  window.localStorage.setItem('selectedIngredients', JSON.stringify([]))
-  return {
-    type: SET_AUTH,
-    auth: {}
+  return async function(dispatch, getState){
+    window.localStorage.removeItem(TOKEN)
+    await dispatch( {
+      type: SET_AUTH,
+      auth: {}
+    })
+    await dispatch(getPantries());
+    selectIngredients(getState().selectedPantry.ingredients);
   }
+
 }
 
 export const changeUsername = (newUsername) => {
@@ -78,8 +89,9 @@ export const changePassword = (oldPassword, newPassword) => {
   
 }
 
+
 export const changeSelectedPantry = (newSelectedPantryId) => {
-  return async(dispatch) => {
+  return async(dispatch, getState) => {
     try{
       const updatedUser = (await axios.put('/api/pantry/changeSelectedPantry', {newSelectedPantryId}, {
         headers: {
@@ -87,10 +99,11 @@ export const changeSelectedPantry = (newSelectedPantryId) => {
         }
       })).data
       
-      dispatch({
+      await dispatch({
         type: CHANGE_SELECTED_PANTRY,
         auth: updatedUser
       })
+      selectIngredients(getState().selectedPantry.ingredients);
     }
     catch(error){
       console.log(error);

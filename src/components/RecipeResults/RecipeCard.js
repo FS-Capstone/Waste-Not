@@ -40,8 +40,8 @@ const RecipeCard = ({ recipe }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const recipeId = location.pathname === 'savedRecipes' ? recipe.recipeId : recipe.id
-  const favoriteIds = useSelector(state => state.auth.recipes.map(recipe => recipe.recipeId))
-  const [favorite, setFavorite] = useState(favoriteIds.includes(recipeId) ? true : false)
+  const favoriteIds = useSelector(state => state.auth.recipes?.map(recipe => recipe.recipeId))
+  const [favorite, setFavorite] = useState(favoriteIds?.includes(recipeId) ? true : false)
   const [expanded, setExpanded] = useState(false);
   const pantryIngredients = useSelector(state => state.selectedPantry.ingredients);
   const pantryIngredientIds = pantryIngredients.map(ingredient => ingredient.id);
