@@ -2,6 +2,7 @@ import React from 'react';
 import { Dialog } from '@mui/material';
 import { DialogTitle } from '@mui/material';
 import { DialogContent } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const ConfirmationDialog = (props) => {
  
@@ -19,7 +20,7 @@ const ConfirmationDialog = (props) => {
                     Success! Recipe Saved 
                 </div>
                 <div>
-                    View Saved Recipes
+                    <Link to='/createdRecipes'>View Saved Recipes</Link>
                 </div>
             </DialogContent>
         </Dialog>
