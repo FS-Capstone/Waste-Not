@@ -38,12 +38,12 @@ export default function SidePantry() {
 
   const [openedCategories, setOpenedCategories] = useState({});
 
-  // useEffect(() => {
-  //   const allIngredientsSelected = ingredientList.reduce((accum, ingredient) => {
-  //     return {...accum, [ingredient]: true}
-  //   }, {})
-  //   setSelectedIngredients(allIngredientsSelected);
-  // },[])
+  useEffect(() => {
+    const allIngredientsSelected = ingredientList.reduce((accum, ingredient) => {
+      return {...accum, [ingredient]: true}
+    }, {})
+    setSelectedIngredients(allIngredientsSelected);
+  },[])
 
   useEffect(() => {
     const ingredients = Object.keys(selectedIngredients).filter(id => selectedIngredients[id])
