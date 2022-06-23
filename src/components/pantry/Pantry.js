@@ -11,9 +11,10 @@ export default function Pantry() {
       <PantryList/>
       <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start'}}>
         <SearchWithPantry/>
+        <SearchResults/>
       </Box>
       <Box sx={{flexBasis: '100%'}}>
-        <SearchResults/>
+        
       </Box>
     </Box>
   )
