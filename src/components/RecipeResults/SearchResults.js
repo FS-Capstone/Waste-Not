@@ -46,7 +46,6 @@ const SearchResults = () => {
   const [missingIngredientList, setMissingIngredientList] = useState([]);
 
   useEffect(() => {
-    console.log(location.pathname)
     missingIngredientsRenamed = missingIngredients
       .map((ingredient) => {
         const trueIngredient = ingredients.find(
