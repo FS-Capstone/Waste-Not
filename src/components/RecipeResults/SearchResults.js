@@ -62,7 +62,7 @@ const SearchResults = () => {
   }, [recipes, pantry]);
 
   return (
-    <div>
+    <Box>
       <MissingIngredientChips missingIngredientList={missingIngredientList}/>
       <Grid
         container
@@ -71,18 +71,19 @@ const SearchResults = () => {
         alignItems="stretch"
         spacing={2}
         columnSpacing={2}
-        sx={{ width: "80%", margin: "0 auto", textAlign: "center" }}
+
+        sx={{ width: "90%", margin: "0 auto 2rem auto",  textAlign: "center" }}
+
       >
         {recipes.map((recipe) => {
           return (
-            <Grid item xs={12} sm={6} md={6} lg={4} xl={4} key={recipe.id}>
+            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={recipe.id}>
               <RecipeCard recipe={recipe} />
             </Grid>
           );
         })}
       </Grid>
-      <Box sx={{ margin: "2rem" }}></Box>
-    </div>
+    </Box>
   );
 };
 

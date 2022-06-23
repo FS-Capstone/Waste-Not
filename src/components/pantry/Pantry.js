@@ -32,6 +32,7 @@ export default function Pantry() {
           <SearchResults/>
         </Box>
       </Paper>
+
     </Box>
   )
 }
