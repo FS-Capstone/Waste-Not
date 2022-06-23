@@ -38,6 +38,13 @@ export default function SidePantry() {
 
   const [openedCategories, setOpenedCategories] = useState({});
 
+  // useEffect(() => {
+  //   const allIngredientsSelected = ingredientList.reduce((accum, ingredient) => {
+  //     return {...accum, [ingredient]: true}
+  //   }, {})
+  //   setSelectedIngredients(allIngredientsSelected);
+  // },[])
+
   useEffect(() => {
     const ingredients = Object.keys(selectedIngredients).filter(id => selectedIngredients[id])
     window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredients))
@@ -85,20 +92,22 @@ export default function SidePantry() {
 
   //if sent true, selects all. If sent false, deselects all
   const selectAll = (select) => {
-  const selectedCategories = {};
-  const allIngredientsSelected = {};
+    const selectedCategories = {};
+    const allIngredientsSelected = {};
 
-  ingredientsInPantry.forEach((ingredient) => {
+    ingredientsInPantry.forEach((ingredient) => {
     allIngredientsSelected[ingredient.name] = select;
-  })
+    })
 
-  for(let i = 0; i < categories.length; i++){
-    selectedCategories[categories[i]] = select;
-  }
-  setCheckedCategories(selectedCategories);   
-  setSelectedIngredients(allIngredientsSelected);
+    for(let i = 0; i < categories.length; i++){
+      selectedCategories[categories[i]] = select;
+    }
+    setCheckedCategories(selectedCategories);   
+    setSelectedIngredients(allIngredientsSelected);
   }
 
+
+  
   return(
     <Box>
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
