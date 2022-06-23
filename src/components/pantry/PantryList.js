@@ -122,7 +122,7 @@ export default function SidePantry() {
             {/*buttons for all categories */}
             <ListItemButton onClick={(evt) => toggleCategory(category)}>
               <Checkbox 
-                onClick={evt => {selectCategory(evt, category); console.log(isCategorySelected(category))}} 
+                onClick={evt => selectCategory(evt, category)} 
                 checked={isCategorySelected(category)}
                 />
               <Typography variant="h6">{category}{`(${categoriesWithIngredients[category].length})`}</Typography>
