@@ -29,18 +29,13 @@ export default function SearchWithPantry(){
 
   const recipeSearch = async (e) => {
     e.preventDefault();
-    const selectedIngredients = window.localStorage.getItem(
-      "selectedIngredients"
-    )
-      ? JSON.parse(window.localStorage.getItem("selectedIngredients"))
-      : [];
-    if (selectedIngredients.length) {
-      
+    const selectedIngredients = JSON.parse(window.localStorage.getItem("selectedIngredients"));
+    // if (selectedIngredients.length) {
       dispatch(fetchRecipes(selectedIngredients, number, ranking));
-    } else {
-      const ingredients = pantry?.ingredients;
-      dispatch(fetchRecipes(ingredients, number, ranking));
-    }
+    // } else {
+    //   const ingredients = pantry?.ingredients;
+    //   dispatch(fetchRecipes(ingredients, number, ranking));
+    // }
   };
   const handleNumChange = (e) => {
     setNumber(e.target.value);

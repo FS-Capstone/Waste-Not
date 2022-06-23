@@ -23,7 +23,7 @@ router.get('/cb', async (req, res, next) => {
     response = await axios.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${response.data.access_token}`)
     const email = response.data.email;
     
-    let user = await User.findOne({where: {username: email}})
+    let user = await User.findOne({where: {email: email}})
     if(!user){
       user = await User.create({ username: email, email: email })
     }

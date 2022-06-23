@@ -71,7 +71,9 @@ const SearchResults = () => {
         alignItems="stretch"
         spacing={2}
         columnSpacing={2}
+
         sx={{ width: "90%", margin: "0 auto 2rem auto",  textAlign: "center" }}
+
       >
         {recipes.map((recipe) => {
           return (
