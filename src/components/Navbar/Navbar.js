@@ -25,9 +25,9 @@ const LinkContainer = styled(Box)(({theme}) => {
 //Used for links in nav bar
 const Link = styled(MaterialLink)(({theme}) => {
   return{
-    fontSize: "18px",
-    color: theme.palette.text.secondary,
-    margin: '14px',
+    fontSize: "1.3em",
+    color: theme.palette.text.disabled,
+    margin: '0 14px 0 14px',
     "&:hover": {
       color: theme.palette.text.primary,
       textDecoration: "none"
@@ -74,6 +74,7 @@ const Navbar = (props) => {
         }}
       >
         <Toolbar
+          variant="dense"
           sx={{
             justifyContent:'center',
             width: 'fit-content',

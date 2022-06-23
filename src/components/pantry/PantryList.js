@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Box, List, ListItemButton } from "@mui/material";
+import { Box, Button, List, ListItemButton } from "@mui/material";
 import { PantryItem } from "./PantryItem";
 import Divider from '@mui/material/Divider';
 import PantryAutocomplete from "../PantryAutocomplete";
@@ -109,12 +109,12 @@ export default function SidePantry() {
 
   
   return(
-    <Box>
+    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
-      <button onClick={() => selectAll(true)}>Select All</button>
-      <button onClick={() => selectAll(false)}>Deselect All</button>
+      <Button onClick={() => selectAll(true)}>Select All</Button>
+      <Button onClick={() => selectAll(false)}>Deselect All</Button>
       <Divider/>
-
+      
       {categories.map(category => {
         return (
           <List key={category}>

@@ -11,7 +11,6 @@ export default function Pantry() {
   return (
     <Box className='top-level-page'
     sx={{
-
       width: '100vh%', 
       height: '100%', 
       backgroundImage:'url("images/background19.jpg")', 

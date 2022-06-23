@@ -44,7 +44,7 @@ const CreateRecipe = () => {
     }
 
     return (
-        <div className='createForm'>
+        <div className='createForm top-level-page'>
             <h2> Create Your Own Recipe </h2>
             <div>
                 <form onSubmit={handleSubmit}> 

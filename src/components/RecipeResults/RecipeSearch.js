@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 const RecipeSearch = () => {
 
   return(
-    <Box sx={{marginBotom:'2rem'}}>
+    <Box sx={{marginBotom:'2rem'}} className='top-level-page'>
       <AdvancedSearch/>
       <SearchResults/>
     </Box>
