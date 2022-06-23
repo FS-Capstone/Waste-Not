@@ -9,7 +9,7 @@ const CreatedRecipes = () => {
 
     const createdRecipes = recipes.filter(recipe => recipe.createdByUser === true);
     console.log("where is my created recipe?", createdRecipes)
-    
+
     return (
         <div>
             { createdRecipes.map(createdRecipe => {
