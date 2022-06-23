@@ -56,3 +56,9 @@ body, html {
   flex-direction: column;
   justify-content: center;
 }
+
+@media (max-width: 1300px) {
+  .search-and-results{
+    flex-direction: column;
+  }
+}
