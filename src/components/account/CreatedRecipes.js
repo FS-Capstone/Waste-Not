@@ -11,16 +11,14 @@ import { styled } from '@mui/system';
 const CreatedRecipes = () => {
     const [expanded, setExpanded] = useState(false);
 
-    const recipes = useSelector(state => state.auth.recipes || []);
-    console.log("all recipes, inside created recipes component", recipes) // all of the recipes on auth obj, saved & created
+    const recipes = useSelector(state => state.auth.recipes || []); // all of the recipes on auth obj, saved & created
     
     //if(!recipes[0]?.createdByUser) return null; // need to refactor
 
     const createdRecipes = recipes.filter(recipe => recipe.createdByUser === true);
-    console.log("where are my created recipes?", createdRecipes)
+
     
     const handleChange = () => {
-        console.log('here')
     }
 
     const AccordionStyle = styled('div')({
