@@ -112,15 +112,3 @@ const CreateRecipe = () => {
 }
 
 export default CreateRecipe; 
-
-/*
-- Probably going to store these recipes on the database (create recipe model?) so need to use redux store
-- Need a POST api route on server for input data (refer to JPFP)
-- also need to render resulting recipe in some kind of nice format after submitting the recipe.
- - or maybe first option is the create the recipe, second option after the render of results is to save it? idk.
-
-- need to create recipe model
-- need reducer and thunks 
-- need api post route for input fields 
-
-*/
