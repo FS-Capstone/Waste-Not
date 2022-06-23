@@ -10,7 +10,7 @@ export const Home = (props) => {
   const username = useSelector((state) => state.auth.username);
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>
+    <div className='top-level-page'>
       <div className="mainpantry">
         <Button
           sx={{ marginRight: "10rem", padding: "1px" }}

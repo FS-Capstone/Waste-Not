@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Box,
-  Chip,
   Button,
-  Grid,
-  Typography,
   TextField,
   MenuItem,
-  Autocomplete
+
 } from "@mui/material";
-import { addMultiplePantryItems, fetchRecipes, addMultipleShoppingItems, fetchComplexRecipes } from "../../store";
+import { fetchRecipes } from "../../store";
 
 export default function SearchWithPantry(){
   const dispatch = useDispatch();

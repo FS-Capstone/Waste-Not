@@ -45,13 +45,6 @@ export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, in
   };
 };
 
-/* params: {
-          query: obj.query,
-          cuisine: obj.cuisine,
-          type: obj.type,
-          diet: obj.diet,
-          intolerances: obj.intolerances
-        } */
 
 export const fetchComplexRecipes = obj => {
   Object.keys(obj).forEach(key => obj[key] === '' && delete obj[key])

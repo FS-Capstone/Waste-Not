@@ -18,7 +18,7 @@ export default function SavedRecipes() {
     return null;
 
   return(
-    <div>
+    <div className='top-level-page'>
       {recipes.map(recipe => {
         return <SavedRecipeCard key={recipe.id} recipeId={recipe.recipeId}/>
       })}
