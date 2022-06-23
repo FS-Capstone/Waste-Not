@@ -1,5 +1,6 @@
 import React, {useEffect, useState, Fragment} from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import {
   Box,
   Card,
@@ -35,9 +36,12 @@ const ExpandMore = styled((props) => {
 }));
 
 const RecipeCard = ({ recipe }) => {
+  const location = useLocation()
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [favorite, setFavorite] = useState(false)
+  const recipeId = location.pathname === 'savedRecipes' ? recipe.recipeId : recipe.id
+  const favoriteIds = useSelector(state => state.auth.recipes.map(recipe => recipe.recipeId))
+  const [favorite, setFavorite] = useState(favoriteIds.includes(recipeId) ? true : false)
   const [expanded, setExpanded] = useState(false);
   const pantryIngredients = useSelector(state => state.selectedPantry.ingredients);
   const pantryIngredientIds = pantryIngredients.map(ingredient => ingredient.id);
@@ -89,7 +93,7 @@ const RecipeCard = ({ recipe }) => {
   }, [pantryIngredients])
 
   return (
-    <Card sx={{width:'350px', height:'515px', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
+    <Card sx={{maxWidth:'350px', width:'100%', height:'515px', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
       <CardHeader 
         action={
         <IconButton onClick={(e)=> handleFavorite(e)} sx={{padding:0}}>

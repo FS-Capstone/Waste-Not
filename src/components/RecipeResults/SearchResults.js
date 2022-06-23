@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -10,6 +11,7 @@ import RecipeCard from "./RecipeCard";
 import MissingIngredientChips from "./MissingIngredientChips";
 
 const SearchResults = () => {
+  const location = useLocation();
   const recipes = useSelector((state) => state.recipes);
   const pantry = useSelector((state) => state.selectedPantry);
   const pantryIngredientIds = pantry?.ingredients?.map(ingredient => ingredient.id)
@@ -44,6 +46,7 @@ const SearchResults = () => {
   const [missingIngredientList, setMissingIngredientList] = useState([]);
 
   useEffect(() => {
+    console.log(location.pathname)
     missingIngredientsRenamed = missingIngredients
       .map((ingredient) => {
         const trueIngredient = ingredients.find(
@@ -75,13 +78,19 @@ const SearchResults = () => {
         sx={{ width: "90%", margin: "0 auto 2rem auto",  textAlign: "center" }}
 
       >
-        {recipes.map((recipe) => {
+        { location.pathname === '/pantry' ? recipes.map((recipe) => {
           return (
-            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={recipe.id}>
+            <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key={recipe.id}>
               <RecipeCard recipe={recipe} />
-            </Grid>
-          );
-        })}
+            </Grid> )
+        }) :
+          recipes.map(recipe => {
+            return (
+              <Grid item xs={12} sm={12} md={6} lg={4} xl={4} key={recipe.id}>
+                <RecipeCard recipe={recipe} />
+              </Grid> )
+          })
+        }
       </Grid>
     </Box>
   );

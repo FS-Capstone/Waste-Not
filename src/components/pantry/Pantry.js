@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PantryList from './PantryList';
 import SearchWithPantry from '../RecipeResults/SearchWithPantry';
 import SearchResults from '../RecipeResults/SearchResults';
@@ -8,6 +9,7 @@ import { Paper } from '@mui/material';
 
 export default function Pantry() {
   const theme = useTheme();
+  const recipes = useSelector(state => state.recipes)
   return (
     <Box sx={{
       width: '100vh%', 
@@ -24,6 +26,7 @@ export default function Pantry() {
         display:'flex', 
         justifyContent:'center', 
         width:'60vw',
+        height: recipes.length ? 'auto' : '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
         <PantryList/>
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start'}}>
@@ -31,7 +34,6 @@ export default function Pantry() {
           <SearchResults/>
         </Box>
       </Paper>
-
     </Box>
   )
 }
