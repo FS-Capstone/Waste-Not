@@ -1,43 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/system';
+//import CreatedRecipesAccordion from './CreatedRecipesAccordion';
 
 const CreatedRecipes = () => {
-    const recipes = useSelector(state => state.auth.recipes || []);
-    console.log("from created recipes component", recipes) // all of the recipes on auth obj, saved & created
+    const [expanded, setExpanded] = useState(false);
+
+    const recipes = useSelector(state => state.auth.recipes || []); // all of the recipes on auth obj, saved & created
     
     //if(!recipes[0]?.createdByUser) return null; // need to refactor
 
     const createdRecipes = recipes.filter(recipe => recipe.createdByUser === true);
-    console.log("where is my created recipe?", createdRecipes)
+
     
+    const handleChange = () => {
+    }
+
+    const AccordionStyle = styled('div')({
+         maxWidth: '600',
+         maxHeight: '950', 
+         margin: '0 auto', 
+         padding: '3px 10px',
+    })
+
     return (
-        <div>
+        <div className='create-accordion'>
             { createdRecipes.map(createdRecipe => {
                 return (
-                    <li key={createdRecipe.id}> 
-                    <div>{createdRecipe.title} </div>
-                    <div>{createdRecipe.cuisine}</div>
-                    <div>{createdRecipe.cookTime}</div>
-                    <div>{createdRecipe.prepTime}</div>
-                    <div>{createdRecipe.ingredients}</div>
-                    <div>{createdRecipe.instructions}</div>
-                    </li>
+                    <div key={createdRecipe.id}> 
+                    <AccordionStyle>
+                    <Accordion 
+                    // expanded={expanded === 'panel1'} 
+                    // onChange={handleChange('panel1')}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        // aria-controls="panel1bh-content"
+                        // id="panel1bh-header"
+                      >
+                        <Typography color='primary' sx={{ width: '33%', flexShrink: 0 }}> {createdRecipe.title} </Typography>
+                        <Typography color='primary' sx={{  }}> {createdRecipe.cuisine} </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography>
+                        {createdRecipe.cookTime}
+                        {createdRecipe.prepTime}
+                        {createdRecipe.ingredients}
+                        {createdRecipe.instructions}
+                        {createdRecipe.ingredients}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  </AccordionStyle>
+                  </div>
                 )
             })}
         </div>
     )
 }
 
+                // <CreatedRecipesAccordion 
+                // key={createdRecipe.id} 
+                // title={createdRecipe.title} 
+                // cuisine={createdRecipe.cuisine}
+                // cookTime={createdRecipe.cookTime}
+                // prepTime={createdRecipe.prepTime}
+                // ingredients={createdRecipe.ingredients}
+                // instructions={createdRecipe.instructions}
+                // />
+
+                // (
+                //     <li key={createdRecipe.id}> 
+                //     <div>{createdRecipe.title} </div>
+                //     <div>{createdRecipe.cuisine}</div>
+                //     <div>{createdRecipe.cookTime}</div>
+                //     <div>{createdRecipe.prepTime}</div>
+                //     <div>{createdRecipe.ingredients}</div>
+                //     <div>{createdRecipe.instructions}</div>
+                //     </li>
 
 export default CreatedRecipes;
 
-/*
-
-- since created recipes are now saved on the recipe model, 
-    we need to get them from the redux store => useSelector
-- we need to get all of the recipes where createdByUser = true. 
-- if there are none, return null (or something else)
-- if there are created recipes, map over them and render them
-
-( need to remove all the console logs before PR)
-*/

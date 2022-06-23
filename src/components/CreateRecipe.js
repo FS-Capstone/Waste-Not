@@ -11,7 +11,7 @@ import { styled } from '@mui/system';
 import ConfirmationDialog from './ConfirmationDialog';
 
 const CreateRecipeBackground = styled('div')({
-    height: '100vh',
+    height: '105vh',
     minHeight: '100vh',
     color: 'white',
     backgroundImage: 'url("/images/LandingPage3.jpg")',
@@ -64,7 +64,7 @@ const CreateRecipe = () => {
 
     return (
         <CreateRecipeBackground>
-        <div className='createForm'>
+        <div className='createForm'> 
         <Card style={{maxWidth: 600, maxHeight: 950, margin: '0 auto', padding: '3px 10px', opacity: '0.8'}}>
             <CardContent>
                 <Typography gutterBottom variant="h5"> Create Your Own Recipe </Typography>
@@ -141,71 +141,6 @@ const CreateRecipe = () => {
                 </form>
             </CardContent>
         </Card>
-            
-            {/* <h2> Create Your Own Recipe </h2>
-            <div>
-                <form onSubmit={handleSubmit}> 
-                    <Box>
-                    <div>q
-                        <TextField 
-                        label='Title' 
-                        variant="outlined"
-                        sx={{ m: 1, width: '25ch' }}
-                        value={title}
-                        onChange={(e) => handleTitleChange(e)}
-                        />
-                        <TextField 
-                        label='Cuisine'
-                        variant="outlined"
-                        sx={{ m: 1, width: '25ch' }}
-                        value={cuisine}
-                        onChange={(e) => handleCuisineChange(e)} 
-                        />
-                    </div>
-                    <div>
-                        <TextField 
-                        label='Prep Time'
-                        variant="outlined"
-                        sx={{ m: 1, width: '25ch' }}
-                        value={prepTime}
-                        onChange={(e) => handlePrepTimeChange(e)} 
-                        />
-                        <TextField 
-                        label='Cook Time'
-                        variant="outlined"
-                        sx={{ m: 1, width: '25ch' }}
-                        value={cookTime}
-                        onChange={(e) => handleCookTimeChange(e)} 
-                        />
-                    </div>
-                    <div>
-                        <TextField 
-                        label='Ingredients' 
-                        variant="outlined"
-                        multiline
-                        rows={10}
-                        sx={{ m: 1, width: '50ch' }}
-                        value={ingredients}
-                        onChange={(e) => handleIngredientsChange(e)}
-                        />
-                    </div>
-                    <div>
-                        <TextField 
-                        label='Instructions'  
-                        variant="outlined"
-                        multiline
-                        rows={10}
-                        sx={{ m: 1, width: '50ch' }}
-                        value={instructions}
-                        onChange={(e) => handleInstructionsChange(e)}
-                        />
-                    </div>
-                    <Button variant="contained" size="small" type='submit'> Save </Button>
-                    </Box>
-                </form>
-            </div> */}
-        
-        
         
         
         </div>
