@@ -1,14 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { Typography } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+
 
 const CreatedRecipes = () => {
     const recipes = useSelector(state => state.auth.recipes || []);
-    console.log("from created recipes component", recipes) // all of the recipes on auth obj, saved & created
+    console.log("all recipes, inside created recipes component", recipes) // all of the recipes on auth obj, saved & created
     
     //if(!recipes[0]?.createdByUser) return null; // need to refactor
 
     const createdRecipes = recipes.filter(recipe => recipe.createdByUser === true);
-    console.log("where is my created recipe?", createdRecipes)
+    console.log("where are my created recipes?", createdRecipes)
     
     return (
         <div>
@@ -31,13 +35,3 @@ const CreatedRecipes = () => {
 
 export default CreatedRecipes;
 
-/*
-
-- since created recipes are now saved on the recipe model, 
-    we need to get them from the redux store => useSelector
-- we need to get all of the recipes where createdByUser = true. 
-- if there are none, return null (or something else)
-- if there are created recipes, map over them and render them
-
-( need to remove all the console logs before PR)
-*/
