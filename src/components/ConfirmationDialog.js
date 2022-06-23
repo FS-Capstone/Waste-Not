@@ -1,8 +1,10 @@
 import React from 'react';
 import { Dialog } from '@mui/material';
-import { DialogTitle } from '@mui/material';
+import { DialogContentText } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import { Link } from 'react-router-dom';
+import DoneIcon from '@mui/icons-material/Done';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const ConfirmationDialog = (props) => {
  
@@ -16,12 +18,13 @@ const ConfirmationDialog = (props) => {
     return (
         <Dialog open={open} onClose={handleOnClose}>
             <DialogContent>
-                <div>
-                    Success! Recipe Saved 
-                </div>
-                <div>
-                    <Link to='/createdRecipes'>View Saved Recipes</Link>
-                </div>
+            <DialogContentText color='primary'>
+                    <CheckCircleIcon />
+                    Recipe Saved! 
+            </DialogContentText>
+            <DialogContentText color='primary'>
+                    <Link to='/createdRecipes'>View Saved Recipes</Link> 
+            </DialogContentText>
             </DialogContent>
         </Dialog>
     )
