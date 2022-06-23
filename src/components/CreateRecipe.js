@@ -11,7 +11,7 @@ import { styled } from '@mui/system';
 import ConfirmationDialog from './ConfirmationDialog';
 
 const CreateRecipeBackground = styled('div')({
-    height: '100vh',
+    height: '105vh',
     minHeight: '100vh',
     color: 'white',
     backgroundImage: 'url("/images/LandingPage3.jpg")',
@@ -64,7 +64,7 @@ const CreateRecipe = () => {
 
     return (
         <CreateRecipeBackground>
-        <div className='createForm'>
+        <div className='createForm'> 
         <Card style={{maxWidth: 600, maxHeight: 950, margin: '0 auto', padding: '3px 10px', opacity: '0.8'}}>
             <CardContent>
                 <Typography gutterBottom variant="h5"> Create Your Own Recipe </Typography>
