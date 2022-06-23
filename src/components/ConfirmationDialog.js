@@ -3,7 +3,6 @@ import { Dialog } from '@mui/material';
 import { DialogContentText } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import { Link } from 'react-router-dom';
-import DoneIcon from '@mui/icons-material/Done';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const ConfirmationDialog = (props) => {

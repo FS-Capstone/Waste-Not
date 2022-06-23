@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import { Typography } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
-
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/system';
+//import CreatedRecipesAccordion from './CreatedRecipesAccordion';
 
 const CreatedRecipes = () => {
+    const [expanded, setExpanded] = useState(false);
+
     const recipes = useSelector(state => state.auth.recipes || []);
     console.log("all recipes, inside created recipes component", recipes) // all of the recipes on auth obj, saved & created
     
@@ -14,24 +19,72 @@ const CreatedRecipes = () => {
     const createdRecipes = recipes.filter(recipe => recipe.createdByUser === true);
     console.log("where are my created recipes?", createdRecipes)
     
+    const handleChange = () => {
+        console.log('here')
+    }
+
+    const AccordionStyle = styled('div')({
+         maxWidth: '600',
+         maxHeight: '950', 
+         margin: '0 auto', 
+         padding: '3px 10px',
+    })
+
     return (
-        <div>
+        <div className='create-accordion'>
             { createdRecipes.map(createdRecipe => {
                 return (
-                    <li key={createdRecipe.id}> 
-                    <div>{createdRecipe.title} </div>
-                    <div>{createdRecipe.cuisine}</div>
-                    <div>{createdRecipe.cookTime}</div>
-                    <div>{createdRecipe.prepTime}</div>
-                    <div>{createdRecipe.ingredients}</div>
-                    <div>{createdRecipe.instructions}</div>
-                    </li>
+                    <div key={createdRecipe.id}> 
+                    <AccordionStyle>
+                    <Accordion 
+                    // expanded={expanded === 'panel1'} 
+                    // onChange={handleChange('panel1')}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        // aria-controls="panel1bh-content"
+                        // id="panel1bh-header"
+                      >
+                        <Typography color='primary' sx={{ width: '33%', flexShrink: 0 }}> {createdRecipe.title} </Typography>
+                        <Typography color='primary' sx={{  }}> {createdRecipe.cuisine} </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography>
+                        {createdRecipe.cookTime}
+                        {createdRecipe.prepTime}
+                        {createdRecipe.ingredients}
+                        {createdRecipe.instructions}
+                        {createdRecipe.ingredients}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  </AccordionStyle>
+                  </div>
                 )
             })}
         </div>
     )
 }
 
+                // <CreatedRecipesAccordion 
+                // key={createdRecipe.id} 
+                // title={createdRecipe.title} 
+                // cuisine={createdRecipe.cuisine}
+                // cookTime={createdRecipe.cookTime}
+                // prepTime={createdRecipe.prepTime}
+                // ingredients={createdRecipe.ingredients}
+                // instructions={createdRecipe.instructions}
+                // />
+
+                // (
+                //     <li key={createdRecipe.id}> 
+                //     <div>{createdRecipe.title} </div>
+                //     <div>{createdRecipe.cuisine}</div>
+                //     <div>{createdRecipe.cookTime}</div>
+                //     <div>{createdRecipe.prepTime}</div>
+                //     <div>{createdRecipe.ingredients}</div>
+                //     <div>{createdRecipe.instructions}</div>
+                //     </li>
 
 export default CreatedRecipes;
 

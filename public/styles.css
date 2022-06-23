@@ -49,6 +49,13 @@ body, html {
   flex-direction: column;
   justify-content: center;
 }
+.create-accordion {
+  display: flex;
+  height: 95vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 .createForm {
   display: flex;
   height: 95vh;
