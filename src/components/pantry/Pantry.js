@@ -1,5 +1,5 @@
 
-import { Box } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import SearchResults from '../RecipeResults/SearchResults';
 import { useTheme } from '@emotion/react';
 import { Paper } from '@mui/material';
 import { fetchRecipes, fetchMoreRecipes } from '../../store';
+import RecipePlaceholder from './RecipePlaceholder';
 
 export default function Pantry() {
   const theme = useTheme();
@@ -17,7 +18,8 @@ export default function Pantry() {
   const recipes = useSelector(state => state.ingredientRecipes)
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState('max-used-ingredients');
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const haveRecipes = useSelector(state => state.ingredientRecipes.length > 0);
 
   const handleLoadMore = async(e) => {
     e.preventDefault();
@@ -60,27 +62,42 @@ export default function Pantry() {
         backgroundSize: "contain",
         backgroundAttachment: "fixed",
         display: "flex",
-
         justifyContent: "center",
       }}
     >
       <Paper
         className="search-and-results"
         sx={{
-       
-        padding: '40px 0 40px 0',
+        padding: '40px',
         margin: '40px 0 40px 0',
         opacity:'.95', 
-        display:'flex', 
-        justifyContent:'space-between', 
         width:'80vw',
         minHeight: '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
-        <PantryList/>
-        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between', flexBasis:'66%'}} >
-          <SearchWithPantry  handleRankChange={handleRankChange} handleNumChange={handleNumChange} ranking={ranking} number={number} recipeSearch={recipeSearch} />
-          <SearchResults loading={loading} showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} />
-        </Box> 
+        <Box sx={{color:'gray', margin:'0 0 2em 0' }} >
+          <Typography variant='h5' sx={{marginBottom:'.5em'}}>Search for Recipes</Typography>
+          <Typography variant='textSecondary' sx={{marginBottom:'.5em'}}>Select Ingredients From Your Pantry and Search for Recipes with them</Typography>
+          <Divider sx={{marginTop:'2em'}}/>
+        </Box>
+        
+        <Box
+          className="search-and-results"
+          sx={{
+          
+            display:'flex', 
+            justifyContent:'space-between', 
+        }}>
+          <PantryList/>
+          <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between', flexBasis:'66%'}} >
+            <SearchWithPantry  handleRankChange={handleRankChange} handleNumChange={handleNumChange} ranking={ranking} number={number} recipeSearch={recipeSearch} />
+            {haveRecipes || loading ?
+              <SearchResults loading={loading} showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} />
+              :
+              <RecipePlaceholder/>
+            }
+            
+          </Box> 
+        </Box>
       </Paper>
     </Box>
   );

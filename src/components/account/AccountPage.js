@@ -18,14 +18,32 @@ const AccountPage = () => {
   
 
   return(
-    <Box sx={{display:'flex', justifyContent:'center'}} className='top-level-page'>
+    <Box 
+      sx={{
+        display:'flex', 
+        justifyContent:'center',
+        backgroundImage: 'url("images/Utensils2.jpg")',
+        backgroundSize: "contain",
+        backgroundAttachment: "fixed",
+        minHeight:'100vh',
+        }} 
+        className='top-level-page'>
       <PasswordChange open={openDialog} handleClose={() => setOpenDialog(false)}/>
-      <Paper sx={{display:'flex', flexDirection:'column', alignItems:'center', width:'fit-content', padding:0, overflow:'hidden'}}>
+      <Paper sx={{
+        display:'flex', 
+        flexDirection:'column', 
+        alignItems:'center', 
+        width:'80vw', 
+        padding:0, 
+        overflow:'hidden', 
+        height:'fit-content',
+        opacity:.95
+        }}>
+
         <Box backgroundColor={theme.palette.primary.light} sx={{width:'100%', display:'flex', justifyContent:'center'}}>
           <UsernameEdit username={username}/>
-          
         </Box>
-        <Box sx={{display:'flex', margin:'20px'}}>
+        <Box sx={{display:'flex'}}>
           <Typography variant="h6">Password: •••••••••••••</Typography>
           <IconButton onClick={() => setOpenDialog(true)}>
             <EditIcon fontSize='small'/>
