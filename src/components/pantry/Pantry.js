@@ -1,5 +1,5 @@
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -60,7 +60,6 @@ export default function Pantry() {
         backgroundSize: "contain",
         backgroundAttachment: "fixed",
         display: "flex",
-
         justifyContent: "center",
       }}
     >
@@ -68,7 +67,7 @@ export default function Pantry() {
         className="search-and-results"
         sx={{
        
-        padding: '40px 0 40px 0',
+        padding: '40px',
         margin: '40px 0 40px 0',
         opacity:'.95', 
         display:'flex', 
@@ -76,11 +75,19 @@ export default function Pantry() {
         width:'80vw',
         minHeight: '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
+        <Typography variant='h5' display={'block'}>Search for Recipes</Typography>
+        <Typography variant='textSecondary'>Select Ingredients From Your Pantry to Find Recipes</Typography>
         <PantryList/>
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between', flexBasis:'66%'}} >
           <SearchWithPantry  handleRankChange={handleRankChange} handleNumChange={handleNumChange} ranking={ranking} number={number} recipeSearch={recipeSearch} />
+<<<<<<< HEAD
           <SearchResults loading={loading} showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} />
         </Box> 
+=======
+          <div style={{border:'1px solid grey', height:'100%', color:'grey', margin:'20px'}}>Search to find recipes</div>
+          {/* <SearchResults showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} /> */}
+        </Box>
+>>>>>>> 9a7b074 (styling pantry)
       </Paper>
     </Box>
   );
