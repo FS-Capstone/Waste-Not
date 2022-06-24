@@ -11,7 +11,7 @@ import {
 import RecipeCard from "./RecipeCard";
 import MissingIngredientChips from "./MissingIngredientChips";
 
-const SearchResults = ({showLoadMore, handleLoadMore}) => {
+const SearchResults = ({showLoadMore, handleLoadMore, handleLoadMoreComplex}) => {
   const location = useLocation();
   const recipes = useSelector((state) => state.recipes);
   const pantry = useSelector((state) => state.selectedPantry);
@@ -70,7 +70,7 @@ const SearchResults = ({showLoadMore, handleLoadMore}) => {
         alignItems="stretch"
         spacing={2}
         columnSpacing={2}
-        sx={{ width: "90%", margin: "0 0 2rem auto", textAlign: "center" }}
+        sx={{ width: "90%", margin: "0 auto 2rem auto", textAlign: "center", padding:'1rem' }}
       >
         { location.pathname === '/pantry' ? recipes.map((recipe) => {
           return (
@@ -86,7 +86,7 @@ const SearchResults = ({showLoadMore, handleLoadMore}) => {
           })
         }
       </Grid>
-      {showLoadMore ? <Button variant='contained' onClick={(e)=>handleLoadMore(e)}>Load More Recipes</Button> : null}
+      {showLoadMore && location.pathname === '/pantry' ? <Button variant='contained' onClick={(e)=>handleLoadMore(e)}>Load More Recipes</Button> : showLoadMore ? <Button variant='contained' onClick={(e)=>handleLoadMoreComplex(e)}>Load More Recipes</Button> : null}
     </Box>
   );
 };

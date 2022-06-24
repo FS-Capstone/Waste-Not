@@ -4,7 +4,7 @@ import AdvancedSearch from './AdvancedSearch';
 import SearchResults from './SearchResults';
 import { Box, Paper } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { fetchComplexRecipes, fetchMoreRecipes } from '../../store';
+import { fetchComplexRecipes, fetchMoreComplexRecipes } from '../../store';
 
 
 const RecipeSearch = () => {
@@ -18,6 +18,7 @@ const RecipeSearch = () => {
   const [diet, setDiet] = useState('');
   const [meal, setMeal] = useState('');
   const [number, setNumber] = useState(12);
+  const [intolerances, setIntolerances] = useState([])
   const dispatch = useDispatch();
 
   const handleComplexSearch = async(e) => {
@@ -26,7 +27,8 @@ const RecipeSearch = () => {
       cuisine,
       type: meal,
       diet,
-      intolerances: value.join(','),
+      excludeIngredients: value.join(','),
+      intolerances: intolerances.join(','),
       offset: 0,
       number: number
     }
@@ -34,7 +36,7 @@ const RecipeSearch = () => {
     setLoadMore(true)
   }
 
-  const handleLoadMore = async(e) => {
+  const handleLoadMoreComplex = async(e) => {
     const options = {
       query: searchValue,
       cuisine,
@@ -44,7 +46,7 @@ const RecipeSearch = () => {
       offset: recipes.length +1,
       number: number
     }
-    dispatch(fetchMoreRecipes(options))
+    dispatch(fetchMoreComplexRecipes(options))
   }
 
   const handleCuisine = e => {
@@ -102,8 +104,10 @@ const RecipeSearch = () => {
             handleMeal={handleMeal}
             handleComplexSearchChange={handleComplexSearchChange}
             handleNumChange={handleNumChange}
+            intolerances={intolerances}
+            setIntolerances={setIntolerances}
             />
-          <SearchResults showLoadMore={showLoadMore} setOffset={setOffset} handleLoadMore={handleLoadMore}/>
+          <SearchResults showLoadMore={showLoadMore} setOffset={setOffset} handleLoadMoreComplex={handleLoadMoreComplex}/>
           {/* Add images / info on how to use search here, only displayed if recipes.length is false */}
         </Box>
       </Paper>
