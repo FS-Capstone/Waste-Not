@@ -73,8 +73,8 @@ const ShoppingList = () => {
   }
 
   return (
-    <Box sx={{display:'flex', flexDirection:'column', height:'auto', paddingTop:'5vh', alignItems:'center', width:'100vw'}}>
-      <Paper ref={printRef} sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', marginBottom:'2vh', height:'100%', width:'100%', maxWidth:'800px', minWidth:'360px'}} onMouseEnter={(e)=> setDisplay(true)} onMouseLeave={(e)=>setDisplay(false)}>
+    <Box sx={{display:'flex', flexDirection:'column', paddingTop:'5vh', alignItems:'center', width:'100vw', minHeight:'100vh', backgroundImage:'url("/images/ShoppingListBackground.png")', backgroundSize:'contain', backgroundAttachment:'fixed'}}>
+      <Paper ref={printRef} sx={{display:'flex', borderRadius:'5px 5px 0 0', opacity:'.95', flexDirection:'column', alignItems:'center', justifyContent:'center', marginBottom: 0, height:'100%', width:'100%', maxWidth:'800px', minWidth:'360px'}} onMouseEnter={(e)=> setDisplay(true)} onMouseLeave={(e)=>setDisplay(false)}>
         <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
           <IconButton sx={{display: 'inline', visibility: 'hidden' }}><DownloadIcon/></IconButton>
           <IconButton sx={{display: 'inline', visibility: 'hidden' }}><PrintIcon/></IconButton> 
@@ -93,8 +93,9 @@ const ShoppingList = () => {
           }
         </Box>
       </Paper>
-      {!selected.length ? null : <Button sx={{margin:'1rem'}} variant='outlined' onClick={(e)=>handleClick(e)}>Add Selected to Pantry</Button>}
-      <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+      
+      <Box sx={{display:'flex', width:'stretch', borderRadius:'0 0 5px 5px', maxWidth:'800px', minWidth:'360px', backgroundColor:'white', opacity:'.95', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
+        {!selected.length ? null : <Button sx={{margin:'1rem'}} variant='outlined' onClick={(e)=>handleClick(e)}>Add Selected to Pantry</Button>}
         <PantryAutocomplete searchOptions={ingredients} searchName='shoppingListSearch' selectedPantry={pantry} />
       </Box>
     </Box>

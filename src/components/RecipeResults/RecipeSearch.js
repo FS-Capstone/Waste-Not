@@ -26,7 +26,7 @@ const RecipeSearch = () => {
       sx={{
         padding: '40px 0 40px 0',
         margin: '40px 0 40px 0',
-        opacity:'.95', 
+        opacity:'.8', 
         display:'flex', 
         justifyContent:'center', 
         width:'80vw',
