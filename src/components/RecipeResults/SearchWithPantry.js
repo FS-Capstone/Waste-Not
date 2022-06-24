@@ -9,34 +9,17 @@ import {
 } from "@mui/material";
 import { fetchRecipes } from "../../store";
 
-export default function SearchWithPantry(){
+export default function SearchWithPantry({handleNumChange, handleRankChange, ranking, number, recipeSearch}){
   const dispatch = useDispatch();
   const pantry = useSelector((state) => state.selectedPantry);
   const numValues = [6, 12, 18, 24, 48, 96];
-  const [number, setNumber] = useState(12);
-  const [ranking, setRanking] = useState(1);
+
   const rankingValues = [
-    { display: "Maximize Used Ingredients", value: 1 },
-    { display: "Minimize Missing Ingredients", value: 2 },
+    { display: "Maximize Used Ingredients", value: 'max-used-ingredients' },
+    { display: "Minimize Missing Ingredients", value: 'min-missing-ingredients' },
   ];
-  const handleRankChange = (e) => {
-    setRanking(e.target.value);
-  };
+  
 
-
-  const recipeSearch = async (e) => {
-    e.preventDefault();
-    const selectedIngredients = JSON.parse(window.localStorage.getItem("selectedIngredients"));
-    // if (selectedIngredients.length) {
-      dispatch(fetchRecipes(selectedIngredients, number, ranking));
-    // } else {
-    //   const ingredients = pantry?.ingredients;
-    //   dispatch(fetchRecipes(ingredients, number, ranking));
-    // }
-  };
-  const handleNumChange = (e) => {
-    setNumber(e.target.value);
-  };
 
   
   return(

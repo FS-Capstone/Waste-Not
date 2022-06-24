@@ -8,48 +8,17 @@ import {
   MenuItem,
   Autocomplete
 } from "@mui/material";
-import {fetchComplexRecipes, clearSearchResults } from "../../store";
 
-export default function AdvancedSearch({setSearched}) {
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [value, setValue] = useState([]);
-  const [cuisine, setCuisine] = useState('');
-  const [searchValue, setSearchValue] = useState('');
+export default function AdvancedSearch({intolerances, setIntolerances, handleComplexSearch, searchValue, number, handleNumChange, value, handleCuisine, handleDiet, handleMeal, handleComplexSearchChange, setValue}) {
   const ingredients = useSelector(state => state.ingredients);
-  const [diet, setDiet] = useState('');
-  const [meal, setMeal] = useState('');
-  const dispatch = useDispatch();
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
+  const numValues = [6, 12, 18, 24, 48, 96];
   const cuisines = ['african', 'chinese', 'japanese', 'korean', 'vietnamese', 'thai', 'indian', 'british', 'irish', 'french', 'italian', 'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun', 'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean', 'latin american']
   const diets = ['pescetarian', 'lacto vegetarian', 'ovo vegetarian', 'vegan', 'paleo', 'primal', 'vegetarian'];
   const meals = ['main course', 'side dish', 'dessert', 'appetizer', 'salad', 'bread','breakfast', 'soup', 'beverage', 'sauce', 'drink'];
+  const intolerancesArray = ['dairy', 'egg', 'gluten', 'peanut', 'sesame', 'seafood', 'shellfish', 'soy', 'sulfite', 'tree nut', 'wheat']
 
-  const handleComplexSearch = async(e) => {
-    const options = {
-      query: searchValue,
-      cuisine,
-      type: meal,
-      diet,
-      intolerances: value.join(',')
-    }
-    dispatch(fetchComplexRecipes(options))
-  }
-
-  const handleCuisine = e => {
-    setCuisine(e.target.value)
-  }
-
-  const handleDiet = e => {
-    setDiet(e.target.value)
-  };
-
-  const handleMeal = e => {
-    setMeal(e.target.value)
-  }
-
-  const handleComplexSearchChange = e => {
-    setSearchValue(e.target.value)
-  }
 
   // useEffect(()=> {
   //   dispatch(clearSearchResults());
@@ -68,6 +37,13 @@ export default function AdvancedSearch({setSearched}) {
     <Box id='complexSearchBox' sx={{display:'flex', width:'50%', flexDirection:'column', alignItems:'center', justifyContent:'flex-start', margin:'1rem'}}>
       <Box sx={{display:'flex', width:'100%', justifyContent:'space-between', marginBottom:'1rem'}}>
         <TextField id='complexSearch' variant='outlined' name='searchValue' onChange={handleComplexSearchChange} value={searchValue} placeholder='Search for a recipe!' sx={{width:'65%'}}/>
+        <TextField id="resultsNumber" select value={number} label='Results' onChange={handleNumChange}>
+          {numValues.map((num) => (
+            <MenuItem key={num} value={num}>
+              {num}
+            </MenuItem>
+          ))}
+        </TextField>
         <Button size='small' variant='outlined' onClick={()=> setShowAdvanced(false)}>Hide Advanced Search</Button>
       </Box>
       <Box sx={{display:'flex', flexDirection:'column', width:'100%', marginBottom:'1rem'}}>
@@ -79,8 +55,9 @@ export default function AdvancedSearch({setSearched}) {
         <Box sx={{display:'flex', justifyContent:'space-between', marginTop:'1rem'}}>
           <Autocomplete 
             multiple 
-            id='intoleranceSelect'
+            id='excludeIngredientsSelect'
             value={value}
+            limitTags={3}
             onChange={(event, newValue) => setValue(newValue)}
             options={ingredients.map(ingredient => ingredient.name)} 
             getOptionLabel={(option) => option} 
@@ -88,9 +65,24 @@ export default function AdvancedSearch({setSearched}) {
             freeSolo
             renderTags={(value, getTagProps) => value.map((option, index) => <Chip variant='outlined' label={option} {...getTagProps({index})} /> )}
             filterSelectedOptions  
+            renderInput={params => ( <TextField {...params} label='Ingredients to Exclude' placeholder='Ingredients to Exclude' />)} 
+            sx={{width:'45%'}}
+          />
+          <Autocomplete 
+            multiple 
+            id='intolerances'
+            value={intolerances}
+            limitTags={3}
+            onChange={(event, newValue) => setIntolerances(newValue)}
+            options={intolerancesArray.map(ingredient => ingredient)} 
+            getOptionLabel={(option) => option} 
+            // defaultValue={[ingredients[0]?.name]} 
+            freeSolo
+            renderTags={(intolerances, getTagProps) => intolerances.map((option, index) => <Chip variant='outlined' label={option} {...getTagProps({index})} /> )}
+            filterSelectedOptions  
             renderInput={params => ( <TextField {...params} label='Intolerances' placeholder='Intolerances' />)} 
-            sx={{width:'65%'}}
-            />
+            sx={{width:'45%', margin:'0 auto 0 auto'}}
+          />
           <TextField id='maxTimeSelect' type='number' inputProps={{min:10}} label='Max Prep Time'/>
 
         </Box>

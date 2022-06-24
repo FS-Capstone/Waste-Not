@@ -24,6 +24,8 @@ const ClientRoutes = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
+  
+
   useEffect(() => {
     dispatch(me());
     dispatch(loadIngredients());
