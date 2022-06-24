@@ -63,12 +63,10 @@ export default function Pantry() {
         justifyContent: "center",
       }}
     >
-      <Paper
-        className="search-and-results"
-        sx={{
-       
+      <Paper sx={{
         padding: '40px',
         margin: '40px 0 40px 0',
+<<<<<<< HEAD
         opacity:'.95', 
         display:'flex', 
         justifyContent:'space-between', 
@@ -88,6 +86,32 @@ export default function Pantry() {
           {/* <SearchResults showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} /> */}
         </Box>
 >>>>>>> 9a7b074 (styling pantry)
+=======
+        opacity:'.95',
+        backgroundColor:`${theme.palette.background.paper}`
+      }}>
+        <Box sx={{margin: '0 0 2em 0', color:'gray'}}>
+          <Typography  variant='h5' sx={{marginBottom:'1em'}}>Search for Recipes</Typography>
+          <Typography  variant='textSecondary'>Select Ingredients From Your Pantry to Find Recipes</Typography>
+        </Box>
+        <Box
+          className="search-and-results"
+          sx={{
+        
+           
+          display:'flex', 
+          justifyContent:'space-between', 
+          width:'80vw',
+          minHeight: '100vh'}}>
+          <PantryList/>
+          <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between', flexBasis:'66%'}} >
+            <SearchWithPantry  handleRankChange={handleRankChange} handleNumChange={handleNumChange} ranking={ranking} number={number} recipeSearch={recipeSearch} />
+            <div style={{border:'1px solid grey', height:'100%', color:'grey', margin:'20px'}}>Search to find recipes</div>
+            {/* <SearchResults showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} /> */}
+          </Box>
+        </Box>
+        
+>>>>>>> 412ae93 (styling pantry)
       </Paper>
     </Box>
   );
