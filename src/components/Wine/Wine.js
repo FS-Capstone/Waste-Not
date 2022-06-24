@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { Box, Typography, Slide, Fade, Button, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { Link as Scroll } from 'react-scroll';
 
 
 const Wine = () => {

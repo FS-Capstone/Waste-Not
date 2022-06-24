@@ -148,7 +148,7 @@ const handleOnClick = async (req, res, next) => {
 
     return (
         <div> 
-            <div className='wine'>
+            <div className='wine' id="wine-to-brand">
                 <h2>Select Wine Type for Brand Recommendation </h2>
                 <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
                 <Autocomplete
