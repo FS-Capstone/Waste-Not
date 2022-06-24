@@ -5,13 +5,15 @@ import { useLocation } from "react-router-dom";
 import {
   Box,
   Grid,
-  Button
+  Button,
+  Typography,
+  CircularProgress
 } from "@mui/material";
 
 import RecipeCard from "./RecipeCard";
 import MissingIngredientChips from "./MissingIngredientChips";
 
-const SearchResults = ({showLoadMore, handleLoadMore, handleLoadMoreComplex}) => {
+const SearchResults = ({showLoadMore, loading, handleLoadMore, handleLoadMoreComplex}) => {
   const location = useLocation();
   const recipes = useSelector(state => {
     if(location.pathname === '/pantry'){
@@ -90,6 +92,7 @@ const SearchResults = ({showLoadMore, handleLoadMore, handleLoadMoreComplex}) =>
           })
         }
       </Grid>
+      {loading ? <Box sx={{display:'flex', justifyContent:'center', marginBottom:'1rem'}}><Typography variant='h5' sx={{marginRight:'1rem'}}>Loading...</Typography><CircularProgress color='primary'/> </Box>: null }
       {showLoadMore && location.pathname === '/pantry' ? <Button variant='contained' onClick={(e)=>handleLoadMore(e)}>Load More Recipes</Button> : showLoadMore ? <Button variant='contained' onClick={(e)=>handleLoadMoreComplex(e)}>Load More Recipes</Button> : null}
     </Box>
   );

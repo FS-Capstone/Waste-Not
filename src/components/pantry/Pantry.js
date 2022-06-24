@@ -17,12 +17,15 @@ export default function Pantry() {
   const recipes = useSelector(state => state.ingredientRecipes)
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState('max-used-ingredients');
+  const [loading, setLoading] = useState(false)
 
-  const handleLoadMore = e => {
+  const handleLoadMore = async(e) => {
     e.preventDefault();
+    setLoading(true)
     const selectedIngredients = JSON.parse(window.localStorage.getItem("selectedIngredients"));
     const offset = recipes.length + 1
-    dispatch(fetchMoreRecipes(selectedIngredients, number, ranking, offset));
+    await dispatch(fetchMoreRecipes(selectedIngredients, number, ranking, offset));
+    setLoading(false)
   }
 
   const handleRankChange = (e) => {
@@ -31,15 +34,18 @@ export default function Pantry() {
 
   const recipeSearch = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const selectedIngredients = JSON.parse(window.localStorage.getItem("selectedIngredients"));
     // if (selectedIngredients.length) {
     await dispatch(fetchRecipes(selectedIngredients, number, ranking));
+    setLoading(false)
     setShowLoadMore(true)
     // } else {
     //   const ingredients = pantry?.ingredients;
     //   dispatch(fetchRecipes(ingredients, number, ranking));
     // }
   };
+
   const handleNumChange = (e) => {
     setNumber(e.target.value);
   };
@@ -73,8 +79,8 @@ export default function Pantry() {
         <PantryList/>
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between', flexBasis:'66%'}} >
           <SearchWithPantry  handleRankChange={handleRankChange} handleNumChange={handleNumChange} ranking={ranking} number={number} recipeSearch={recipeSearch} />
-          <SearchResults showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} />
-        </Box>
+          <SearchResults loading={loading} showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} />
+        </Box> 
       </Paper>
     </Box>
   );
