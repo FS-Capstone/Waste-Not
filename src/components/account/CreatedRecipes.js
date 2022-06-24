@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/system';
 //import CreatedRecipesAccordion from './CreatedRecipesAccordion';
 
+
 const CreatedRecipes = () => {
     const [expanded, setExpanded] = useState(false);
 
@@ -25,12 +26,17 @@ const CreatedRecipes = () => {
          width: '700px',
          //maxWidth: '600',
          maxHeight: '950', 
-         margin: '0 auto', 
+         margin: '5% auto', 
          padding: '3px 10px',
+        //  backgroundImage: 'url("/images/Background5.jpg")',
+        //  backgroundSize: 'cover',
+        //  backgroundPosition: 'center',
+        //  backgroundRepeat: 'no-repeat'
     })
 
     return (
         <div className='create-accordion'>
+          <h2> Your Created Recipes </h2>
             { createdRecipes.map(createdRecipe => {
                 return (
                     <div key={createdRecipe.id}> 
@@ -64,6 +70,9 @@ const CreatedRecipes = () => {
     )
 }
 
+
+export default CreatedRecipes;
+
                 // <CreatedRecipesAccordion 
                 // key={createdRecipe.id} 
                 // title={createdRecipe.title} 
@@ -84,5 +93,5 @@ const CreatedRecipes = () => {
                 //     <div>{createdRecipe.instructions}</div>
                 //     </li>
 
-export default CreatedRecipes;
+
 
