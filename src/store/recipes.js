@@ -3,9 +3,11 @@ import { me } from "./auth";
 const SET_AUTH = 'SET_AUTH'
 const FETCH_RECIPES = "FETCH_RECIPES";
 const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
-const CREATE_RECIPE = "CREATE_RECIPE"
+const CREATE_RECIPE = "CREATE_RECIPE";
+const FETCH_MORE_RECIPES = 'FETCH_MORE_RECIPES';
 
 const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
+const _fetchMoreRecipes = (recipes) => ({type: FETCH_MORE_RECIPES, recipes})
 
 export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, instructions, createdByUser, userId) => {
   return async function(dispatch){
@@ -45,6 +47,19 @@ export const createRecipe = (title, cuisine, prepTime, cookTime, ingredients, in
   };
 };
 
+export const fetchMoreRecipes = obj => {
+  Object.keys(obj).forEach(key => obj[key] === '' && delete obj[key])
+  return async(dispatch) => {
+    const recipes = (
+      await axios.get('/api/search/complexSearch', {
+        params: obj
+      })
+    ).data
+    dispatch(_fetchMoreRecipes(recipes))
+  }
+}
+
+
 
 export const fetchComplexRecipes = obj => {
   Object.keys(obj).forEach(key => obj[key] === '' && delete obj[key])
@@ -55,7 +70,6 @@ export const fetchComplexRecipes = obj => {
       })
     ).data;
     dispatch(_fetchRecipes(recipes))
-
   }
 }
 
@@ -87,6 +101,8 @@ export default function (state = [], action) {
   switch (action.type) {
     case FETCH_RECIPES:
       return action.recipes;
+    case FETCH_MORE_RECIPES:
+      return state.concat(action.recipes)
     case CLEAR_SEARCH_RESULTS:
       return action.recipes;
     case CREATE_RECIPE:

@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { Box, Typography, Slide } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Wine = () => {
+  const slideRef = useRef();
   const [checked, setChecked] = useState(false)
 
   useEffect(()=> {
-    setTimeout(()=>{
-      setChecked(true)
-    }, 1000)
+      setTimeout(()=>{
+        setChecked(true)
+      }, 1000)
   }, [])
 
   return(
@@ -23,8 +24,8 @@ const Wine = () => {
       }}
       >
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'flex-end'}}>
-          <Box sx={{display:'flex', justifyContent:'flex-end', width:'50vw'}}>
-            <Slide direction='right' in={checked} mountOnEnter unmountOnExit>
+          <Box ref={slideRef} sx={{display:'flex', justifyContent:'flex-end', width:'50vw', height:'30vh'}}>
+            <Slide direction='right' in={checked} container={slideRef.current}>
               <Typography variant='h1' sx={{fontFamily: 'Alex Brush, cursive'}}>Drinking good wine with good food in good company is one of life's most civilized pleasures.</Typography>
             </Slide>
           </Box>

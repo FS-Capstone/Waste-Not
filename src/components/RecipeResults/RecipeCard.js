@@ -74,6 +74,7 @@ const RecipeCard = ({ recipe }) => {
   const handleChange = e => {
     setExpanded(!expanded)
   }
+  
 
   const handleFavorite = (e) => {
     e.preventDefault();
@@ -93,7 +94,7 @@ const RecipeCard = ({ recipe }) => {
   }, [pantryIngredients])
 
   return (
-    <Card sx={{maxWidth:'350px', width:'100%', minHeight:'515px', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
+    <Card sx={{maxWidth:'350px', opacity:1, width:'100%', minHeight:'515px', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
       <CardHeader 
         action={
         <IconButton onClick={(e)=> handleFavorite(e)} sx={{padding:0}}>

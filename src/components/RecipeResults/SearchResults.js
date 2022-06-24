@@ -5,22 +5,19 @@ import { useLocation } from "react-router-dom";
 import {
   Box,
   Grid,
+  Button
 } from "@mui/material";
 
 import RecipeCard from "./RecipeCard";
 import MissingIngredientChips from "./MissingIngredientChips";
 
-const SearchResults = () => {
+const SearchResults = ({showLoadMore, handleLoadMore}) => {
   const location = useLocation();
   const recipes = useSelector((state) => state.recipes);
   const pantry = useSelector((state) => state.selectedPantry);
   const pantryIngredientIds = pantry?.ingredients?.map(ingredient => ingredient.id)
-
-
-
   const ingredients = useSelector(state => state.ingredients)
-
-
+ 
 
   //get flattened array of all missing ingredients from recipes in state, then filter for duplicate values
   const missingIngredientsData = recipes
@@ -73,9 +70,7 @@ const SearchResults = () => {
         alignItems="stretch"
         spacing={2}
         columnSpacing={2}
-
-        sx={{ width: "90%", margin: "0 auto 2rem auto", textAlign: "center" }}
-
+        sx={{ width: "90%", margin: "0 0 2rem auto", textAlign: "center" }}
       >
         { location.pathname === '/pantry' ? recipes.map((recipe) => {
           return (
@@ -91,6 +86,7 @@ const SearchResults = () => {
           })
         }
       </Grid>
+      {showLoadMore ? <Button variant='contained' onClick={(e)=>handleLoadMore(e)}>Load More Recipes</Button> : null}
     </Box>
   );
 };

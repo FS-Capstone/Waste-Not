@@ -34,7 +34,7 @@ export default function Pantry() {
         minHeight: '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
         <PantryList/>
-        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start'}} >
+        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between'}} >
           <SearchWithPantry/>
           <SearchResults/>
         </Box>
