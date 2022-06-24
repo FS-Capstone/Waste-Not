@@ -41,7 +41,7 @@ export default function SavedRecipes() {
         width:'80vw',
         minHeight: '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
-        <Typography variant='h2' sx={{fontFamily: 'Kalam'}}>My Recipes</Typography>
+        <Typography variant='h2' sx={{fontFamily: 'Kalam'}}>My Saved Recipes</Typography>
         <Grid
           container
           direction='row'
