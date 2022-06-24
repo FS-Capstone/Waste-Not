@@ -5,7 +5,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import ingredients from "./ingredients";
 import pantries from "./pantry";
-import recipes from "./recipes";
+import complexRecipes from "./complexRecipes";
+import ingredientRecipes from './ingredientRecipes';
 import selectedPantry from "./selectedPantry";
 import wines from "./wines";
 import recipeIngredients from './recipeIngredients';
@@ -15,8 +16,9 @@ const reducer = combineReducers({
   auth,
   pantries,
   ingredients,
-  recipes,
+  complexRecipes,
   selectedPantry,
+  ingredientRecipes,
   wines,
   recipeIngredients,
   shoppingList
@@ -31,7 +33,8 @@ export default store;
 export * from "./auth";
 export * from "./ingredients";
 export * from './pantry';
-export * from "./recipes";
+export * from "./complexRecipes";
+export * from './ingredientRecipes';
 export * from "./selectedPantry";
 export * from "./wines";
 export * from './recipeIngredients';

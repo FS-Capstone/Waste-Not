@@ -13,7 +13,11 @@ import MissingIngredientChips from "./MissingIngredientChips";
 
 const SearchResults = ({showLoadMore, handleLoadMore, handleLoadMoreComplex}) => {
   const location = useLocation();
-  const recipes = useSelector((state) => state.recipes);
+  const recipes = useSelector(state => {
+    if(location.pathname === '/pantry'){
+      return state.ingredientRecipes
+    } else return state.complexRecipes
+  })
   const pantry = useSelector((state) => state.selectedPantry);
   const pantryIngredientIds = pantry?.ingredients?.map(ingredient => ingredient.id)
   const ingredients = useSelector(state => state.ingredients)
