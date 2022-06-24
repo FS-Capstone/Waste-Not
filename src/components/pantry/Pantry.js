@@ -51,7 +51,6 @@ export default function Pantry() {
   const handleNumChange = (e) => {
     setNumber(e.target.value);
   };
-  console.log(loading);
 
   return (
     <Box
@@ -77,7 +76,7 @@ export default function Pantry() {
         backgroundColor:`${theme.palette.background.paper}`}}>
         <Box sx={{color:'gray', margin:'0 0 2em 0' }} >
           <Typography variant='h5' sx={{marginBottom:'.5em'}}>Search for Recipes</Typography>
-          <Typography variant='textSecondary' sx={{marginBottom:'.5em'}}>Select Ingredients From Your Pantry to Find Recipes</Typography>
+          <Typography variant='textSecondary' sx={{marginBottom:'.5em'}}>Select Ingredients From Your Pantry and Search for Recipes with them</Typography>
           <Divider sx={{marginTop:'2em'}}/>
         </Box>
         

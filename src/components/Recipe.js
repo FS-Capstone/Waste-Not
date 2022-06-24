@@ -109,7 +109,7 @@ const Recipe = () => {
   const { equipment } = tools ? tools : [];
   const { cuisines } = recipeInfo ? recipeInfo : [];
 
-  if (!savedRecipes) return null;
+  // if (!savedRecipes) return null;
 
   return (
     <Box
@@ -152,7 +152,7 @@ const Recipe = () => {
                   {recipeInfo.title}{" "}
                 </Typography>
                 <hr />
-                <Typography variant="h5" contained sx={{ margin: "20px" }}>
+                <Typography variant="h5" contained='true' sx={{ margin: "20px" }}>
                   RECIPE STEPS:
                 </Typography>
               </div>

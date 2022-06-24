@@ -22,7 +22,7 @@ export default function PantrySelector() {
     return null;
 
   return(
-    <FormControl fullWidth>
+    <FormControl sx={{width:'30vw'}}>
       <Select
         labelId="selected-pantry"
         id="selected-pantry"
