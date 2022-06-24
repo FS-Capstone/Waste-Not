@@ -4,6 +4,10 @@ html {
   padding: 0;
 }
 
+a{
+  text-decoration: none;
+}
+
 .shelf {
   background-image: url("/Capstone_Pantry_Lighter.png");
   background-size: 400px 150px;
@@ -52,14 +56,18 @@ html {
 }
 .create-accordion {
   display: flex;
-  height: 95vh;
+  height: 100vh;
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  background-image: url("/images/Utensils2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat
 }
 .createForm {
   display: flex;
-  height: 105vh;
+  height: 90vh;
   align-items: center;
   flex-direction: column;
   justify-content: center;

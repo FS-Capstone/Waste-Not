@@ -6,22 +6,26 @@ module.exports = router;
 router.get("/byIngredients", async (req, res, next) => {
   try {
     const options = {
-      method: "GET",
-      url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients",
+      method: 'GET',
+      url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch',
       params: {
-        ingredients: req.query.ingredients,
+        instructionsRequired: 'true',
+        addRecipeInformation: 'true',
+        fillIngredients: 'true',
+        ignorePantry: 'true',
         number: req.query.number,
-        ignorePantry: req.query.ignorePantry,
-        ranking: req.query.ranking,
+        sort: req.query.sort,
+        sortDirection: 'asc',
+        offset: req.query.offset,
+        includeIngredients: req.query.ingredients
       },
       headers: {
-        "X-RapidAPI-Host":
-          "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-        "X-RapidAPI-Key": process.env.API_KEY,
-      },
+        'X-RapidAPI-Key': process.env.API_KEY,
+        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+      }
     };
     const recipes = (await axios.request(options)).data;
-    res.send(recipes);
+    res.send(recipes.results);
   } catch (ex) {
     next(ex);
   }
@@ -38,12 +42,14 @@ router.get('/complexSearch', async(req, res, next) => {
         type: req.query.type,
         diet: req.query.diet,
         intolerances: req.query.intolerances,
+        excludeIngredients: req.query.excludeIngredients,
         instructionsRequired: 'true',
         addRecipeInformation: 'true',
         fillIngredients: 'true',
         ignorePantry: 'true',
-        number: '24',
-        maxReadyTime: req.query.maxReadyTime
+        number: req.query.number,
+        maxReadyTime: req.query.maxReadyTime,
+        offset: req.query.offset
       },
       headers: {
         'X-RapidAPI-Key': process.env.API_KEY,
