@@ -10,7 +10,6 @@ const CreatedRecipesAccordion = (props) => {
 
   const [expanded, setExpanded] = useState(false);
 
-
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };

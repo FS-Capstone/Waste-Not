@@ -22,7 +22,8 @@ const CreatedRecipes = () => {
     }
 
     const AccordionStyle = styled('div')({
-         maxWidth: '600',
+         width: '700px',
+         //maxWidth: '600',
          maxHeight: '950', 
          margin: '0 auto', 
          padding: '3px 10px',
@@ -43,16 +44,15 @@ const CreatedRecipes = () => {
                         // aria-controls="panel1bh-content"
                         // id="panel1bh-header"
                       >
-                        <Typography color='primary' sx={{ width: '33%', flexShrink: 0 }}> {createdRecipe.title} </Typography>
-                        <Typography color='primary' sx={{  }}> {createdRecipe.cuisine} </Typography>
+                        <Typography color='primary' sx={{ width: '75%', flexShrink: 0 }}> {createdRecipe.title} </Typography>
+                        <Typography color='primary' sx={{ width: '75%', flexShrink: 0 }}> Cuisine: {createdRecipe.cuisine} </Typography>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Typography>
-                        {createdRecipe.cookTime}
-                        {createdRecipe.prepTime}
-                        {createdRecipe.ingredients}
-                        {createdRecipe.instructions}
-                        {createdRecipe.ingredients}
+                        <Typography component={'span'}>
+                        <div>Prep Time: {createdRecipe.prepTime}</div>
+                        <div>Cook Time: {createdRecipe.cookTime}</div>
+                        <div>Ingredients: {createdRecipe.ingredients}</div>
+                        <div>Instructions: {createdRecipe.instructions}</div>
                         </Typography>
                       </AccordionDetails>
                     </Accordion>
