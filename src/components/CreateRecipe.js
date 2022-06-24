@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { createRecipe } from '../store/recipes';
+import { createRecipe } from '../store';
 import { Card, CardContent, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import ConfirmationDialog from './ConfirmationDialog';

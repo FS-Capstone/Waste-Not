@@ -14,7 +14,7 @@ export default function Pantry() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [showLoadMore, setShowLoadMore] = useState(false)
-  const recipes = useSelector(state => state.recipes)
+  const recipes = useSelector(state => state.ingredientRecipes)
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState('max-used-ingredients');
 

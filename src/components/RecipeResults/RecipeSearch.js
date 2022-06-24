@@ -9,7 +9,7 @@ import { fetchComplexRecipes, fetchMoreComplexRecipes } from '../../store';
 
 const RecipeSearch = () => {
   const theme = useTheme()
-  const recipes = useSelector(state => state.recipes)
+  const recipes = useSelector(state => state.complexRecipes)
   const [showLoadMore, setLoadMore] = useState(false);
   const [offset, setOffset] = useState(0);
   const [value, setValue] = useState([]);
