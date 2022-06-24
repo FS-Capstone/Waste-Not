@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
 }
@@ -73,12 +74,22 @@ a{
 }
 
 @media (max-width: 1300px) {
-  .search-and-results{
+  .search-and-results {
     flex-direction: column;
   }
 }
 
-.top-level-page{
+.top-level-page {
   /* margin-top: 1.5em */
-  padding-top:120px;
+  padding-top: 120px;
+}
+
+.recipe-individual-top {
+  background-image: url("/images/PantryPage_1.jpg");
+  background-size: 450px 200px;
+  min-height: 94vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

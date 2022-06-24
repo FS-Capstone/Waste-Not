@@ -4,6 +4,14 @@ import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
 import { saveRecipe, removeSavedRecipe } from "../store/recipes";
+import Modal from "./Modal";
+import {
+  Paper,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+} from "@mui/material";
+import { useTheme } from "@emotion/react";
 
 import {
   Box,
@@ -20,6 +28,7 @@ const Recipe = () => {
   const [tools, setTools] = useState([]);
   const [wines, setWines] = useState([]);
   const [nutritionLabel, setNutritionLabel] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const savedRecipes = useSelector((state) =>
     state.auth.recipes?.map((recipe) => recipe.recipeId)
   );
@@ -27,6 +36,8 @@ const Recipe = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
+
+  const theme = useTheme();
 
   useEffect(() => {
     async function getRecipeSteps(recipeId) {
@@ -86,156 +97,200 @@ const Recipe = () => {
     const wines = (
       await axios.get("/api/wine/winePairing", {
         params: {
-          food: cuisines[0],
+          food: cuisines[0] ? cuisines[0] : "Italian",
           maxPrice: "50",
         },
       })
     ).data;
     setWines(wines);
+    setIsOpen(true);
   };
-
-  const { nutrients } = recipeInfo.nutrition ? recipeInfo.nutrition : [];
+  const { extendedIngredients } = recipeInfo ? recipeInfo : [];
   const { equipment } = tools ? tools : [];
   const { cuisines } = recipeInfo ? recipeInfo : [];
 
   if (!savedRecipes) return null;
 
   return (
-    <Stack sx={{ border: "1px solid" }} direcition="row" spacing={2}>
-      <Box
+    <Box
+      sx={{
+        border: "1px solid",
+        display: "flex",
+        backgroundImage: 'url("/images/Background14.jpg")',
+        backgroundSize: "cover",
+        justifyContent: "center",
+        width: "100vw",
+      }}
+      direcition="row"
+    >
+      <Paper
         sx={{
+          opacity: ".95",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          margin: "1rem",
+          width: "60vw",
+          minHeight: "100vh",
+          backgroundColor: `${theme.palette.background.paper}`,
         }}
       >
-        {!recipeInfo ? (
-          <Typography variant="h5">RECIPE STEPS: </Typography>
-        ) : (
-          <Typography variant="h5">
-            {" "}
-            {recipeInfo.title} RECIPE STEPS:
-          </Typography>
-        )}
-        <ul>
-          {recipeSteps.length === 0
-            ? "Recipe Loading..."
-            : recipeSteps[0].steps.map((step) => {
-                return (
-                  <li key={step.number}>
-                    <Typography variant="body1">{step.step}</Typography>
-                  </li>
-                );
-              })}
-        </ul>
-      </Box>
-      <Box sx={{ display: "flex" }}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            margin: "1rem",
-          }}
-        >
-          {!nutritionLabel ? (
-            <Typography variant="h5">NUTRITION INFORMATION: </Typography>
-          ) : (
-            <Card
-              sx={{
-                display: "flex",
-                alignItems: "stretch",
-                minHeight: "20vh",
-                height: "100%",
-              }}
-            >
-              <CardMedia
-                component="img"
-                sx={{ width: "50%" }}
-                image={`data:image/jpeg;base64,${nutritionLabel}`}
+        <Stack>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "left",
+              margin: "80px",
+            }}
+          >
+            {!recipeInfo ? (
+              <Typography align="justify" variant="h6">
+                RECIPE STEPS:{" "}
+              </Typography>
+            ) : (
+              <div>
+                <Typography align="center" variant="h3">
+                  {" "}
+                  {recipeInfo.title}{" "}
+                </Typography>
+                <hr />
+                <Typography variant="h5" contained sx={{ margin: "20px" }}>
+                  RECIPE STEPS:
+                </Typography>
+              </div>
+            )}
+            <ul>
+              {recipeSteps.length === 0
+                ? "Recipe Loading..."
+                : recipeSteps[0].steps.map((step) => {
+                    return (
+                      <li key={step.number} style={{ maxWidth: "70%" }}>
+                        <Typography variant="body1">{step.step}</Typography>
+                      </li>
+                    );
+                  })}
+            </ul>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              margin: "20px",
+            }}
+          >
+            {!nutritionLabel ? (
+              <Typography variant="h5">NUTRITION INFORMATION: </Typography>
+            ) : (
+              <img
+                src={`data:image/jpeg;base64,${nutritionLabel}`}
                 alt="NUTRITION LABEL"
+                style={{ width: "20em", height: "50em" }}
               />
-              <Box>
-                <CardContent
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "stretch",
-                    height: "100%",
-                  }}
-                >
-                  <Typography variant="h6">EQUIPMENT NEEDED: </Typography>
-                  {!equipment
-                    ? null
-                    : equipment.map((value, index) => {
-                        return (
-                          <Box
-                            key={index}
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              margin: "1rem",
-                            }}
-                          >
-                            <img
-                              src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
-                              alt={value.name}
-                            />
-                            {value.name.toUpperCase()}
-                          </Box>
-                        );
-                      })}
-                </CardContent>
-              </Box>
-            </Card>
-          )}
-        </Box>
-        <CardContent
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "stretch",
-            height: "100%",
-          }}
-        >
-          <button onClick={handleOnClick}>Search Wine Pairings</button>
-          {wines.pairedWines
-            ? wines.pairedWines.map((wine, index) => {
-                return (
-                  <Box
-                    key={index}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "1rem",
-                    }}
-                  >
-                    <Typography>{wine.toUpperCase()}</Typography>
-                  </Box>
-                );
-              })
-            : null}
-        </CardContent>
-      </Box>
+            )}
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              margin: "1rem",
+              overflowWrap: "break-word",
+            }}
+          >
+            {!extendedIngredients ? (
+              <Typography variant="h5">INGREDIENTS Loading: </Typography>
+            ) : (
+              <ImageList
+                sx={{ width: 800, height: 450 }}
+                cols={5}
+                gap={10}
+                rowHeight={180}
+              >
+                {extendedIngredients.map((ingredient, index) => {
+                  return (
+                    <ImageListItem key={index}>
+                      <img
+                        src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
+                        alt={ingredient.name}
+                      />{" "}
+                      <ImageListItemBar
+                        position="below"
+                        title={ingredient.name}
+                      />
+                    </ImageListItem>
+                  );
+                })}
+              </ImageList>
+            )}
+          </Box>
 
-      {
-        //Save recipe logic
-        loggedIn ? (
-          savedRecipes.includes(id * 1) ? (
-            <button onClick={() => dispatch(removeSavedRecipe(id))}>
-              Unsave Recipe
+          <Typography variant="h5" sx={{ align: "center" }}>
+            EQUIPMENT NEEDED:{" "}
+          </Typography>
+          <ImageList
+            sx={{ width: 700, height: 350 }}
+            cols={4}
+            gap={15}
+            rowHeight={150}
+          >
+            {!equipment
+              ? null
+              : equipment.map((value, index) => {
+                  return (
+                    <ImageListItem key={index}>
+                      <img
+                        src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
+                        alt={value.name}
+                      />
+                      <ImageListItemBar position="below" title={value.name} />
+                    </ImageListItem>
+                  );
+                })}
+          </ImageList>
+
+          <Box sx={{ display: "flex", align: "center" }}>
+            <button
+              style={{ borderRadius: "30%", padding: "10px", margin: "25px" }}
+              onClick={handleOnClick}
+            >
+              Search Wine Pairings
             </button>
-          ) : (
-            <button onClick={() => dispatch(saveRecipe(id))}>
-              Save Recipe
-            </button>
-          )
-        ) : null
-      }
-    </Stack>
+            {wines.pairedWines ? (
+              <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                {wines.pairedWines}
+              </Modal>
+            ) : null}
+
+            {
+              //Save recipe logic
+              loggedIn ? (
+                savedRecipes.includes(id * 1) ? (
+                  <button
+                    style={{
+                      borderRadius: "30%",
+                      padding: "10px",
+                      margin: "25px",
+                    }}
+                    onClick={() => dispatch(removeSavedRecipe(id))}
+                  >
+                    Unsave Recipe
+                  </button>
+                ) : (
+                  <button
+                    style={{
+                      borderRadius: "30%",
+                      padding: "10px",
+                      margin: "25px",
+                    }}
+                    onClick={() => dispatch(saveRecipe(id))}
+                  >
+                    Save Recipe
+                  </button>
+                )
+              ) : null
+            }
+          </Box>
+        </Stack>
+      </Paper>
+    </Box>
   );
 };
 

@@ -1,3 +1,4 @@
+
 import { Box } from '@mui/material';
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
@@ -44,20 +45,23 @@ export default function Pantry() {
   };
 
   return (
-    <Box className='top-level-page'
-    sx={{
-      width: '100vh%', 
-      height: '100%', 
-      backgroundImage:'url("images/background19.jpg")', 
-      backgroundSize:'contain',
-      backgroundAttachment:'fixed',
-      display:'flex',
-      
-      justifyContent:'center'}}>
-      <Paper 
-        className='search-and-results'
+    <Box
+      className="top-level-page"
       sx={{
-        
+        width: "100vh%",
+        height: "100%",
+        backgroundImage: 'url("images/background19.jpg")',
+        backgroundSize: "contain",
+        backgroundAttachment: "fixed",
+        display: "flex",
+
+        justifyContent: "center",
+      }}
+    >
+      <Paper
+        className="search-and-results"
+        sx={{
+       
         padding: '40px 0 40px 0',
         margin: '40px 0 40px 0',
         opacity:'.95', 
@@ -73,5 +77,5 @@ export default function Pantry() {
         </Box>
       </Paper>
     </Box>
-  )
+  );
 }

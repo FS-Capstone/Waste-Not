@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, IconButton } from "@mui/material";
-import { AccountCircleIcon } from "@mui/icons-material";
+import { Button, Typography } from "@mui/material";
 import ReactDom from "react-dom";
 
 const OVERLAY_STYLES = {
@@ -29,7 +28,15 @@ export default function Modal({ open, onClose, children }) {
     <>
       <div style={OVERLAY_STYLES} />
       <div style={MODAL_STYLES}>
-        {children}
+        {children.map((child, index) => {
+          return (
+            <div key={index}>
+              <Typography sx={{ textTransform: "capitalize" }} variant="h4">
+                {child}
+              </Typography>
+            </div>
+          );
+        })}
 
         <Button
           variant="contained"
