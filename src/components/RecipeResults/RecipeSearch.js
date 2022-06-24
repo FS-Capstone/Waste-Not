@@ -19,9 +19,11 @@ const RecipeSearch = () => {
   const [meal, setMeal] = useState('');
   const [number, setNumber] = useState(12);
   const [intolerances, setIntolerances] = useState([])
+  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
 
   const handleComplexSearch = async(e) => {
+    setLoading(true)
     const options = {
       query: searchValue,
       cuisine,
@@ -33,10 +35,12 @@ const RecipeSearch = () => {
       number: number
     }
     await dispatch(fetchComplexRecipes(options))
+    setLoading(false)
     setLoadMore(true)
   }
 
   const handleLoadMoreComplex = async(e) => {
+    setLoading(true)
     const options = {
       query: searchValue,
       cuisine,
@@ -46,7 +50,8 @@ const RecipeSearch = () => {
       offset: recipes.length +1,
       number: number
     }
-    dispatch(fetchMoreComplexRecipes(options))
+    await dispatch(fetchMoreComplexRecipes(options))
+    setLoading(false)
   }
 
   const handleCuisine = e => {
@@ -107,7 +112,7 @@ const RecipeSearch = () => {
             intolerances={intolerances}
             setIntolerances={setIntolerances}
             />
-          <SearchResults showLoadMore={showLoadMore} setOffset={setOffset} handleLoadMoreComplex={handleLoadMoreComplex}/>
+          <SearchResults loading={loading} showLoadMore={showLoadMore} setOffset={setOffset} handleLoadMoreComplex={handleLoadMoreComplex}/>
           {/* Add images / info on how to use search here, only displayed if recipes.length is false */}
         </Box>
       </Paper>
