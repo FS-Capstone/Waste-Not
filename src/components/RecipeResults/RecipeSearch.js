@@ -95,7 +95,7 @@ const RecipeSearch = () => {
         display:'flex', 
         justifyContent:'center', 
         width:'80vw',
-        height:'auto',
+        height: recipes.length || loading ? 'auto' : '15vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
         <Box sx={{display:'flex', width:'100%', flexDirection:'column', alignItems:'center', justifyContent:'flex-start', }}>
           <AdvancedSearch 

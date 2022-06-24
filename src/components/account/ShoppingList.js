@@ -73,7 +73,7 @@ const ShoppingList = () => {
   }
 
   return (
-    <Box sx={{display:'flex', flexDirection:'column', paddingTop:'5vh', alignItems:'center', width:'100vw', minHeight:'100vh', backgroundImage:'url("/images/ShoppingListBackground.png")', backgroundSize:'contain', backgroundAttachment:'fixed'}}>
+    <Box sx={{display:'flex', flexDirection:'column', paddingTop:'8vh', alignItems:'center', width:'100vw', minHeight:'100vh', backgroundImage:'url("/images/ShoppingListBackground.png")', backgroundSize:'contain', backgroundAttachment:'fixed'}}>
       <Paper ref={printRef} sx={{display:'flex', borderRadius:'5px 5px 0 0', opacity:'.95', flexDirection:'column', alignItems:'center', justifyContent:'center', marginBottom: 0, height:'100%', width:'100%', maxWidth:'800px', minWidth:'360px'}} onMouseEnter={(e)=> setDisplay(true)} onMouseLeave={(e)=>setDisplay(false)}>
         <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
           <IconButton sx={{display: 'inline', visibility: 'hidden' }}><DownloadIcon/></IconButton>
