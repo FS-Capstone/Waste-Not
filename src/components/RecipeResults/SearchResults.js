@@ -64,7 +64,7 @@ const SearchResults = () => {
   }, [recipes, pantry]);
 
   return (
-    <Box>
+    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
       <MissingIngredientChips missingIngredientList={missingIngredientList}/>
       <Grid
         container
@@ -74,7 +74,7 @@ const SearchResults = () => {
         spacing={2}
         columnSpacing={2}
 
-        sx={{ width: "90%", margin: "0 auto 2rem auto",  textAlign: "center" }}
+        sx={{ width: "90%", margin: "0 auto 2rem auto", textAlign: "center" }}
 
       >
         { location.pathname === '/pantry' ? recipes.map((recipe) => {

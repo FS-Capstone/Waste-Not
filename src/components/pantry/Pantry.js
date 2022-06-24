@@ -31,6 +31,7 @@ export default function Pantry() {
         display:'flex', 
         justifyContent:'center', 
         width:'80vw',
+        minHeight: '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
         <PantryList/>
         <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start'}} >
