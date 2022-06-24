@@ -41,7 +41,7 @@ export default function SidePantry() {
 
   useEffect(() => {
     const ingredients = Object.keys(selectedIngredients).filter(id => selectedIngredients[id])
-    window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredients))
+    window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredients));
   }, [numSelectedIngredients])
 
 
@@ -90,27 +90,29 @@ export default function SidePantry() {
     const allIngredientsSelected = {};
 
     ingredientsInPantry.forEach((ingredient) => {
-    allIngredientsSelected[ingredient.name] = select;
+      allIngredientsSelected[ingredient.name] = select;
     })
 
     for(let i = 0; i < categories.length; i++){
       selectedCategories[categories[i]] = select;
     }
-    setCheckedCategories(selectedCategories);   
+    setCheckedCategories(selectedCategories);  
+
+    
     setSelectedIngredients(allIngredientsSelected);
+    
   }
 
   const isCategorySelected = (category) =>{
     const ingredientsInCategory = categoriesWithIngredients[category];
     for(let i = 0; i < ingredientsInCategory.length; i++){
-      if(!selectedIngredients[ingredientsInCategory[i].name])
+      if(!localStorageIngredients[ingredientsInCategory[i].name])
         return false;
     }
     return true;
   }
-  
   return(
-    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+    <Box sx={{display:'flex', flexDirection:'column'}}>
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
       <Button onClick={() => selectAll(true)}>Select All</Button>
       <Button onClick={() => selectAll(false)}>Deselect All</Button>
@@ -134,7 +136,7 @@ export default function SidePantry() {
                     return <PantryItem 
                             ingredient={ingredient} 
                             key={ingredient.id}
-                            checked={!!selectedIngredients[ingredient.name]}
+                            checked={!!localStorageIngredients[ingredient.name]}
                             handleCheck={handleCheck}
                             category={category}
                             />
