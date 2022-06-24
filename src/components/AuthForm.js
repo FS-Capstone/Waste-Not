@@ -2,46 +2,83 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
 import { useNavigate } from 'react-router-dom'
-
-
+import { Button, Paper, TextField, Typography } from '@mui/material'
+import { Box, useTheme } from '@mui/system'
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props;
   const navigate = useNavigate();
+  const theme = useTheme();
   return (
-    <div>
-      <form onSubmit={(event) => handleSubmit(event, navigate)} name={name}>
-        <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        {name === 'signup' ? 
-          <div>
-            <label htmlFor='email'>
-              <small>Email</small>
-            </label>
-            <input name="email" type="email"/>
-          </div>
-          :
-          null
-        }
+    <div 
+      className='top-level-page' 
+      style={{
+        display:'flex', 
+        justifyContent:'center',
+        backgroundImage:'url("images/background15.jpg")',
+        backgroundSize:'cover',
+        backgroundAttachment:'fixed',
+        minHeight:'100vh',
+        boxSizing:'border-box'
+        }}>
+      <Paper
+        sx={{
+          // height:'fit-content',
+          display:'flex',
+          width:'50vw',
+          justifyContent:'space-between',
+          minHeight: '50vh',
+          height: 'fit-content',
+          opacity: .95,
+          overflow: 'hidden',
+
+        }}
+      >
+        <Box backgroundColor={theme.palette.primary.light} style={{width:'50%', display:'flex', flexDirection:'column', justifyContent:'center' }}>
+          <Typography variant='h4' color='white' sx={{textAlign:'center' }}>{name === 'login' ? 'LOG IN.' : 'SIGN UP.'}</Typography>
+        </Box>
         
-        <div>
-          <button type="submit">{displayName}</button>
-          <a href='/googleOauth'><button type="button">Sign in through Google</button></a>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
+        
+        <form 
+          onSubmit={(event) => handleSubmit(event, navigate)} 
+          name={name}
+          style={{
+            display:'flex', 
+            flexDirection:'column', 
+            alignItems:'center', 
+            width:'50%', 
+            justifyContent:'center', 
+            margin:'2em',
+            boxShadow:'border-box'}}
+        >
+          
+          <div style={{width: '100%'}} >
+            <Typography variant='h6'>Username</Typography>
+            <TextField name="username" type="text" sx={{width: '100%'}}/>
+          </div>
+          <div style={{width: '100%'}} >
+            <Typography variant='h6'>Password</Typography>
+            <TextField name="password" type="password" sx={{width: '100%'}} />
+          </div>
+          {name === 'signup' ? 
+            <div style={{width: '100%'}} >
+              <Typography variant='h6'>Email</Typography>
+              <TextField name="email" type="email" sx={{width: '100%'}}/>
+            </div>
+            :
+            null
+          }
+          
+          {/* <div> */}
+            <a href='/googleOauth' style={{width: '100%'}}><Button sx={{margin:'2em 0 2em 0', width:'100%'}} type="button"  variant='outlined'>Sign in through Google</Button></a>
+            <Button sx={{margin:'0 0 2em 0 ', width:'100%'}} type="submit" variant='contained' >{displayName}</Button>
+            
+          {/* </div> */}
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+      </Paper>
     </div>
   )
 }

@@ -3,6 +3,10 @@ body, html {
   padding: 0;
 }
 
+a{
+  text-decoration: none;
+}
+
 .shelf {
   background-image: url("/Capstone_Pantry_Lighter.png");
   background-size: 400px 150px;
