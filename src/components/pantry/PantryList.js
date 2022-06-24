@@ -8,6 +8,7 @@ import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import SearchResults from '../RecipeResults/SearchResults'
+import { useTheme } from "@mui/system";
 
 //returns an object with all categories as keys, and a list of all ingredients in that category as the value
 const getAllCategories = (ingredients) => {
@@ -25,6 +26,7 @@ const getAllCategories = (ingredients) => {
 }
 
 export default function SidePantry() {
+  const theme = useTheme()
   const pantry = useSelector(state => state.selectedPantry);
   let localStorageIngredients = JSON.parse(window.localStorage.getItem('selectedIngredients')) || [];
   localStorageIngredients = localStorageIngredients.reduce((accum, ing) => {return {...accum, [ing]: true}}, {})
@@ -41,7 +43,7 @@ export default function SidePantry() {
 
   useEffect(() => {
     const ingredients = Object.keys(selectedIngredients).filter(id => selectedIngredients[id])
-    window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredients))
+    window.localStorage.setItem('selectedIngredients', JSON.stringify(ingredients));
   }, [numSelectedIngredients])
 
 
@@ -90,14 +92,16 @@ export default function SidePantry() {
     const allIngredientsSelected = {};
 
     ingredientsInPantry.forEach((ingredient) => {
-    allIngredientsSelected[ingredient.name] = select;
+      allIngredientsSelected[ingredient.name] = select;
     })
 
     for(let i = 0; i < categories.length; i++){
       selectedCategories[categories[i]] = select;
     }
-    setCheckedCategories(selectedCategories);   
+    setCheckedCategories(selectedCategories);  
+
     setSelectedIngredients(allIngredientsSelected);
+    
   }
 
   const isCategorySelected = (category) =>{
@@ -108,9 +112,16 @@ export default function SidePantry() {
     }
     return true;
   }
-  
+
+  const numSelectedInCategory = (category) => {
+    const ingredientsInCategory = categoriesWithIngredients[category];
+    const numSelected = ingredientsInCategory.filter(ingredient => selectedIngredients[ingredient.name]).length;
+    return numSelected;
+  }
+
+
   return(
-    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+    <Box sx={{display:'flex', flexDirection:'column'}}>
       <PantryAutocomplete searchOptions={ingredientList} searchName='pantrySearch' selectedPantry={pantry} />
       <Button onClick={() => selectAll(true)}>Select All</Button>
       <Button onClick={() => selectAll(false)}>Deselect All</Button>
@@ -120,12 +131,19 @@ export default function SidePantry() {
         return (
           <List key={category}>
             {/*buttons for all categories */}
-            <ListItemButton onClick={(evt) => toggleCategory(category)}>
-              <Checkbox 
-                onClick={evt => selectCategory(evt, category)} 
-                checked={isCategorySelected(category)}
-                />
-              <Typography variant="h6">{category}{`(${categoriesWithIngredients[category].length})`}</Typography>
+            <ListItemButton onClick={(evt) => toggleCategory(category)} sx={{display:'flex', justifyContent:'space-between'}}>
+              <div style={{display:'flex', alignItems:'center'}}>
+                <Checkbox 
+                  onClick={evt => selectCategory(evt, category)} 
+                  checked={isCategorySelected(category)}
+                  />
+                <Typography variant="h6">{category}{`(${categoriesWithIngredients[category].length})`}</Typography>
+              </div>
+              {numSelectedInCategory(category) > 0 ? 
+                <Typography variant="caption" color={theme.palette.text.disabled}> {`${numSelectedInCategory(category)} selected`} </Typography>
+              :
+                null
+              }
             </ListItemButton>
             <Collapse in={openedCategories[category]} timeout='auto' unmountOnExit>
               {/* Filter out categories matching current category, then display them */}

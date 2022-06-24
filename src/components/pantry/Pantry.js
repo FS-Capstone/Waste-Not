@@ -66,12 +66,12 @@ export default function Pantry() {
         margin: '40px 0 40px 0',
         opacity:'.95', 
         display:'flex', 
-        justifyContent:'center', 
+        justifyContent:'space-between', 
         width:'80vw',
         minHeight: '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
         <PantryList/>
-        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between'}} >
+        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'space-between', flexBasis:'66%'}} >
           <SearchWithPantry  handleRankChange={handleRankChange} handleNumChange={handleNumChange} ranking={ranking} number={number} recipeSearch={recipeSearch} />
           <SearchResults showLoadMore={showLoadMore} handleLoadMore={handleLoadMore} />
         </Box>

@@ -34,6 +34,7 @@ export const getPantries = () => {
   }
 };
 
+//Adds single ingredient to local storage 'selected'
 const selectIngredient = (ingredientId, state) => {
   const ingredient = state.ingredients.find(ingredient => ingredient.id === ingredientId);
   const currentlySelected = JSON.parse(window.localStorage.getItem('selectedIngredients'));
@@ -45,7 +46,7 @@ const selectIngredient = (ingredientId, state) => {
 export const addPantryItem = (itemId, pantryId) => {
 
   return async(dispatch, getState)=>{
-    selectIngredient(itemId, getState());
+
     //logged in route
     if(getState().auth.id){
       const auth = {headers: {authorization: window.localStorage.getItem('token')}} 
