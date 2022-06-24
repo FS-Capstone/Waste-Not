@@ -17,7 +17,7 @@ const RecipeSearch = () => {
       width:'100vh%',
       height:'100%',
       backgroundImage:'url("/images/background14.jpg")',
-      backgroundSize:'contain',
+      backgroundSize:'cover',
       backgroundAttachment:'fixed',
       display:'flex',
       justifyContent:'center'
