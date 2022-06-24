@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
-import { saveRecipe, removeSavedRecipe } from "../store/complexRecipes";
+import { saveRecipe, removeSavedRecipe } from "../store";
 import Modal from "./Modal";
 import {
   Paper,
