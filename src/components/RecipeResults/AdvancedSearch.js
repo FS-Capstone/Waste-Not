@@ -26,7 +26,7 @@ export default function AdvancedSearch({intolerances, setIntolerances, handleCom
   return (
     <Box id='complexSearchBox' sx={{display:'flex', width:'50%', flexDirection:'column', alignItems:'center', justifyContent:'flex-start', margin:'1rem'}}>
       <Box sx={{display:'flex', width:'100%', justifyContent:'space-between', marginBottom:'1rem'}}>
-        <TextField id='complexSearch' variant='outlined' name='searchValue' onChange={handleComplexSearchChange} value={searchValue} placeholder='Search for a recipe!' sx={{width:'55%'}}/>
+        <TextField id='complexSearch' variant='outlined' name='searchValue' onChange={handleComplexSearchChange} value={searchValue} placeholder='Search for a recipe!' sx={{width:'55%'}} onKeyDown={(e)=> {if(e.key === 'Enter') {handleComplexSearch(e)}}}/>
         <TextField id='maxTimeSelect' type='number' inputProps={{min:10}} label='Max Prep Time'/>
         <TextField id="resultsNumber" select value={number} label='Results' onChange={handleNumChange}>
           {numValues.map((num) => (
