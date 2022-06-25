@@ -5,8 +5,8 @@ const DishResults = (props) => {
 
     return (
         <div>
-            <h3> Dish Pairings for: </h3>
-            <div> { wine }  </div>
+            {/* <h3> Dish Pairings for: </h3>
+            <div> { wine }  </div> */}
             <div> {text} </div>
             <hr/>
             <div>

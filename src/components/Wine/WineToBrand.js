@@ -161,7 +161,7 @@ const handleOnClick = async (req, res, next) => {
               >
             <div className='wine' id='wineToBrand'>
                 <h2>Select Wine Type for Brand Recommendation </h2>
-                <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.7' }}>
+                <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.5' }}>
                 <Autocomplete
                     wine={wine}
                     onChange={(e, newWine) => handleChange(e, newWine)}

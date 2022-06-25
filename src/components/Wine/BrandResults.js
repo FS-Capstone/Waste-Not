@@ -18,15 +18,14 @@ const handleOnClose = () => {
 
     return (
         <div>
-            <h3> Brand Recommendations for: </h3>
-            <div> {wine} </div>
+            <h3> Brand Recommendations: </h3>
             <hr/>
             <div>
                 { brands.map(brand => { 
                     return (
                     <li key={brand.id}> 
                     {brand.title} ({brand.price}) 
-                    <button onClick={() => handleClickOpen(brand)}> More Details </button> <button> Save </button>
+                    <button onClick={() => handleClickOpen(brand)}> More Details </button> 
                     <BrandDialog 
                         open={open}
                         onClose={handleOnClose}

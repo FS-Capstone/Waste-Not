@@ -46,7 +46,7 @@ const handleOnClick = async (req, res, next) => {
               >
             <div className='wine' id='dishToWine'>
             <h2> Enter A Dish for Wine Pairings </h2>
-            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.7' }}>
+            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.5' }}>
             <TextField 
                 id="outlined-basic" 
                 label="Ingredient/Dish/Cuisine"
