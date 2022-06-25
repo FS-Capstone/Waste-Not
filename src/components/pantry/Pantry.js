@@ -1,13 +1,13 @@
 
-import { Box, Divider, Typography } from '@mui/material';
-import React, {useState, useEffect} from 'react';
+import { Box, Divider, Typography, Paper, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+import React, {useState, useEffect, forwardRef} from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import PantryList from './PantryList';
 import SearchWithPantry from '../RecipeResults/SearchWithPantry';
 import SearchResults from '../RecipeResults/SearchResults';
 import { useTheme } from '@emotion/react';
-import { Paper } from '@mui/material';
 import { fetchRecipes, fetchMoreRecipes } from '../../store';
 import RecipePlaceholder from './RecipePlaceholder';
 
@@ -19,6 +19,8 @@ export default function Pantry() {
   const [number, setNumber] = useState(12);
   const [ranking, setRanking] = useState('max-used-ingredients');
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(false)
   const haveRecipes = useSelector(state => state.ingredientRecipes.length > 0);
 
   const handleLoadMore = async(e) => {
@@ -34,16 +36,32 @@ export default function Pantry() {
     setRanking(e.target.value);
   };
 
+  const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   useEffect(()=> {window.scrollTo(0,0)},[])
 
   const recipeSearch = async (e) => {
     e.preventDefault();
-    setLoading(true)
     const selectedIngredients = JSON.parse(window.localStorage.getItem("selectedIngredients"));
-    // if (selectedIngredients.length) {
-    await dispatch(fetchRecipes(selectedIngredients, number, ranking));
-    setLoading(false)
-    setShowLoadMore(true)
+    if (!selectedIngredients.length) {
+      setSubmitMessage('You must select at least one ingredient to search with!')
+      setOpen(true)
+    }
+    else {
+      setLoading(true)
+      await dispatch(fetchRecipes(selectedIngredients, number, ranking));
+      setLoading(false)
+      setShowLoadMore(true)
+    }
     // } else {
     //   const ingredients = pantry?.ingredients;
     //   dispatch(fetchRecipes(ingredients, number, ranking));
@@ -101,6 +119,20 @@ export default function Pantry() {
           </Box> 
         </Box>
       </Paper>
+      <Snackbar
+        anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert 
+          onClose={handleClose}
+          severity={'warning'}
+          sx={{width:'auto'}}
+        >
+          {submitMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

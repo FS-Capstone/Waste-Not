@@ -93,7 +93,7 @@ const SearchResults = ({showLoadMore, loading, handleLoadMore, handleLoadMoreCom
         }
       </Grid>
       {loading ? <Box sx={{display:'flex', justifyContent:'center', marginBottom:'1rem'}}><Typography variant='h5' sx={{marginRight:'1rem'}}>Loading...</Typography><CircularProgress color='primary'/> </Box>: null }
-      {showLoadMore && location.pathname === '/pantry' ? <Button variant='contained' onClick={(e)=>handleLoadMore(e)}>Load More Recipes</Button> : showLoadMore ? <Button variant='contained' onClick={(e)=>handleLoadMoreComplex(e)}>Load More Recipes</Button> : null}
+      {recipes.length && location.pathname === '/pantry' ? <Button variant='contained' onClick={(e)=>handleLoadMore(e)}>Load More Recipes</Button> : recipes.length ? <Button variant='contained' onClick={(e)=>handleLoadMoreComplex(e)}>Load More Recipes</Button> : null}
     </Box>
   );
 };

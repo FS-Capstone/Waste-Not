@@ -99,7 +99,7 @@ const RecipeSearch = () => {
         flexDirection:'column',
         alignItems:'center',
         width:'80vw',
-        height: recipes.length || loading ? 'auto' : '40vh',
+        height: recipes.length ? 'auto' : '100%',
         backgroundColor:`${theme.palette.background.paper}`}}
         >
         <Box sx={{color:'gray', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}} >
@@ -123,7 +123,6 @@ const RecipeSearch = () => {
             setIntolerances={setIntolerances}
             />
           <SearchResults loading={loading} showLoadMore={showLoadMore} setOffset={setOffset} handleLoadMoreComplex={handleLoadMoreComplex}/>
-          {/* Add images / info on how to use search here, only displayed if recipes.length is false */}
         </Box>
       </Paper>
     </Box>
