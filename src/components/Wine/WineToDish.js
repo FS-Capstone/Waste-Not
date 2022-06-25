@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -117,12 +117,14 @@ const options = [
     'mead' // category
 ]
 
-const WineToDish = () => {
+const WineToDish = ({ mainRef, wineRef, brandRef, dishRef }) => {
 
 const [wine, setWine] = useState("");
 const [dishes, setDishes] = useState([]);
 const [text, setText] = useState("");
 const [errorMessage, setErrorMessage] = useState("");
+
+// const dishRef = useRef();
 
 const handleChange = (e, newWine) => {
        setWine(newWine)   
@@ -142,7 +144,18 @@ const handleOnClick = async (req, res, next) => {
 
     return (
         <div> 
-            <div className='wine'>
+            <Box 
+            sx={{
+                width:'100%',
+                minHeight:'100vh',
+                //height:'100vh',
+                backgroundImage:'url("/images/pexels-grapes5.jpg")',
+                backgroundSize: 'cover',
+                backgroundAttachment:'fixed',
+                backgroundRepeat: 'no-repeat'
+              }}
+              >
+            <div className='wine' ref={dishRef} id='wineToDish'>
             <h2> Select Wine for Dish Recommendation </h2>
             <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
             <Autocomplete
@@ -158,9 +171,10 @@ const handleOnClick = async (req, res, next) => {
             </Box>
             { dishes ? <DishResults dishes={dishes} text={text} wine={wine} /> : errorMessage }
             <div>
-                <Link to='/wine'> <button>Back</button> </Link>
+                <a href='#main'> <button>Back</button> </a>
             </div>
             </div>
+            </Box>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -119,12 +119,13 @@ import BrandResults from './BrandResults';
         'mead' // category
     ]
 
-const WineToBrand = () => {
+const WineToBrand = ({ mainRef, wineRef, brandRef, dishRef }) => {
 
 const [wine, setWine] = useState(""); 
 const [maxPrice , setMaxPrice] = useState(0);
 const [brands, setBrands] = useState([]);
  
+// const brandRef = useRef();
 
  const handleChange = (e, newWine) => {
      setWine(newWine);
@@ -148,7 +149,18 @@ const handleOnClick = async (req, res, next) => {
 
     return (
         <div> 
-            <div className='wine' id="wine-to-brand">
+            <Box 
+            sx={{
+                width:'100%',
+                minHeight:'100vh',
+                //height:'100vh',
+                backgroundImage:'url("/images/pexels-grapes5.jpg")',
+                backgroundSize: 'cover',
+                backgroundAttachment:'fixed',
+                backgroundRepeat: 'no-repeat'
+              }}
+              >
+            <div className='wine' ref={brandRef} id='wineToBrand' >
                 <h2>Select Wine Type for Brand Recommendation </h2>
                 <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
                 <Autocomplete
@@ -175,9 +187,10 @@ const handleOnClick = async (req, res, next) => {
                 </Box>
                 { brands.length ? <BrandResults brands={brands} wine={wine} /> : 'No Results Found' }
                 <div>
-                    <Link to='/wine'> <button> Back </button> </Link>
+                <a href='#main'> <button>Back</button> </a>
                 </div>
             </div>
+            </Box>
         </div>
     )
 }

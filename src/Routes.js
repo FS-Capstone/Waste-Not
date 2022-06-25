@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Home from "./components/Home";
 import Wine from "./components/Wine/Wine";
 import WineToBrand from "./components/Wine/WineToBrand";
@@ -24,7 +24,10 @@ const ClientRoutes = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
-  
+  // const mainRef = useRef(null);
+  // const wineRef = useRef(null);
+  // const brandRef = useRef(null);
+  // const dishRef = useRef(null);
 
   useEffect(() => {
     dispatch(me());
@@ -45,10 +48,21 @@ const ClientRoutes = () => {
         <Route path="home" element={<LandingPage />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+
         <Route path="wine" element={<Wine />} />
         <Route path="wine/recommend-wine" element={<DishToWine />} />
         <Route path="wine/recommend-dish" element={<WineToDish />} />
         <Route path="wine/recommend-brand" element={<WineToBrand />} />
+
+        {/* <Route path="wine" element={<Wine mainRef={mainRef} wineRef={wineRef} brandRef={brandRef} dishRef={dishRef} />} />
+        <Route path="wine/recommend-wine" element={<DishToWine mainRef={mainRef} wineRef={wineRef} brandRef={brandRef} dishRef={dishRef} />} />
+        <Route path="wine/recommend-dish" element={<WineToDish mainRef={mainRef} wineRef={wineRef} brandRef={brandRef} dishRef={dishRef} />} />
+        <Route path="wine/recommend-brand" element={<WineToBrand mainRef={mainRef} wineRef={wineRef} brandRef={brandRef} dishRef={dishRef} />} /> */}
+
+        {/* <Route path="wine/#recommend-wine" element={<DishToWine />} />
+        <Route path="wine/#recommend-dish" element={<WineToDish />} />
+        <Route path="wine/#recommend-brand" element={<WineToBrand />} /> */}
+
         <Route path="pantry" element={<Pantry />} />
         <Route path="recipe/:id" element={<Recipe />} />
         <Route path="account" element={<AccountPage />} />
