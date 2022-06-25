@@ -4,7 +4,7 @@ import AdvancedSearch from './AdvancedSearch';
 import SearchResults from './SearchResults';
 import { Box, Paper, Divider, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { fetchComplexRecipes, fetchMoreComplexRecipes } from '../../store';
+import { fetchComplexRecipes, fetchMoreComplexRecipes, clearComplexSearchResults } from '../../store';
 
 
 const RecipeSearch = () => {
@@ -25,6 +25,7 @@ const RecipeSearch = () => {
   useEffect(()=> {window.scrollTo(0,0)},[])
 
   const handleComplexSearch = async(e) => {
+    await dispatch(clearComplexSearchResults())
     setLoading(true)
     const options = {
       query: searchValue,
