@@ -139,7 +139,7 @@ const RecipeCard = ({ recipe }) => {
             {recipe.title}
           </Typography>
           {
-            !recipe.missedIngredientCount ? 
+            !missingIngredients.length ? 
             <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-evenly', }}>
               <Box sx={{display:'flex', justifyContent:'space-evenly', alignItems:'center'}}>
                 <Typography variant='subtitle1'>You have all the necessary ingredients!</Typography>
@@ -147,7 +147,7 @@ const RecipeCard = ({ recipe }) => {
               </Box>
               <Box sx={{display:'flex', flexDirection:'column'}}>
                 <AccessTimeIcon/>
-                <Typography variant='subtitle1'>{recipe.preparationMinutes}</Typography>
+                <Typography variant='subtitle1'>{recipe.readyInMinutes}</Typography>
               </Box>
             </Box>
           :

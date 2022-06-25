@@ -125,10 +125,11 @@ export default function Pantry() {
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
+        sx={{marginTop:'5vh'}}
       >
         <Alert 
           onClose={handleClose}
-          severity={'warning'}
+          severity={'error'}
           sx={{width:'auto'}}
         >
           {submitMessage}
