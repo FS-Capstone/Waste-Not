@@ -1,6 +1,7 @@
 import axios from "axios";
 const FETCH_RECIPES = "FETCH_RECIPES";
 const FETCH_MORE_RECIPES = 'FETCH_MORE_RECIPES';
+const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
 
 
 const _fetchRecipes = (recipes) => ({ type: FETCH_RECIPES, recipes });
@@ -57,6 +58,13 @@ export const fetchMoreRecipes = (ingredients, number, sort, offset) => {
   };
 };
 
+export const clearSearchResults = () => {
+  return {
+    type: CLEAR_SEARCH_RESULTS,
+    recipes: []
+  }
+}
+
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -66,6 +74,8 @@ export default function (state = [], action) {
       return action.recipes;
     case FETCH_MORE_RECIPES:
       return state.concat(action.recipes)
+    case CLEAR_SEARCH_RESULTS:
+      return action.recipes
     default:
       return state;
   }

@@ -8,7 +8,7 @@ import PantryList from './PantryList';
 import SearchWithPantry from '../RecipeResults/SearchWithPantry';
 import SearchResults from '../RecipeResults/SearchResults';
 import { useTheme } from '@emotion/react';
-import { fetchRecipes, fetchMoreRecipes } from '../../store';
+import { fetchRecipes, fetchMoreRecipes, clearSearchResults } from '../../store';
 import RecipePlaceholder from './RecipePlaceholder';
 
 export default function Pantry() {
@@ -50,6 +50,7 @@ export default function Pantry() {
   useEffect(()=> {window.scrollTo(0,0)},[])
 
   const recipeSearch = async (e) => {
+    await dispatch(clearSearchResults())
     e.preventDefault();
     const selectedIngredients = JSON.parse(window.localStorage.getItem("selectedIngredients"));
     if (!selectedIngredients.length) {

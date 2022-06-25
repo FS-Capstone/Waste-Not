@@ -2,7 +2,7 @@ import axios from "axios";
 import { me } from "./auth";
 const SET_AUTH = 'SET_AUTH'
 const FETCH_COMPLEX_RECIPES = "FETCH_COMPLEX_RECIPES";
-const CLEAR_SEARCH_RESULTS = 'CLEAR_SEARCH_RESULTS';
+const CLEAR_COMPLEX_SEARCH_RESULTS = 'CLEAR_COMPLEX_SEARCH_RESULTS';
 const CREATE_RECIPE = "CREATE_RECIPE";
 const FETCH_MORE_COMPLEX_RECIPES = 'FETCH_MORE_COMPLEX_RECIPES';
 
@@ -57,9 +57,9 @@ export const saveRecipe = (recipeId) => {
   }
 }
 
-export const clearSearchResults = () => {
+export const clearComplexSearchResults = () => {
   return {
-    type: CLEAR_SEARCH_RESULTS,
+    type: CLEAR_COMPLEX_SEARCH_RESULTS,
     recipes: []
   }
 }
@@ -79,7 +79,7 @@ export default function (state = [], action) {
       return action.recipes;
     case FETCH_MORE_COMPLEX_RECIPES:
       return state.concat(action.recipes)
-    case CLEAR_SEARCH_RESULTS:
+    case CLEAR_COMPLEX_SEARCH_RESULTS:
       return action.recipes;
     case CREATE_RECIPE:
       return [...state, action.recipe]
