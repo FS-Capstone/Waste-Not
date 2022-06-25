@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AdvancedSearch from './AdvancedSearch';
 import SearchResults from './SearchResults';
@@ -21,6 +21,8 @@ const RecipeSearch = () => {
   const [intolerances, setIntolerances] = useState([])
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch();
+
+  useEffect(()=> {window.scrollTo(0,0)},[])
 
   const handleComplexSearch = async(e) => {
     setLoading(true)

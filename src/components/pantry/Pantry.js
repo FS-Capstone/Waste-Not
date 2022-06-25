@@ -1,6 +1,6 @@
 
 import { Box, Divider, Typography } from '@mui/material';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import PantryList from './PantryList';
@@ -33,6 +33,8 @@ export default function Pantry() {
   const handleRankChange = (e) => {
     setRanking(e.target.value);
   };
+
+  useEffect(()=> {window.scrollTo(0,0)},[])
 
   const recipeSearch = async (e) => {
     e.preventDefault();
