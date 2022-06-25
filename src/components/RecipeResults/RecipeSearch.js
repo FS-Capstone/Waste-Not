@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AdvancedSearch from './AdvancedSearch';
 import SearchResults from './SearchResults';
-import { Box, Paper } from '@mui/material';
+import { Box, Paper, Divider, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { fetchComplexRecipes, fetchMoreComplexRecipes } from '../../store';
 
@@ -96,9 +96,17 @@ const RecipeSearch = () => {
         opacity:'.9', 
         display:'flex', 
         justifyContent:'center', 
+        flexDirection:'column',
+        alignItems:'center',
         width:'80vw',
-        height: recipes.length || loading ? 'auto' : '25vh',
-        backgroundColor:`${theme.palette.background.paper}`}}>
+        height: recipes.length || loading ? 'auto' : '40vh',
+        backgroundColor:`${theme.palette.background.paper}`}}
+        >
+        <Box sx={{color:'gray', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}} >
+          <Typography variant='h5' sx={{marginBottom:'.5em'}}>Search for Recipes</Typography>
+          <Typography variant='textSecondary' sx={{marginBottom:'.5em'}}>Refine your search with the options below</Typography>
+        </Box>
+        <Divider sx={{width:'100%'}}/>
         <Box sx={{display:'flex', width:'100%', flexDirection:'column', alignItems:'center', justifyContent:'flex-start', }}>
           <AdvancedSearch 
             handleComplexSearch={handleComplexSearch} 
