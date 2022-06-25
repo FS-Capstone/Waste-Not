@@ -19,6 +19,7 @@ import CreateRecipe from "./components/CreateRecipe";
 import ShoppingList from "./components/account/ShoppingList";
 import SavedRecipes from "./components/account/SavedRecipes";
 import CreatedRecipes from "./components/account/CreatedRecipes";
+import Footer from "./components/Navbar/Footer";
 
 const ClientRoutes = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ const ClientRoutes = () => {
         <Route path="savedRecipes" element={<SavedRecipes />} />
         <Route path="createdRecipes" element={<CreatedRecipes />} />
       </Routes>
+      <Footer/>
     </>
   );
 };

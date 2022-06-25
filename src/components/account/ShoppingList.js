@@ -78,7 +78,7 @@ const ShoppingList = () => {
         <Box sx={{display:'flex', width:'100%', justifyContent:'center'}}>
           <IconButton sx={{display: 'inline', visibility: 'hidden' }}><DownloadIcon/></IconButton>
           <IconButton sx={{display: 'inline', visibility: 'hidden' }}><PrintIcon/></IconButton> 
-          <Typography variant='h2' sx={{fontFamily:'Kalam', left:'50%', borderBottom:'3px solid black'}}>Shopping List</Typography>
+          <Typography variant='h2' sx={{fontFamily:'Kalam', left:'50%', marginBottom:'.5rem', borderBottom:'3px solid black'}}>Shopping List</Typography>
           <IconButton sx={{display: 'inline', visibility: display ? 'visible' : 'hidden' }}  onClick={handleExport} name='download'><DownloadIcon/></IconButton>
           <IconButton sx={{display: 'inline', visibility: display ? 'visible' : 'hidden' }}  onClick={handleExport} name='print' ><PrintIcon/></IconButton> 
         </Box>
