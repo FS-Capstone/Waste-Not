@@ -11,7 +11,6 @@ import {
 
 export default function AdvancedSearch({intolerances, setIntolerances, handleComplexSearch, searchValue, number, handleNumChange, value, handleCuisine, handleDiet, handleMeal, handleComplexSearchChange, setValue}) {
   const ingredients = useSelector(state => state.ingredients);
-  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const numValues = [6, 12, 18, 24, 48, 96];
   const cuisines = ['african', 'chinese', 'japanese', 'korean', 'vietnamese', 'thai', 'indian', 'british', 'irish', 'french', 'italian', 'mexican', 'spanish', 'middle eastern', 'jewish', 'american', 'cajun', 'southern', 'greek', 'german', 'nordic', 'eastern european', 'caribbean', 'latin american']
@@ -24,19 +23,11 @@ export default function AdvancedSearch({intolerances, setIntolerances, handleCom
   //   dispatch(clearSearchResults());
   // },[])
 
-  if(!showAdvanced) return (
-    <Box id='complexSearchBox' sx={{display:'flex', width:'50%', flexDirection:'column', alignItems:'center', justifyContent:'flex-start', margin:'1rem'}}>
-      <Box sx={{display:'flex', width:'100%', justifyContent:'space-between', marginBottom:'1rem'}}>
-        <TextField id='complexSearch' variant='outlined' name='searchValue' onChange={handleComplexSearchChange} value={searchValue} placeholder='Search for a recipe!' sx={{width:'75%'}}/>
-        <Button size='small' variant='outlined' onClick={()=> setShowAdvanced(true)}>Advanced Search</Button>
-      </Box>
-      <Button variant='contained' sx={{width:'100%'}} onClick={(e)=> handleComplexSearch(e)}>Search</Button>
-    </Box>
-  )
   return (
     <Box id='complexSearchBox' sx={{display:'flex', width:'50%', flexDirection:'column', alignItems:'center', justifyContent:'flex-start', margin:'1rem'}}>
       <Box sx={{display:'flex', width:'100%', justifyContent:'space-between', marginBottom:'1rem'}}>
-        <TextField id='complexSearch' variant='outlined' name='searchValue' onChange={handleComplexSearchChange} value={searchValue} placeholder='Search for a recipe!' sx={{width:'65%'}}/>
+        <TextField id='complexSearch' variant='outlined' name='searchValue' onChange={handleComplexSearchChange} value={searchValue} placeholder='Search for a recipe!' sx={{width:'55%'}}/>
+        <TextField id='maxTimeSelect' type='number' inputProps={{min:10}} label='Max Prep Time'/>
         <TextField id="resultsNumber" select value={number} label='Results' onChange={handleNumChange}>
           {numValues.map((num) => (
             <MenuItem key={num} value={num}>
@@ -44,7 +35,6 @@ export default function AdvancedSearch({intolerances, setIntolerances, handleCom
             </MenuItem>
           ))}
         </TextField>
-        <Button size='small' variant='outlined' onClick={()=> setShowAdvanced(false)}>Hide Advanced Search</Button>
       </Box>
       <Box sx={{display:'flex', flexDirection:'column', width:'100%', marginBottom:'1rem'}}>
         <Box sx={{display:'flex', justifyContent:'space-between'}}>
@@ -81,10 +71,8 @@ export default function AdvancedSearch({intolerances, setIntolerances, handleCom
             renderTags={(intolerances, getTagProps) => intolerances.map((option, index) => <Chip variant='outlined' label={option} {...getTagProps({index})} /> )}
             filterSelectedOptions  
             renderInput={params => ( <TextField {...params} label='Intolerances' placeholder='Intolerances' />)} 
-            sx={{width:'45%', margin:'0 auto 0 auto'}}
+            sx={{width:'45%'}}
           />
-          <TextField id='maxTimeSelect' type='number' inputProps={{min:10}} label='Max Prep Time'/>
-
         </Box>
       </Box>
       <Button variant='contained' sx={{width:'100%'}} onClick={(e)=> handleComplexSearch(e)}>Search</Button>

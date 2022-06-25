@@ -47,9 +47,9 @@ export default function AccountMenu({anchorEl, handleClose}){
       </Box>
       : 
       <Box>
-        <MenuItem onClick={handleClose}><MenuLink to='/login' component={RouterLink}>Log In</MenuLink></MenuItem> 
-        <MenuItem onClick={handleClose}><MenuLink to='/shoppingList' component={RouterLink}>My Shopping List</MenuLink></MenuItem>
-        <MenuItem onClick={handleClose}><MenuLink to='/signup' component={RouterLink}>Sign Up</MenuLink></MenuItem>
+        <MenuLink to='/login' component={RouterLink}><MenuItem onClick={handleClose}>Log In</MenuItem></MenuLink>
+        <MenuLink to='/shoppingList' component={RouterLink}><MenuItem onClick={handleClose}>My Shopping List</MenuItem></MenuLink>
+        <MenuLink to='/signup' component={RouterLink}><MenuItem onClick={handleClose}>Sign Up</MenuItem></MenuLink>
       </Box>}
     </Menu>
   )
