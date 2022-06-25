@@ -14,8 +14,7 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: true //Password can be null for oauth.
-                    //We are checking for password in the signup server route.
+    allowNull: true //Password can be null for oauth. We are checking for password in the signup server route.
   },
   email: {
     type: Sequelize.STRING,
@@ -28,13 +27,7 @@ const User = db.define('user', {
     defaultValue: false,
     allowNull: false
   },
-  // don't need these since recipe model is on auth object now. delete. 
-  // favorites: {
-  //   type: Sequelize.ARRAY(Sequelize.STRING)
-  // },
-  // createdRecipes: {
-  //   type: Sequelize.JSONB
-  // }, 
+ 
   currentlySelectedPantryId: {
     type: Sequelize.INTEGER
   },
