@@ -7,6 +7,7 @@ import { useTheme } from '@emotion/react';
 
 export default function SavedRecipes() {
   let recipes = useSelector(state => state.auth.recipes || []);
+  const savedRecipes = recipes.filter(recipe => recipe.createdByUser === false);
   const theme = useTheme()
   const navigate = useNavigate();
 
@@ -58,10 +59,10 @@ export default function SavedRecipes() {
           columnSpacing={2}
           sx={{width: '90%', margin: '0 auto 2rem auto', textAlign:'center'}}
         >
-        {recipes?.map(recipe => {
+        {savedRecipes?.map(recipe => {
           return (
           <Grid item xs={12} sm={12} md={6} lg={6} xl={4} key={recipe.recipeId}>
-            <SavedRecipeCard key={recipe.id} recipeId={recipe.recipeId}/>
+            <SavedRecipeCard recipeId={recipe.recipeId}/>
           </Grid>
           )
         })}
