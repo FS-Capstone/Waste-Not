@@ -4,7 +4,7 @@ const WineResults = (props) => {
     const { wines, food, text, suggestion } = props
 
     return (
-        <div>
+        <div className='wine-results'>
             <h3> Pair {food} With :</h3>
             <hr/>
             <div>

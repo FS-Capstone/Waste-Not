@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -148,9 +148,20 @@ const handleOnClick = async (req, res, next) => {
 
     return (
         <div> 
-            <div className='wine' id="wine-to-brand">
+            <Box 
+            sx={{
+                width:'100%',
+                minHeight:'100vh',
+                //height:'100vh',
+                backgroundImage:'url("/images/pexels-grapes5.jpg")',
+                backgroundSize: 'cover',
+                backgroundAttachment:'fixed',
+                backgroundRepeat: 'no-repeat'
+              }}
+              >
+            <div className='wine' id='wineToBrand'>
                 <h2>Select Wine Type for Brand Recommendation </h2>
-                <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
+                <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.5' }}>
                 <Autocomplete
                     wine={wine}
                     onChange={(e, newWine) => handleChange(e, newWine)}
@@ -173,11 +184,12 @@ const handleOnClick = async (req, res, next) => {
                 />
                 <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { brands.length ? <BrandResults brands={brands} wine={wine} /> : 'No Results Found' }
+                { brands.length ? <BrandResults brands={brands} wine={wine} /> : '' }
                 <div>
-                    <Link to='/wine'> <button> Back </button> </Link>
+                <a href='#main'> <Button variant="outlined" size="xs">Back</Button> </a>
                 </div>
             </div>
+            </Box>
         </div>
     )
 }

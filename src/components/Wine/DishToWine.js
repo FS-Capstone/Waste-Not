@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -13,6 +13,7 @@ const [food, setFood] = useState("");
 const [wines, setWines] = useState([])
 const [text, setText] = useState("")
 const [suggestion, setSuggestion] = useState([])
+
 
 const handleInputChange = (e) => {
     setFood(e.target.value)
@@ -32,9 +33,20 @@ const handleOnClick = async (req, res, next) => {
 
     return (
         <div>
-            <div className='wine'>
+            <Box 
+            sx={{
+                width:'100%',
+                minHeight:'100vh',
+                //height:'100vh',
+                backgroundImage:'url("/images/pexels-grapes5.jpg")',
+                backgroundSize: 'cover',
+                backgroundAttachment:'fixed',
+                backgroundRepeat: 'no-repeat'
+              }}
+              >
+            <div className='wine' id='dishToWine'>
             <h2> Enter A Dish for Wine Pairings </h2>
-            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
+            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.5' }}>
             <TextField 
                 id="outlined-basic" 
                 label="Ingredient/Dish/Cuisine"
@@ -45,11 +57,12 @@ const handleOnClick = async (req, res, next) => {
             /> 
             <Button variant="contained" size="small" onClick={handleOnClick}> Show Wines </Button>
             </Box>
-            { wines.length ? <WineResults wines={wines} food={food} text={text} suggestion={suggestion} /> : "No Wine Pairings Found"}
+            { wines.length ? <WineResults wines={wines} food={food} text={text} suggestion={suggestion} /> : "" }
             <div>
-                <Link to='/wine'> <button>Back</button> </Link>
+            <a href='#main'> <Button variant="outlined" size="xs">Back</Button> </a>
             </div>
             </div>
+            </Box>
         </div>
     )
 }

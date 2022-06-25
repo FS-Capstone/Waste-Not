@@ -12,7 +12,7 @@ const BrandDialog = (props) => {
 
     return (
         <Dialog 
-        BackdropProps={{style: {backgroundColor: 'transparent'} }}
+         BackdropProps={{ invisible: true, backgroundColor: 'transparent' }} // no idea how to make this border go away!
         onClose={handleOnClose}
         open={open}
         selectedbrand={selectedbrand}
