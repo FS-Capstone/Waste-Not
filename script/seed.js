@@ -1,7 +1,7 @@
 'use strict'
 
 
-const {db, models: {User, Ingredient, Pantry, PantryItem} } = require('../server/db')
+const {db, models: {User, Ingredient, Pantry, Recipe, PantryItem} } = require('../server/db')
 const {ingredientData} = require('./seedData')
 
 /**
@@ -30,8 +30,14 @@ async function seed() {
     }
   })
 
- 
+  // Creating Recipes (dummy data)
+  const recipes = await Promise.all([
+    Recipe.create({ userId: 1, title: "Cinnamon Tea", cuisine: "American", prepTime: "15 mins", cookTime: "Overnight", ingredients: "Green tea bags (2), Black tea bags (2), Cinnamon sticks (3), Lemon slices, Lime slices, Honey, Brown Sugar", instructions: "Add tea, cinnamon, lemon and lime to water and let simmer for 1 hour. Turn off heat and let sit overnight. Add honey and brown sugar to taste. Strain ingredients and serve cold.", createdByUser: true }),
+    Recipe.create({ userId: 2, title: "Cinnamon Tea", cuisine: "American", prepTime: "15 mins", cookTime: "Overnight", ingredients: "Green tea bags (2), Black tea bags (2), Cinnamon sticks (3), Lemon slices, Lime slices, Honey, Brown Sugar", instructions: "Add tea, cinnamon, lemon and lime to water and let simmer for 1 hour. Turn off heat and let sit overnight. Add honey and brown sugar to taste. Strain ingredients and serve cold.", createdByUser: true }),
+    Recipe.create({ userId: 3, title: "Cinnamon Tea", cuisine: "American", prepTime: "15 mins", cookTime: "Overnight", ingredients: "Green tea bags (2), Black tea bags (2), Cinnamon sticks (3), Lemon slices, Lime slices, Honey, Brown Sugar", instructions: "Add tea, cinnamon, lemon and lime to water and let simmer for 1 hour. Turn off heat and let sit overnight. Add honey and brown sugar to taste. Strain ingredients and serve cold.", createdByUser: true }),
+  ]);
 
+ 
   // Creating Ingredients
   await Ingredient.bulkCreate(ingredientData, {individualHooks: true}).then(console.log(`******** ${ingredientData.length} ingredients seeded ********`));
   const ingredients = await Ingredient.findAll();
