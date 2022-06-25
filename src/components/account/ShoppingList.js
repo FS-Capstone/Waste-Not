@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import print from 'print-js';
 import html2pdf from 'html2pdf.js';
@@ -71,6 +71,10 @@ const ShoppingList = () => {
     await printFunc(e, printRef.current)
     setHidden(false)
   }
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
 
   return (
     <Box sx={{display:'flex', flexDirection:'column', paddingTop:'8vh', alignItems:'center', width:'100vw', minHeight:'100vh', backgroundImage:'url("/images/ShoppingListBackground.png")', backgroundSize:'contain', backgroundAttachment:'fixed'}}>

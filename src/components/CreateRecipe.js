@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -62,6 +62,10 @@ const CreateRecipe = () => {
     const handleOnClose = () => {
         setOpen(false)
     }
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
 
     return (
         <CreateRecipeBackground className='top-level-page'>

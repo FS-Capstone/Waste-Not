@@ -13,6 +13,7 @@ const Wine = () => {
   const [checked, setChecked] = useState(false)
 
   useEffect(()=> {
+    window.scrollTo(0,0)
       setTimeout(()=>{
         setChecked(true)
       }, 1000)
