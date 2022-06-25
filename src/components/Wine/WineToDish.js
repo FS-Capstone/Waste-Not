@@ -170,7 +170,7 @@ const handleOnClick = async (req, res, next) => {
             </Box>
             { dishes ? <DishResults dishes={dishes} text={text} wine={wine} /> : errorMessage }
             <div>
-                <a href='#main'> <Button variant="outlined" size="xs">Back</Button> </a>
+                <a href='#main'> <Button variant="contained" size="xs">Back</Button> </a>
             </div>
             </div>
             </Box>

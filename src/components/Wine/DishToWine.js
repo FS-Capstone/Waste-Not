@@ -59,7 +59,7 @@ const handleOnClick = async (req, res, next) => {
             </Box>
             { wines.length ? <WineResults wines={wines} food={food} text={text} suggestion={suggestion} /> : "" }
             <div>
-            <a href='#main'> <Button variant="outlined" size="xs">Back</Button> </a>
+            <a href='#main'> <Button variant="contained" size="xs">Back</Button> </a>
             </div>
             </div>
             </Box>

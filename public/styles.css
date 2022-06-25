@@ -95,4 +95,16 @@ a{
 }
 .wine-results {
   padding-left: 30px ;
+  font-size: 20px;
+  color: #FDF5E6
+}
+.dish-results {
+  padding-left: 30px ;
+  font-size: 20px;
+  color: #FDF5E6
+}
+.brand-results {
+  padding-left: 30px ;
+  font-size: 20px;
+  color: #FDF5E6
 }
