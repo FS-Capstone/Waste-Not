@@ -117,14 +117,13 @@ const options = [
     'mead' // category
 ]
 
-const WineToDish = ({ mainRef, wineRef, brandRef, dishRef }) => {
+const WineToDish = () => {
 
 const [wine, setWine] = useState("");
 const [dishes, setDishes] = useState([]);
 const [text, setText] = useState("");
 const [errorMessage, setErrorMessage] = useState("");
 
-// const dishRef = useRef();
 
 const handleChange = (e, newWine) => {
        setWine(newWine)   
@@ -155,9 +154,9 @@ const handleOnClick = async (req, res, next) => {
                 backgroundRepeat: 'no-repeat'
               }}
               >
-            <div className='wine' ref={dishRef} id='wineToDish'>
+            <div className='wine' id='wineToDish'>
             <h2> Select Wine for Dish Recommendation </h2>
-            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
+            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.7' }}>
             <Autocomplete
                 wine={wine}
                 onChange={(e, newWine) => handleChange(e, newWine)}
@@ -169,9 +168,9 @@ const handleOnClick = async (req, res, next) => {
             /> 
             <Button variant="contained" size="small" onClick={handleOnClick}>Show Dishes</Button>
             </Box>
-            { dishes ? <DishResults dishes={dishes} text={text} wine={wine} /> : errorMessage }
+            { dishes ? <DishResults dishes={dishes} text={text} wine={wine} /> : "errorMessage" }
             <div>
-                <a href='#main'> <button>Back</button> </a>
+                <a href='#main'> <Button variant="outlined" size="xs">Back</Button> </a>
             </div>
             </div>
             </Box>

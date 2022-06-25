@@ -12,7 +12,6 @@ const Wine = () => {
   // need this? 
   const [checked, setChecked] = useState(false)
 
-
   useEffect(()=> {
       setTimeout(()=>{
         setChecked(true)

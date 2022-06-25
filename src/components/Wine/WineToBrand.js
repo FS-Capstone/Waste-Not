@@ -119,13 +119,12 @@ import BrandResults from './BrandResults';
         'mead' // category
     ]
 
-const WineToBrand = ({ mainRef, wineRef, brandRef, dishRef }) => {
+const WineToBrand = () => {
 
 const [wine, setWine] = useState(""); 
 const [maxPrice , setMaxPrice] = useState(0);
 const [brands, setBrands] = useState([]);
  
-// const brandRef = useRef();
 
  const handleChange = (e, newWine) => {
      setWine(newWine);
@@ -160,9 +159,9 @@ const handleOnClick = async (req, res, next) => {
                 backgroundRepeat: 'no-repeat'
               }}
               >
-            <div className='wine' ref={brandRef} id='wineToBrand' >
+            <div className='wine' id='wineToBrand'>
                 <h2>Select Wine Type for Brand Recommendation </h2>
-                <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
+                <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.7' }}>
                 <Autocomplete
                     wine={wine}
                     onChange={(e, newWine) => handleChange(e, newWine)}
@@ -185,9 +184,9 @@ const handleOnClick = async (req, res, next) => {
                 />
                 <Button variant="contained" size="small" onClick={handleOnClick}>Show Brands</Button>
                 </Box>
-                { brands.length ? <BrandResults brands={brands} wine={wine} /> : 'No Results Found' }
+                { brands.length ? <BrandResults brands={brands} wine={wine} /> : '' }
                 <div>
-                <a href='#main'> <button>Back</button> </a>
+                <a href='#main'> <Button variant="outlined" size="xs">Back</Button> </a>
                 </div>
             </div>
             </Box>

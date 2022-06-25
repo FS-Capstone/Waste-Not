@@ -46,7 +46,7 @@ const handleOnClick = async (req, res, next) => {
               >
             <div className='wine' id='dishToWine'>
             <h2> Enter A Dish for Wine Pairings </h2>
-            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap' }}>
+            <Box sx={{ '& button': { m: 1 }, display: 'flex', flexWrap: 'wrap', opacity: '0.7' }}>
             <TextField 
                 id="outlined-basic" 
                 label="Ingredient/Dish/Cuisine"
@@ -57,9 +57,9 @@ const handleOnClick = async (req, res, next) => {
             /> 
             <Button variant="contained" size="small" onClick={handleOnClick}> Show Wines </Button>
             </Box>
-            { wines.length ? <WineResults wines={wines} food={food} text={text} suggestion={suggestion} /> : "No Wine Pairings Found"}
+            { wines.length ? <WineResults wines={wines} food={food} text={text} suggestion={suggestion} /> : "" }
             <div>
-            <a href='#main'> <button>Back</button> </a>
+            <a href='#main'> <Button variant="outlined" size="xs">Back</Button> </a>
             </div>
             </div>
             </Box>
