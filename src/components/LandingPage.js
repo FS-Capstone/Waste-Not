@@ -4,13 +4,14 @@ import { styled } from '@mui/system';
 import LandingPageContent from './LandingPageContent';
 
 const LandingBackground = styled('div')({
-    height: '90vh',
+    height: '100%',
     minHeight: '100vh',
     color: 'white',
     backgroundImage: 'url("/images/Background12.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
 });
 
 const LandingPage = () => {

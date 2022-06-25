@@ -109,9 +109,9 @@ const Navbar = (props) => {
             </Link>
             <Link
               component={RouterLink}
-              to="/searchResults"
+              to="/advancedSearch"
               sx={
-                location.pathname === "/searchResults"
+                location.pathname === "/advancedSearch"
                   ? { color: theme.palette.text.primary }
                   : null
               }

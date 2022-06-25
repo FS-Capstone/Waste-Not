@@ -53,7 +53,7 @@ const ClientRoutes = () => {
         <Route path="recipe/:id" element={<Recipe />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="/shoppingList" element={<ShoppingList />} />
-        <Route path="searchResults" element={<RecipeSearch />} />
+        <Route path="advancedSearch" element={<RecipeSearch />} />
         <Route path="create-recipe" element={<CreateRecipe />} />
         <Route path="savedRecipes" element={<SavedRecipes />} />
         <Route path="createdRecipes" element={<CreatedRecipes />} />
