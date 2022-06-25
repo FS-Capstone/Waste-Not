@@ -16,6 +16,7 @@ const CreateRecipeBackground = styled('div')({
     color: 'white',
     backgroundImage: 'url("/images/LandingPage3.jpg")',
     backgroundSize: 'cover',
+    backgroundAttachment: 'fixed',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat'
 })
@@ -63,9 +64,9 @@ const CreateRecipe = () => {
     }
 
     return (
-        <CreateRecipeBackground>
+        <CreateRecipeBackground className='top-level-page'>
         <div className='createForm'> 
-        <Card style={{maxWidth: 600, maxHeight: 950, margin: '0 auto', padding: '3px 10px', opacity: '0.8'}}>
+        <Card style={{maxWidth: 600, maxHeight: 950, margin: '0 auto', padding: '3px 10px', opacity: '0.9'}}>
             <CardContent>
                 <Typography gutterBottom variant="h5"> Create Your Own Recipe </Typography>
                 <Typography gutterBottom color="textSecondary" variant="body2" component="p"> Add Your Own Personal Recipes and Save Them To Your Profile </Typography>
