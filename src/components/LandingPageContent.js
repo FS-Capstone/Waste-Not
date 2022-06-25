@@ -32,6 +32,7 @@ const LandingPageContent = () => {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
   const learnMoreRef = useRef();
+  const continueRef = useRef()
 
   useEffect(() => {
     setChecked(true);
@@ -58,8 +59,12 @@ const LandingPageContent = () => {
       </Collapse>
     </LandingContent>
     {/* <Box sx={{height:'50vh'}}/> */}
-    <Box sx={{display:'flex', alignItems:'center', flexWrap:'wrap', width:'50vw', justifyContent:'center', height:'100vh'}}>
+    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', flexWrap:'wrap', width:'50vw', justifyContent:'center', height:'100vh'}}>
       <Typography ref={learnMoreRef} variant='h4' sx={{fontFamily:'Nunito'}} color='white'>Every year in the US, roughly one-third of all food is wasted. That's almost $50 billion dollars of food, with almost half being fruits and vegetables.</Typography>
+      <Button variant='contained' onClick={()=> continueRef.current?.scrollIntoView({behavior:'smooth'})}> Continue</Button>
+    </Box>
+    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', flexWrap:'wrap', width:'50vw', justifyContent:'center', height:'100vh'}}>
+      <Typography ref={continueRef} variant='h4' sx={{fontFamily:'Nunito'}} color='white'>Waste Note can help you cut down on your household's food waste by suggesting recipes that use ingredients you already have, and helping you manage what's already in your pantry.</Typography>
     </Box>
     </Paper>
 
