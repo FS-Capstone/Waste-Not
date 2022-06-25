@@ -45,6 +45,7 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
+        sx={{marginTop:'5vh'}}
       >
         <Alert 
           onClose={handleClose}
