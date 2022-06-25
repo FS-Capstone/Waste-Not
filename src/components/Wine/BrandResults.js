@@ -17,7 +17,7 @@ const handleOnClose = () => {
 }
 
     return (
-        <div>
+        <div className='brand-results'>
             <h3> Brand Recommendations: </h3>
             <hr/>
             <div>

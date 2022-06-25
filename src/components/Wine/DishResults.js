@@ -4,7 +4,7 @@ const DishResults = (props) => {
     const { wine, dishes, text } = props
 
     return (
-        <div>
+        <div className='dish-results'>
             {/* <h3> Dish Pairings for: </h3>
             <div> { wine }  </div> */}
             <div> {text} </div>
