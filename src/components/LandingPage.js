@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { CssBaseline } from "@mui/material";
 import { styled } from '@mui/system';
 import LandingPageContent from './LandingPageContent';
@@ -15,6 +15,11 @@ const LandingBackground = styled('div')({
 });
 
 const LandingPage = () => {
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
+
     return (
         <LandingBackground>
            <CssBaseline />
