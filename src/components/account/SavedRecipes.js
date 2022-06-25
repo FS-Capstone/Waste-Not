@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, Box, Paper, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Grid, Box, Paper, Typography, Button } from '@mui/material';
 import { SavedRecipeCard } from './SavedRecipeCard';
 import { useTheme } from '@emotion/react';
 
 export default function SavedRecipes() {
   let recipes = useSelector(state => state.auth.recipes || []);
   const theme = useTheme()
-  const availableIngredientIds = useSelector(state => state.selectedPantry.ingredients?.map(ingredient => ingredient.id))
+  const navigate = useNavigate();
 
  // need to fix line 17-18 because recipe[0] might be createdByUser (therefore no recipeId),
  // even if there are other recipes ([1], etc) that DO have recipeIds.
@@ -15,8 +16,8 @@ export default function SavedRecipes() {
 //  const savedRecipes = recipes.filter(recipe => recipe.createdByUser === false);
 //  console.log("where are my saved recipes?", savedRecipes)
 
-  if(!recipes[0]?.recipeId || !availableIngredientIds)
-    return null;
+  // if(!recipes[0]?.recipeId || !availableIngredientIds)
+  //   return null;
 
   return(
     <Box 
@@ -42,6 +43,12 @@ export default function SavedRecipes() {
         minHeight: '100vh',
         backgroundColor:`${theme.palette.background.paper}`}}>
         <Typography variant='h2' sx={{fontFamily: 'Kalam'}}>My Saved Recipes</Typography>
+        {!recipes.length ?
+        <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', marginTop:'4rem '}}>
+          <Typography gutterBottom variant='h3'>You haven't saved any recipes yet</Typography>
+          <Button variant='contained' onClick={()=>navigate('/advancedSearch')}>Get Started Here!</Button>
+        </Box>
+        :
         <Grid
           container
           direction='row'
@@ -51,14 +58,14 @@ export default function SavedRecipes() {
           columnSpacing={2}
           sx={{width: '90%', margin: '0 auto 2rem auto', textAlign:'center'}}
         >
-        {recipes.map(recipe => {
+        {recipes?.map(recipe => {
           return (
           <Grid item xs={12} sm={12} md={6} lg={6} xl={4} key={recipe.recipeId}>
             <SavedRecipeCard key={recipe.id} recipeId={recipe.recipeId}/>
           </Grid>
           )
         })}
-        </Grid>
+        </Grid>}
       </Paper>
 
     </Box>
