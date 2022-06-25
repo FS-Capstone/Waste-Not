@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from "react";
+import React, {useEffect, useState, Fragment, forwardRef} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import {
@@ -8,18 +8,20 @@ import {
   CardMedia,
   CardActionArea,
   CardActions,
-  CardHeader,
   Typography,
   CircularProgress,
   IconButton,
-  Collapse
+  Collapse,
+  Snackbar
 } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
 import { styled } from "@mui/material/styles";
 import { CheckCircleOutline } from "@mui/icons-material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WarningIcon from '@mui/icons-material/Warning';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useNavigate } from "react-router-dom";
 import { saveIngredients, saveRecipe, removeSavedRecipe } from "../../store";
 
@@ -39,6 +41,7 @@ const RecipeCard = ({ recipe }) => {
   const location = useLocation()
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth)
   const recipeId = location.pathname === 'savedRecipes' ? recipe.recipeId : recipe.id
   const favoriteIds = useSelector(state => state.auth.recipes?.map(recipe => recipe.recipeId))
   const [favorite, setFavorite] = useState(favoriteIds?.includes(recipeId) ? true : false)
@@ -56,6 +59,9 @@ const RecipeCard = ({ recipe }) => {
   const [missingIngredients, setMissingIngredients] = useState([])
   const [usedIngredients, setUsedIngredients] = useState([])
   const [unusedIngredients, setUnusedIngredients] = useState([])
+  const [open, setOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('')
+  const [submitState, setSubmitState] = useState('')
   
   const ingredients = {
     missingIngredients,
@@ -64,6 +70,10 @@ const RecipeCard = ({ recipe }) => {
   };
   const totalIngredients = recipeIngredients?.length
   const ingredientPercentage = (usedIngredients?.length/totalIngredients)*100
+
+  const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} sx={{zIndex:1500}} ref={ref} variant="filled" {...props} />;
+  });
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -74,16 +84,34 @@ const RecipeCard = ({ recipe }) => {
   const handleChange = e => {
     setExpanded(!expanded)
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
   
 
   const handleFavorite = (e) => {
     e.preventDefault();
-    if (favorite) {
+    if (!user.id) {
+      setSubmitMessage('You must be logged in to save recipes!')
+      setSubmitState('fail');
+      setOpen(true)
+    }
+    else if (favorite) {
       dispatch(removeSavedRecipe(recipe.id)); 
       setFavorite(false);
+      setSubmitMessage('Recipe removed from favorites');
+      setSubmitState('remove')
+      setOpen(true)
     } else {
       dispatch(saveRecipe(recipe.id));
       setFavorite(true);
+      setSubmitMessage('Recipe saved to favorites!');
+      setSubmitState('save')
+      setOpen(true)
     };
   };
 
@@ -94,14 +122,7 @@ const RecipeCard = ({ recipe }) => {
   }, [pantryIngredients])
 
   return (
-    <Card sx={{maxWidth:'350px', opacity:1, width:'100%', minHeight:'515px', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
-      <CardHeader 
-        action={
-        <IconButton onClick={(e)=> handleFavorite(e)} sx={{padding:0}}>
-        {favorite ? <FavoriteIcon color='error'/> : <FavoriteBorderIcon/>}
-        </IconButton>
-        } 
-      />
+    <Card sx={{maxWidth:'350px', position:'relative', opacity:1, width:'100%', minHeight:'460px', display:'flex', flexDirection:'column', justifyContent:'space-between', alignSelf:'stretch'}}>
       <CardActionArea 
         onClick={(e) => {
           handleClick(e);
@@ -120,23 +141,47 @@ const RecipeCard = ({ recipe }) => {
           {
             !recipe.missedIngredientCount ? 
             <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-evenly', }}>
-              <Typography variant='subtitle1'>You have all the necessary ingredients!</Typography>
-              <CheckCircleOutline sx={{color:'#2e7d32', fontSize:'3rem'}}/>
-            </Box>
-          : ingredientPercentage === 0 ?
-            <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'space-evenly', }}>
-              <Typography variant='subtitle1'>You have none of the necessary ingredients!</Typography>
-              <WarningIcon color='error'/>
+              <Box sx={{display:'flex', justifyContent:'space-evenly', alignItems:'center'}}>
+                <Typography variant='subtitle1'>You have all the necessary ingredients!</Typography>
+                <CheckCircleOutline sx={{color:'#2e7d32', fontSize:'3rem'}}/>
+              </Box>
+              <Box sx={{display:'flex', flexDirection:'column'}}>
+                <AccessTimeIcon/>
+                <Typography variant='subtitle1'>{recipe.preparationMinutes}</Typography>
+              </Box>
             </Box>
           :
             <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-evenly'}}>
-              <Typography variant='subtitle2' color='#ed6c02'>Missing {missingIngredients?.length} {missingIngredients?.length === 1 ? 'ingredient' : 'ingredients'}</Typography>
-                <CircularProgress thickness={6} sx={{margin:'1rem'}} variant='determinate' color={ingredientPercentage < 33 ? 'error' : ingredientPercentage < 66 ? 'warning' : 'success'} value={ingredientPercentage} />
-              <Typography variant='subtitle2' color='#2e7d32'>Using {usedIngredients?.length} pantry {usedIngredients?.length === 1 ? 'ingredient' : 'ingredients'}</Typography>
+              <Box sx={{display:'flex', justifyContent:'space-evenly', alignItems:'center', padding:'.5rem'}}>
+                {ingredientPercentage === 0 ? <WarningIcon color='error' sx={{marginRight:'.5rem'}}/> : <CircularProgress thickness={4} sx={{margin:'1rem'}} variant='determinate' color={ingredientPercentage < 33 ? 'error' : ingredientPercentage < 66 ? 'warning' : 'success'} value={ingredientPercentage} />}
+                <Typography variant='subtitle2' color='#2e7d32'>{usedIngredients?.length} of {totalIngredients} ingredients in stock</Typography>
+              </Box>
+              <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+                <AccessTimeIcon/>
+                <Typography variant='subtitle1'>{recipe.readyInMinutes} minutes</Typography>
+              </Box>
             </Box>
           }
         </CardContent>
       </CardActionArea>
+      <IconButton onClick={(e)=> handleFavorite(e)} sx={{padding:'.5rem', position:'absolute', top:'0', right:'0'}}>
+        {favorite ? <FavoriteIcon color='error'/> : <FavoriteBorderIcon/>}
+      </IconButton>
+      <Snackbar
+        anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        sx={{marginTop:'6vh'}}
+      >
+        <Alert 
+          onClose={handleClose}
+          severity={submitState === 'fail' ? 'error' : submitState === 'save' ? 'success' : 'warning'}
+          sx={{width:'auto'}}
+        >
+          {submitMessage}
+        </Alert>
+      </Snackbar>
       {recipe.summary ?
       <Fragment>
         <CardActions id='actions' sx={{justifySelf:'flex-end', flexBasis:'10%', height:'100%', padding:0}}>
