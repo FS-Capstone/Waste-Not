@@ -18,8 +18,8 @@ import {
   Typography,
   Stack,
   CardMedia,
-  Card,
-  CardContent,
+  Grid,
+  Divider,
 } from "@mui/material";
 
 const Recipe = () => {
@@ -119,7 +119,7 @@ const Recipe = () => {
         backgroundImage: 'url("/images/Background14.jpg")',
         backgroundSize: "cover",
         justifyContent: "center",
-        width: "100vw",
+        width: "100",
       }}
       direcition="row"
     >
@@ -133,118 +133,139 @@ const Recipe = () => {
         }}
       >
         <Stack>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "left",
-              margin: "80px",
-            }}
-          >
-            {!recipeInfo ? (
-              <Typography align="justify" variant="h6">
-                RECIPE STEPS:{" "}
-              </Typography>
-            ) : (
-              <div>
-                <Typography align="center" variant="h3">
+          <Box sx={{ margin: "90px" }}>
+            {!recipeInfo ? null : (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-evenly",
+                  maxWidth: "60vw",
+                }}
+              >
+                <Typography align="left" variant="h3" flexWrap>
                   {" "}
                   {recipeInfo.title}{" "}
                 </Typography>
-                <hr />
-                <Typography variant="h5" contained='true' sx={{ margin: "20px" }}>
-                  RECIPE STEPS:
-                </Typography>
-              </div>
+                <img
+                  src={recipeInfo.image}
+                  alt={recipeInfo.title}
+                  width="200vw"
+                  height="200vh"
+                />
+              </Box>
             )}
-            <ul>
-              {recipeSteps.length === 0
-                ? "Recipe Loading..."
-                : recipeSteps[0].steps.map((step) => {
+
+            <Divider sx={{ margin: "50px" }} />
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                maxWidth: "60vw",
+              }}
+            >
+              {!recipeInfo ? (
+                <Typography variant="h6">RECIPE STEPS: </Typography>
+              ) : (
+                <div>
+                  <Typography variant="h5" contained>
+                    RECIPE STEPS:
+                  </Typography>
+                </div>
+              )}
+
+              <ul>
+                {recipeSteps.length === 0
+                  ? "Recipe Loading..."
+                  : recipeSteps[0].steps.map((step) => {
+                      return (
+                        <li key={step.number} style={{ maxWidth: "45vw" }}>
+                          <Typography variant="body1" contained>
+                            {step.step}
+                          </Typography>
+                        </li>
+                      );
+                    })}
+              </ul>
+            </Box>
+            <Divider sx={{ margin: "50px" }} />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                margin: "40px",
+              }}
+            >
+              {!nutritionLabel ? (
+                <Typography variant="h5">NUTRITION INFORMATION: </Typography>
+              ) : (
+                <img
+                  src={`data:image/jpeg;base64,${nutritionLabel}`}
+                  alt="NUTRITION LABEL"
+                  style={{ width: "20em", height: "50em" }}
+                />
+              )}
+
+              {!extendedIngredients ? (
+                <Typography variant="h5">INGREDIENTS Loading: </Typography>
+              ) : (
+                <div>
+                  <Typography variant="h6">INGREDIENTS: </Typography>
+                  <ImageList cols={3}>
+                    {extendedIngredients.map((ingredient, index) => {
+                      return (
+                        <ImageListItem
+                          key={index}
+                          style={{
+                            margin: "10px",
+                            width: "90px",
+                          }}
+                        >
+                          <img
+                            src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
+                            alt={ingredient.name}
+                          />{" "}
+                          <ImageListItemBar
+                            position="below"
+                            title={ingredient.name}
+                          />
+                        </ImageListItem>
+                      );
+                    })}
+                  </ImageList>
+                </div>
+              )}
+            </Box>
+          </Box>
+          <Divider sx={{ margin: "20px" }} />
+          <Box sx={{ margin: "60px" }}>
+            <Typography variant="h5" sx={{ align: "center" }}>
+              EQUIPMENT NEEDED:{" "}
+            </Typography>
+            <ImageList cols={6}>
+              {!equipment
+                ? null
+                : equipment.map((value, index) => {
                     return (
-                      <li key={step.number} style={{ maxWidth: "70%" }}>
-                        <Typography variant="body1">{step.step}</Typography>
-                      </li>
+                      <ImageListItem
+                        key={index}
+                        style={{
+                          margin: "10px",
+                          width: "100px",
+                        }}
+                      >
+                        <img
+                          src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
+                          alt={value.name}
+                        />
+                        <ImageListItemBar position="below" title={value.name} />
+                      </ImageListItem>
                     );
                   })}
-            </ul>
+            </ImageList>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              margin: "20px",
-            }}
-          >
-            {!nutritionLabel ? (
-              <Typography variant="h5">NUTRITION INFORMATION: </Typography>
-            ) : (
-              <img
-                src={`data:image/jpeg;base64,${nutritionLabel}`}
-                alt="NUTRITION LABEL"
-                style={{ width: "20em", height: "50em" }}
-              />
-            )}
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              margin: "1rem",
-              overflowWrap: "break-word",
-            }}
-          >
-            {!extendedIngredients ? (
-              <Typography variant="h5">INGREDIENTS Loading: </Typography>
-            ) : (
-              <ImageList
-                sx={{ width: 800, height: 450 }}
-                cols={5}
-                gap={10}
-                rowHeight={180}
-              >
-                {extendedIngredients.map((ingredient, index) => {
-                  return (
-                    <ImageListItem key={index}>
-                      <img
-                        src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}
-                        alt={ingredient.name}
-                      />{" "}
-                      <ImageListItemBar
-                        position="below"
-                        title={ingredient.name}
-                      />
-                    </ImageListItem>
-                  );
-                })}
-              </ImageList>
-            )}
-          </Box>
-
-          <Typography variant="h5" sx={{ align: "center" }}>
-            EQUIPMENT NEEDED:{" "}
-          </Typography>
-          <ImageList
-            sx={{ width: 700, height: 350 }}
-            cols={4}
-            gap={15}
-            rowHeight={150}
-          >
-            {!equipment
-              ? null
-              : equipment.map((value, index) => {
-                  return (
-                    <ImageListItem key={index}>
-                      <img
-                        src={`https://spoonacular.com/cdn/equipment_100x100/${value.image}`}
-                        alt={value.name}
-                      />
-                      <ImageListItemBar position="below" title={value.name} />
-                    </ImageListItem>
-                  );
-                })}
-          </ImageList>
 
           <Box sx={{ display: "flex", align: "center" }}>
             <button
