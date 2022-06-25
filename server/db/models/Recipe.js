@@ -8,9 +8,6 @@ const Recipe = db.define('recipe', {
     title: {
         type: Sequelize.STRING,
     },
-    author: {
-        type: Sequelize.STRING,
-    },
     cuisine: {
         type: Sequelize.STRING,
     },
