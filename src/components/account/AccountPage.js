@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PantryEditor from "./PantryEditor";
 import Paper from '@mui/material/Paper';
 import { Box } from "@mui/system";
@@ -15,7 +15,9 @@ const AccountPage = () => {
   const username = useSelector(state => state.auth.username)
   const theme = useTheme();
   
-  
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
 
   return(
     <Box 

@@ -40,6 +40,7 @@ const Recipe = () => {
   const theme = useTheme();
 
   useEffect(() => {
+    window.scrollTo(0,0)
     async function getRecipeSteps(recipeId) {
       try {
         const response = await axios.get(`/api/search/byRecipeId/${recipeId}`);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Grid, Box, Paper, Typography, Button } from '@mui/material';
@@ -11,14 +11,10 @@ export default function SavedRecipes() {
   const theme = useTheme()
   const navigate = useNavigate();
 
- // need to fix line 17-18 because recipe[0] might be createdByUser (therefore no recipeId),
- // even if there are other recipes ([1], etc) that DO have recipeIds.
-//  console.log("from saved recipes component", recipes)
-//  const savedRecipes = recipes.filter(recipe => recipe.createdByUser === false);
-//  console.log("where are my saved recipes?", savedRecipes)
 
-  // if(!recipes[0]?.recipeId || !availableIngredientIds)
-  //   return null;
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
 
   return(
     <Box 

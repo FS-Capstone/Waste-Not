@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -30,6 +30,10 @@ const CreatedRecipes = () => {
          margin: '0 auto', 
          padding: '10px 10px',
     })
+
+    useEffect(()=>{
+      window.scrollTo(0,0)
+    },[])
 
     return (
         <div className='create-accordion'>
