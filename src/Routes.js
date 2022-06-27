@@ -19,6 +19,7 @@ import CreateRecipe from "./components/CreateRecipe";
 import ShoppingList from "./components/account/ShoppingList";
 import SavedRecipes from "./components/account/SavedRecipes";
 import CreatedRecipes from "./components/account/CreatedRecipes";
+import AboutPage from "./components/About";
 import Footer from "./components/Navbar/Footer";
 
 const ClientRoutes = () => {
@@ -54,6 +55,7 @@ const ClientRoutes = () => {
         <Route path="wine/recommend-wine" element={<DishToWine />} />
         <Route path="wine/recommend-dish" element={<WineToDish />} />
         <Route path="wine/recommend-brand" element={<WineToBrand />} />
+        <Route path="about" element={<AboutPage />} />
 
         {/* <Route path="wine" element={<Wine mainRef={mainRef} wineRef={wineRef} brandRef={brandRef} dishRef={dishRef} />} />
         <Route path="wine/recommend-wine" element={<DishToWine mainRef={mainRef} wineRef={wineRef} brandRef={brandRef} dishRef={dishRef} />} />
