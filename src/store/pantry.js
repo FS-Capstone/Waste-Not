@@ -65,14 +65,26 @@ export const addPantryItem = (itemId, pantryId) => {
   }
 }
 
-export const addMultiplePantryItems = (ingredients, pantryId) => {
-  return async(dispatch)=>{
-    const auth = {headers: {authorization: window.localStorage.getItem('token')}}
-    await Promise.all(ingredients.map(async(itemId)=> {
-      await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth)
-    }));
-    dispatch(getPantries())
-    dispatch(getSelectedPantry())
+export const addMultiplePantryItems = (ingredientIds, pantryId) => {
+  return async(dispatch, getState)=>{
+    if(getState().auth.id){
+      const auth = {headers: {authorization: window.localStorage.getItem('token')}}
+      await Promise.all(ingredientIds.map(async(itemId)=> {
+        await axios.post(`/api/pantryItems/${pantryId}`, {itemId}, auth)
+      }));
+      dispatch(getPantries())
+      dispatch(getSelectedPantry())
+    }
+    else {
+      const ingredients = (await Promise.all(ingredientIds.map(async(ingredientId)=>{
+       return  (await axios.get(`/api/ingredients/${ingredientId}`)).data
+      }))).flat();
+      const pantry = localPantry();
+      ingredients.forEach(ingredient => pantry.ingredients.push(ingredient))
+      window.localStorage.setItem('localPantry', JSON.stringify(pantry));
+      dispatch(getPantries());
+      dispatch(getSelectedPantry());
+    }
   }
 }
 
