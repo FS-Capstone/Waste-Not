@@ -40,9 +40,9 @@ export default function AccountMenu({anchorEl, handleClose}){
       {isLoggedIn ? 
       <Box>
         <MenuLink to='/account' component={RouterLink}><MenuItem onClick={handleClose}>My account</MenuItem></MenuLink>
-        <MenuLink to='/shoppingList' component={RouterLink}><MenuItem onClick={handleClose}>My Shopping List</MenuItem></MenuLink>
         <MenuLink to='/savedRecipes' component={RouterLink}><MenuItem onClick={handleClose}>View Saved Recipes</MenuItem></MenuLink>
         <MenuLink to='/createdRecipes' component={RouterLink}><MenuItem onClick={handleClose}>View Created Recipes</MenuItem></MenuLink>
+        <MenuLink to='/shoppingList' component={RouterLink}><MenuItem onClick={handleClose}>My Shopping List</MenuItem></MenuLink>
         <MenuItem onClick={() => {handleClose(); dispatch(logout()); navigate('/')}}>Logout</MenuItem> 
       </Box>
       : 
