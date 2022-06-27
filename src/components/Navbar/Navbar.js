@@ -129,6 +129,17 @@ const Navbar = (props) => {
             >
               Create a recipe
             </Link>
+            <Link
+              component={RouterLink}
+              to="/about"
+              sx={
+                location.pathname === "/about"
+                  ? { color: theme.palette.text.primary }
+                  : null
+              }
+            >
+              About
+            </Link>
           </LinkContainer>
 
           <IconButton onClick={handleMenu}>
