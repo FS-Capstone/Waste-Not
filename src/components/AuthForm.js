@@ -17,7 +17,7 @@ const AuthForm = props => {
       style={{
         display:'flex', 
         justifyContent:'center',
-        backgroundImage:'url("images/background15.jpg")',
+        backgroundImage:'url("/images/background15.jpg")',
         backgroundSize:'cover',
         backgroundAttachment:'fixed',
         minHeight:'100vh',

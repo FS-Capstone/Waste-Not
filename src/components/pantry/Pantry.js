@@ -79,7 +79,7 @@ export default function Pantry() {
       sx={{
         width: "100vh%",
         height: "100%",
-        backgroundImage: 'url("images/background19.jpg")',
+        backgroundImage: 'url("/images/background19.jpg")',
         backgroundSize: "contain",
         backgroundAttachment: "fixed",
         display: "flex",
