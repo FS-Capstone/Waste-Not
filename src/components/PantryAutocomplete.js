@@ -61,7 +61,6 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          console.log(newValue, searchOptions[0])
           const pantryItems = selectedPantry.ingredients.map(item => item.name)
           if(!newValue?.name)
             return;
