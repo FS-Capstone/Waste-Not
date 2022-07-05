@@ -1,4 +1,4 @@
-# Waste-Not
+# Waste Not
 ### Fighting Food Waste, One Kitchen At A Time
 Waste Not is a culinary app designed to help combat food waste by helping you manage your current food pantry items and suggesting recipes to you, using those available ingredients. The app allows you to Create Your Own Recipes and save them to your profile, Create a Shopping List for missing ingredients, and Search for New Recipes based on meal type, cuisine, and dietary restrictions.
 Users can also use our Wine Pairing & Recommendations section to search for suitable wine pairing options based on available pantry ingredients, find meals based on wine preferences, and the option to purchase recommended brands based on type and price. 
