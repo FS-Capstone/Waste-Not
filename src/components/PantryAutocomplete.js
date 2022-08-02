@@ -1,4 +1,4 @@
-import React, {useState, useEffect, forwardRef} from 'react';
+import React, {useState, forwardRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {TextField, Snackbar, Autocomplete} from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
@@ -9,7 +9,7 @@ import {addPantryItem, addShoppingItem} from '../store';
 
 
 const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
-  const [value, setValue] = useState(searchOptions.length ? searchOptions[0] : {});
+  const [value, setValue] = useState({});
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('')
@@ -19,12 +19,12 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
 
   const shoppingList = useSelector(state => state.shoppingList)
   const listIds = shoppingList.map(ingredient => ingredient.id)
-  let localPantry;
-  if(window.localStorage.getItem('pantry')){
-    localPantry = window.localStorage.getItem('pantry')
-  } else {
-    window.localStorage.setItem('pantry', [])
-  }
+  // let localPantry;
+  // if(window.localStorage.getItem('pantry')){
+  //   localPantry = window.localStorage.getItem('pantry')
+  // } else {
+  //   window.localStorage.setItem('pantry', [])
+  // }
 
   const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -56,12 +56,12 @@ const PantryAutocomplete = ({searchOptions, searchName, selectedPantry}) => {
         </Alert>
       </Snackbar>
       <Autocomplete
+        placeholder='Search for an Ingredient!'
         disablePortal
         autoHighlight
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          console.log(newValue, searchOptions[0])
           const pantryItems = selectedPantry.ingredients.map(item => item.name)
           if(!newValue?.name)
             return;

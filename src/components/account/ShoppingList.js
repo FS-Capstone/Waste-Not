@@ -42,7 +42,8 @@ const ShoppingList = () => {
     dispatch(deleteMultipleShoppingItems(selected, user.id))
   }
 
-  const printFunc = async(e, element) => {
+  const printFunc = async(e, name, element) => {
+    console.log(e)
     const options = {
       margin: [4,10,13,10],
       filename: 'Shopping List.pdf',
@@ -54,7 +55,7 @@ const ShoppingList = () => {
 
     const pdf = await html2pdf().set(options).from(element).toPdf().get('pdf')
 
-    if(e.target.name === 'download') {
+    if(name === 'download') {
       pdf.save('Shopping List.pdf')
     }
     else {
@@ -64,11 +65,11 @@ const ShoppingList = () => {
     }
   }
 
-  const handleExport = async(e) => {
+  const handleExport = async(e, name) => {
     e.preventDefault();
     setHidden(true)
     setDisplay(false)
-    await printFunc(e, printRef.current)
+    await printFunc(e, name, printRef.current)
     setHidden(false)
   }
 
@@ -83,8 +84,8 @@ const ShoppingList = () => {
           <IconButton sx={{display: 'inline', visibility: 'hidden' }}><DownloadIcon/></IconButton>
           <IconButton sx={{display: 'inline', visibility: 'hidden' }}><PrintIcon/></IconButton> 
           <Typography variant='h2' sx={{fontFamily:'Kalam', left:'50%', marginBottom:'.5rem', borderBottom:'3px solid black'}}>Shopping List</Typography>
-          <IconButton sx={{display: 'inline', visibility: display ? 'visible' : 'hidden' }}  onClick={handleExport} name='download'><DownloadIcon/></IconButton>
-          <IconButton sx={{display: 'inline', visibility: display ? 'visible' : 'hidden' }}  onClick={handleExport} name='print' ><PrintIcon/></IconButton> 
+          <IconButton sx={{display: 'inline', visibility: display ? 'visible' : 'hidden' }}  onClick={(e)=>handleExport(e, 'download')} name='download'><DownloadIcon name='download'/></IconButton>
+          <IconButton sx={{display: 'inline', visibility: display ? 'visible' : 'hidden' }}  onClick={(e)=>handleExport(e, 'print')} name='print' ><PrintIcon name='print'/></IconButton> 
         </Box>
         
         <Box sx={{display:'flex', flexDirection:'column', width:'80%', marginBottom:'1rem'}}>
