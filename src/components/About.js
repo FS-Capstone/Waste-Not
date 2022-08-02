@@ -44,7 +44,7 @@ export default function AboutPage() {
       <Box sx={{display:'flex', flexDirection:'column', paddingTop:'8vh', alignItems:'center', }}>
         <Typography variant='h2' color='white' sx={{fontFamily:'Nunito'}}>Developed By</Typography>
         <Box sx={{display:'flex', flexWrap:'wrap', justifyContent:'space-evenly'}}>
-            {devs.map(dev => <DevPlate dev={dev} /> )}
+            {devs.map(dev => <DevPlate key={dev.name} dev={dev} /> )}
         </Box>
         <Box sx={{display:'flex', flexDirection:'column',  alignItems:'center'}}>
           <Typography variant='h4' color='white' sx={{fontFamily:'Nunito'}}>Serving Up:</Typography>
